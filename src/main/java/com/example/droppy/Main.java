@@ -26,7 +26,7 @@ public class Main extends Application {
         Parent rootPane = loader.load();
 
         var scene = new Scene(rootPane);
-        stage.setTitle("Log in");
+        stage.setTitle("Droppy");
         stage.setScene(scene);
         stage.show();
 
