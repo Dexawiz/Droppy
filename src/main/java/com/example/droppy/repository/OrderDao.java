@@ -10,7 +10,6 @@ public interface OrderDao {
     Order findById(Long id);
     void delete(Long id);
 
-
     List<Order> findByUserId(Long userId);
     List<Order> findByStatus(String status);
 }

@@ -54,10 +54,10 @@ class MemoryOrderDaoTest {
         dao.save(o2);
         dao.save(o3);
 
-        List<Order> all = dao.findAll();
-        List<Long> ids = all.stream().map(Order::getId).collect(Collectors.toList());
+        var all = dao.findAll();
+        var ids = all.stream().map(Order::getId).collect(Collectors.toList());
 
-        List<Long> sorted = new ArrayList<>(ids);
+        var sorted = new ArrayList<>(ids);
         sorted.sort(Comparator.nullsFirst(Comparator.naturalOrder()));
         assertEquals(sorted, ids);
     }
@@ -87,7 +87,7 @@ class MemoryOrderDaoTest {
         dao.save(b);
         dao.save(c);
 
-        List<Order> for1 = dao.findByUserId(1L);
+        var for1 = dao.findByUserId(1L);
         assertEquals(2, for1.size());
         assertTrue(for1.stream().allMatch(o -> o.getCustomerId().equals(1L)));
     }
@@ -102,12 +102,12 @@ class MemoryOrderDaoTest {
         dao.save(b);
         dao.save(c);
 
-        List<Order> pending = dao.findByStatus("PENDING");
+        var pending = dao.findByStatus("PENDING");
         assertEquals(2, pending.size());
         assertTrue(pending.stream().allMatch(o -> o.getStatus() == OrderStatus.PENDING));
 
         // case-insensitive
-        List<Order> pendingLower = dao.findByStatus("pending");
+        var pendingLower = dao.findByStatus("pending");
         assertEquals(2, pendingLower.size());
     }
 }
