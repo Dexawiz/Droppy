@@ -12,8 +12,8 @@ public class User {
     private String surname;
     private Role role;
     private String email;
-    private String phone_number;
-    private String card_number;
+    private String phoneNumber;
+    private String cardNumber;
     private DriverStatus driverStatus;
     private DeliveryMethod deliveryMethod;
 }
