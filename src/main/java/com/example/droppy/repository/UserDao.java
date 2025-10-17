@@ -1,0 +1,11 @@
+package com.example.droppy.repository;
+
+import com.example.droppy.domain.entity.User;
+import java.util.List;
+
+public interface UserDao {
+    void save(User user);
+    List<User> findAll();
+    User findById(Long id);
+    void delete(Long id);
+}
