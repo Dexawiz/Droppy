@@ -35,7 +35,7 @@ public class MemoryOrderDao implements OrderDao {
 
     @Override
     public List<Order> findAll() {
-        List<Order> list = new ArrayList<>(store.values());
+        var list = new ArrayList<>(store.values());
         list.sort(Comparator.comparing(Order::getId, Comparator.nullsFirst(Comparator.naturalOrder())));
         return list;
     }
