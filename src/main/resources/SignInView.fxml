@@ -8,14 +8,19 @@
 <?import javafx.scene.text.Text?>
 
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.droppy.controller.SignInController">
    <children>
+      <Button fx:id="backButton" mnemonicParsing="false" onAction="#onBackButtonClick" prefHeight="26.0" prefWidth="44.0" text="Back">
+         <VBox.margin>
+            <Insets left="25.0" top="25.0" />
+         </VBox.margin>
+      </Button>
       <Text fx:id="signInText" strokeType="OUTSIDE" strokeWidth="0.0" text="Sign in">
          <font>
             <Font size="18.0" />
          </font>
          <VBox.margin>
-            <Insets left="190.0" top="70.0" />
+            <Insets left="190.0" top="25.0" />
          </VBox.margin>
       </Text>
       <TextField fx:id="nameTextField" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="225.0" promptText="Name">
