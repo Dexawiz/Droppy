@@ -42,7 +42,7 @@
             <Insets left="190.0" top="10.0" />
          </VBox.margin>
       </TextField>
-      <TextField fx:id="comfirmPasswordTextField" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="225.0" promptText="Comfirm password">
+      <TextField fx:id="confirmPasswordTextField" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="225.0" promptText="Confirm password">
          <VBox.margin>
             <Insets left="190.0" top="10.0" />
          </VBox.margin>

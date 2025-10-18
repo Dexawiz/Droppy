@@ -19,7 +19,7 @@ public class SignInController {
     private Button backButton;
 
     @FXML
-    private TextField comfirmPasswordTextField;
+    private TextField confirmPasswordTextField;
 
     @FXML
     private TextField emailTextField;
