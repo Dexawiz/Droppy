@@ -49,8 +49,9 @@ public class MemoryUserDao implements UserDao {
         store.remove(id);
     }
 
+
     @Override
-    public User create(String name, String surname, String email, String password) {
+    public void create(String name, String surname, String email, String password) {
          for (User existingUser : store.values()) {
             if (existingUser.getEmail().equalsIgnoreCase(email)) {
                 throw new IllegalArgumentException("User with email " + email + " already exists.");
@@ -62,7 +63,6 @@ public class MemoryUserDao implements UserDao {
         user.setEmail(email);
         user.setPassword(password);
         save(user);
-        return user;
     }
 
     @Override

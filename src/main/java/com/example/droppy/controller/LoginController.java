@@ -52,6 +52,7 @@ public class LoginController {
         try {
             authService.login(email, password);
             onLoginSuccess.run();
+            loginText.setText("Login Successful " + "Current User: " + email);
         } catch (IllegalArgumentException e) {
             loginText.setText(e.getMessage());
         }

@@ -4,6 +4,7 @@ import com.example.droppy.controller.LoginController;
 import com.example.droppy.domain.entity.User;
 import com.example.droppy.repository.MemoryUserDao;
 import com.example.droppy.service.AuthService;
+import com.example.droppy.service.Session;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -36,8 +37,6 @@ public class Main extends Application {
         // initialize controller with authService
         LoginController controller = loader.getController();
         controller.init(authService, () -> {
-            // on successful login: for now just print or later open main app
-            System.out.println("Login successful");
         });
 
         var scene = new Scene(rootPane);
