@@ -16,4 +16,5 @@ public class User {
     private String cardNumber;
     private DriverStatus driverStatus;
     private DeliveryMethod deliveryMethod;
+    private String password;
 }

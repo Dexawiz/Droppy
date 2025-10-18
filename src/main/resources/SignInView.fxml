@@ -47,7 +47,7 @@
             <Insets left="190.0" top="10.0" />
          </VBox.margin>
       </TextField>
-      <Button fx:id="signInButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="225.0" text="Sign in">
+      <Button fx:id="signInButton" mnemonicParsing="false" onAction="#onSignInButtonClick" prefHeight="25.0" prefWidth="225.0" text="Sign in">
          <VBox.margin>
             <Insets left="190.0" top="25.0" />
          </VBox.margin>

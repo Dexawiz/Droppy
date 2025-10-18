@@ -1,5 +1,6 @@
 package com.example.droppy.controller;
 
+import com.example.droppy.service.AuthService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,6 +15,15 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class SignInController {
+
+
+    private AuthService authService;
+    private Runnable onRegisterSuccess;
+
+    public void init(AuthService authService, Runnable onRegisterSuccess) {
+        this.authService = authService;
+        this.onRegisterSuccess = onRegisterSuccess;
+    }
 
     @FXML
     private Button backButton;
@@ -34,6 +44,23 @@ public class SignInController {
     private Button signInButton;
 
     @FXML
+    void onSignInButtonClick(ActionEvent event) {
+        String name = nameTextField.getText();
+        String surname = surnameTextField.getText();
+        String email = emailTextField.getText();
+        String password = passwordTextField.getText();
+        String confirmPassword = confirmPasswordTextField.getText();
+
+        try {
+            authService.register(name, surname, email, password, confirmPassword, true);
+            onRegisterSuccess.run();
+        } catch (IllegalArgumentException e) {
+            signInText.setText(e.getMessage());
+        }
+    }
+
+
+    @FXML
     private Text signInText;
 
     @FXML
@@ -43,6 +70,10 @@ public class SignInController {
     void onBackButtonClick(ActionEvent event) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/LoginView.fxml"));
         Parent rootPane = loader.load();
+
+//        // initialize login controller with the same authService and a simple onLoginSuccess handler
+//        LoginController loginController = loader.getController();
+//        loginController.init(this.authService, () -> System.out.println("Login successful"));
 
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 

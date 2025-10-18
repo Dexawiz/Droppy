@@ -48,4 +48,31 @@ public class MemoryUserDao implements UserDao {
         if (id == null) return;
         store.remove(id);
     }
+
+    @Override
+    public User create(String name, String surname, String email, String password) {
+         for (User existingUser : store.values()) {
+            if (existingUser.getEmail().equalsIgnoreCase(email)) {
+                throw new IllegalArgumentException("User with email " + email + " already exists.");
+            }
+         }
+        User user = new User();
+        user.setName(name);
+        user.setSurname(surname);
+        user.setEmail(email);
+        user.setPassword(password);
+        save(user);
+        return user;
+    }
+
+    @Override
+    public User findByEmail(String email) {
+        if (email == null || email.isEmpty()) return null;
+        for (User user : store.values()) {
+            if (email.equalsIgnoreCase(user.getEmail())) {
+                return user;
+            }
+        }
+        return null;
+    }
 }
