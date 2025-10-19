@@ -52,7 +52,7 @@ public class SignInController {
         String confirmPassword = confirmPasswordTextField.getText();
 
         try {
-            authService.register(name, surname, email, password, confirmPassword, true);
+            authService.register(name, surname, email, password, confirmPassword);
             onRegisterSuccess.run();
         } catch (IllegalArgumentException e) {
             signInText.setText(e.getMessage());

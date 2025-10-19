@@ -28,8 +28,7 @@ public class Main extends Application {
                 "Admin",
                 "admin123@gmail.com",
                 "admin123",
-                "admin123",
-                true);
+                "admin123");
 
         var loader = new FXMLLoader(getClass().getResource("/LoginView.fxml"));
         Parent rootPane = loader.load();

@@ -10,7 +10,7 @@ public class AuthService {
         this.userDao = userDao;
     }
 
-    public void register(String name, String surname, String email, String password, String confirmPassword, boolean isADMIN) {
+    public void register(String name, String surname, String email, String password, String confirmPassword) {
 
         if (name == null || name.isEmpty()) {
             throw new IllegalArgumentException("Name cannot be null or empty");
