@@ -11,6 +11,7 @@ public class Order {
     private Long id;
     private Long customerId;
     private Long driverId;
+    private Long companyId;
     private List<Product> products;
     private Double totalPrice;
     private String deliveryFromAddress;
