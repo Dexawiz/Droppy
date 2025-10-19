@@ -1,6 +1,7 @@
 package com.example.droppy.service;
 
 import com.example.droppy.domain.entity.User;
+import com.example.droppy.domain.enums.Role;
 import com.example.droppy.repository.UserDao;
 
 public class AuthService {
@@ -10,7 +11,7 @@ public class AuthService {
         this.userDao = userDao;
     }
 
-    public void register(String name, String surname, String email, String password, String confirmPassword) {
+    public void register(String name, String surname, String email, String password, String confirmPassword, Role role) {
 
         if (name == null || name.isEmpty()) {
             throw new IllegalArgumentException("Name cannot be null or empty");
@@ -31,8 +32,10 @@ public class AuthService {
             throw new IllegalArgumentException("User with email " + email + " already exists.");
         }
 
+        // assign default role if none provided
+        Role assignedRole = role == null ? Role.CUSTOMER : role;
 
-        userDao.create(name, surname, email, password);
+        userDao.create(name, surname, email, password, assignedRole);
     }
 
     public void login(String email, String password) {

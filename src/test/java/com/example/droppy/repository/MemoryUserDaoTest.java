@@ -88,9 +88,9 @@ class MemoryUserDaoTest {
 
     @Test
     void create_preventsDuplicateEmails() {
-        dao.create("Name1", "Surname1", "dup@dup", "pass1");
+        dao.create("Name1", "Surname1", "dup@dup", "pass1", role);
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-            dao.create("Name2", "Surname2", "dup@dup", "pass2");
+            dao.create("Name2", "Surname2", "dup@dup", "pass2", role);
         });
         String expectedMessage = "User with email dup@dup already exists.";
         String actualMessage = exception.getMessage();

@@ -2,6 +2,7 @@ package com.example.droppy;
 
 import com.example.droppy.controller.LoginController;
 import com.example.droppy.domain.entity.User;
+import com.example.droppy.domain.enums.Role;
 import com.example.droppy.repository.MemoryUserDao;
 import com.example.droppy.service.AuthService;
 import com.example.droppy.service.Session;
@@ -28,7 +29,8 @@ public class Main extends Application {
                 "Admin",
                 "admin123@gmail.com",
                 "admin123",
-                "admin123");
+                "admin123",
+                Role.ADMIN);
 
         var loader = new FXMLLoader(getClass().getResource("/LoginView.fxml"));
         Parent rootPane = loader.load();

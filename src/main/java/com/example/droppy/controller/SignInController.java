@@ -1,5 +1,6 @@
 package com.example.droppy.controller;
 
+import com.example.droppy.domain.enums.Role;
 import com.example.droppy.service.AuthService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -52,7 +53,7 @@ public class SignInController {
         String confirmPassword = confirmPasswordTextField.getText();
 
         try {
-            authService.register(name, surname, email, password, confirmPassword);
+            authService.register(name, surname, email, password, confirmPassword, Role.CUSTOMER);
             onRegisterSuccess.run();
         } catch (IllegalArgumentException e) {
             signInText.setText(e.getMessage());

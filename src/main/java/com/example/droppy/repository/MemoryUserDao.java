@@ -1,6 +1,7 @@
 package com.example.droppy.repository;
 
 import com.example.droppy.domain.entity.User;
+import com.example.droppy.domain.enums.Role;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -51,9 +52,10 @@ public class MemoryUserDao implements UserDao {
 
 
     @Override
-    public void create(String name, String surname, String email, String password) {
+    public void create(String name, String surname, String email, String password, Role role) {
          for (User existingUser : store.values()) {
-            if (existingUser.getEmail().equalsIgnoreCase(email)) {
+            String existingEmail = existingUser.getEmail();
+            if (existingEmail != null && existingEmail.equalsIgnoreCase(email)) {
                 throw new IllegalArgumentException("User with email " + email + " already exists.");
             }
          }
@@ -62,6 +64,8 @@ public class MemoryUserDao implements UserDao {
         user.setSurname(surname);
         user.setEmail(email);
         user.setPassword(password);
+        // set role (may be null, AuthService should provide default)
+        user.setRole(role);
         save(user);
     }
 
@@ -69,7 +73,8 @@ public class MemoryUserDao implements UserDao {
     public User findByEmail(String email) {
         if (email == null || email.isEmpty()) return null;
         for (User user : store.values()) {
-            if (email.equalsIgnoreCase(user.getEmail())) {
+            String uEmail = user.getEmail();
+            if (uEmail != null && email.equalsIgnoreCase(uEmail)) {
                 return user;
             }
         }
