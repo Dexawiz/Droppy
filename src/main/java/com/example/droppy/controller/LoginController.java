@@ -1,6 +1,7 @@
 package com.example.droppy.controller;
 
 import com.example.droppy.service.AuthService;
+import com.example.droppy.service.Session;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -49,7 +50,7 @@ public class LoginController {
         try {
             authService.login(email, password);
             if (onLoginSuccess != null) onLoginSuccess.run();
-            loginText.setText("Login Successful " + "Current User: " + email);
+            loginText.setText("Login Successful " + "Current User: " + email );
         } catch (IllegalArgumentException e) {
             loginText.setText(e.getMessage());
         }

@@ -1,6 +1,7 @@
 package com.example.droppy.repository;
 
 import com.example.droppy.domain.entity.User;
+import com.example.droppy.domain.enums.Role;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -88,6 +89,8 @@ class MemoryUserDaoTest {
 
     @Test
     void create_preventsDuplicateEmails() {
+        // use a concrete role for test
+        Role role = Role.CUSTOMER;
         dao.create("Name1", "Surname1", "dup@dup", "pass1", role);
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
             dao.create("Name2", "Surname2", "dup@dup", "pass2", role);
@@ -97,4 +100,3 @@ class MemoryUserDaoTest {
         assertEquals(expectedMessage, actualMessage);
     }
 }
-
