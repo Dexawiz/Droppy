@@ -76,5 +76,25 @@ class MemoryUserDaoTest {
     void findById_nullReturnsNull() {
         assertNull(dao.findById(null));
     }
+
+    @Test
+    void findByEmail_existingAndNonExisting() {
+        User u = new User();
+        u.setEmail("123@123");
+        dao.save(u);
+        assertSame(u, dao.findByEmail("123@123"));
+        assertNull(dao.findByEmail("nonexistent@123"));
+    }
+
+    @Test
+    void create_preventsDuplicateEmails() {
+        dao.create("Name1", "Surname1", "dup@dup", "pass1");
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            dao.create("Name2", "Surname2", "dup@dup", "pass2");
+        });
+        String expectedMessage = "User with email dup@dup already exists.";
+        String actualMessage = exception.getMessage();
+        assertEquals(expectedMessage, actualMessage);
+    }
 }
 

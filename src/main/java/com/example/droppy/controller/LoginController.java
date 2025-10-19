@@ -14,9 +14,6 @@ import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 import java.io.IOException;
 
-import com.example.droppy.controller.SignInController;
-
-@SuppressWarnings("unused")
 public class LoginController {
 
     private AuthService authService;
@@ -51,7 +48,7 @@ public class LoginController {
 
         try {
             authService.login(email, password);
-            onLoginSuccess.run();
+            if (onLoginSuccess != null) onLoginSuccess.run();
             loginText.setText("Login Successful " + "Current User: " + email);
         } catch (IllegalArgumentException e) {
             loginText.setText(e.getMessage());
@@ -61,29 +58,28 @@ public class LoginController {
 
     @FXML
     void onSigninButtonClick(ActionEvent event) throws IOException {
+        // получаем текущий Stage заранее, чтобы передать в колбэк
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/SignInView.fxml"));
         Parent rootPane = loader.load();
 
+
         SignInController signInController = loader.getController();
-        Runnable onRegisterSuccess = () -> {
+        signInController.init(authService, () -> {
             try {
                 FXMLLoader loginLoader = new FXMLLoader(getClass().getResource("/LoginView.fxml"));
                 Parent loginRoot = loginLoader.load();
-                LoginController loginController = loginLoader.getController();
-                // re-init login controller with the same authService and original onLoginSuccess
-                loginController.init(this.authService, this.onLoginSuccess);
-                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                LoginController loginCtrl = loginLoader.getController();
+                loginCtrl.init(authService, this.onLoginSuccess);
                 var scene = new Scene(loginRoot);
                 stage.setTitle("Droppy");
                 stage.setScene(scene);
                 stage.show();
-            } catch (IOException ex) {
-                ex.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        };
-        signInController.init(this.authService, onRegisterSuccess);
-
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        });
 
         var scene = new Scene(rootPane);
         stage.setTitle("Droppy");

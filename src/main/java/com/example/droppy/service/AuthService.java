@@ -31,6 +31,7 @@ public class AuthService {
             throw new IllegalArgumentException("User with email " + email + " already exists.");
         }
 
+
         userDao.create(name, surname, email, password);
     }
 

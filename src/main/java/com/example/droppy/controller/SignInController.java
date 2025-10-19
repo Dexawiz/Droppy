@@ -59,28 +59,27 @@ public class SignInController {
         }
     }
 
-
     @FXML
     private Text signInText;
 
     @FXML
     private TextField surnameTextField;
-
     @FXML
     void onBackButtonClick(ActionEvent event) throws Exception {
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/LoginView.fxml"));
         Parent rootPane = loader.load();
 
-//        // initialize login controller with the same authService and a simple onLoginSuccess handler
-//        LoginController loginController = loader.getController();
-//        loginController.init(this.authService, () -> System.out.println("Login successful"));
+        LoginController controller = loader.getController();
+        controller.init(authService, () -> {});
 
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-        var scene = new Scene(rootPane);
-        stage.setTitle("Droppy");
+        Scene scene = new Scene(rootPane);
         stage.setScene(scene);
+        stage.setTitle("Droppy");
         stage.show();
     }
+
+
 
 }
