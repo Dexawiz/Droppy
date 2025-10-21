@@ -46,7 +46,6 @@ public class AuthService {
         if (!user.getPassword().equals(password)) {
             throw new IllegalArgumentException("Invalid password.");
         }
-
     }
 
 }
