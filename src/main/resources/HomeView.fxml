@@ -66,6 +66,6 @@
             </CheckBox>
          </children>
       </HBox>
-      <Pagination prefHeight="200.0" prefWidth="200.0" />
+      <Pagination fx:id="paginationCompany" prefHeight="200.0" prefWidth="200.0" />
    </children>
 </VBox>
