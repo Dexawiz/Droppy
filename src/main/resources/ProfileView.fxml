@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.gluonhq.charm.glisten.control.Avatar?>
-<?import com.gluonhq.charm.glisten.control.DropdownButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
@@ -25,11 +23,11 @@
                </HBox.margin>
             </Label>
             <TextField fx:id="searchTextField" prefWidth="200.0" promptText="Search" />
-            <Avatar fx:id="miniAvatar" radius="12.0">
+            <Circle fx:id="avatarSmall" fill="DODGERBLUE" radius="12.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
                <HBox.margin>
                   <Insets left="150.0" />
                </HBox.margin>
-            </Avatar>
+            </Circle>
          </children>
          <padding>
             <Insets bottom="5.0" top="5.0" />
@@ -47,11 +45,7 @@
          <children>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                <children>
-                  <Avatar fx:id="bigAvatar" radius="30.0">
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                  </Avatar>
+                  <Circle fx:id="bigAvatar" fill="DODGERBLUE" radius="30.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
                   <Button fx:id="editProfileButton" alignment="CENTER" mnemonicParsing="false" prefHeight="26.0" prefWidth="60.0" text="Edit">
                      <VBox.margin>
                         <Insets top="10.0" />
@@ -220,13 +214,11 @@
             </VBox>
             <VBox prefHeight="200.0" prefWidth="100.0">
                <children>
-                  <DropdownButton fx:id="countryDropDownButton">
-                      <items>
-                          <MenuItem text="Slovakia" />
-                          <MenuItem text="Czech Republic" />
-                          <MenuItem text="Ukraine" />
-                      </items>
-                  </DropdownButton>
+                  <TextField fx:id="countryTextField" prefHeight="0.0" prefWidth="100.0">
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </TextField>
                   <Button fx:id="logOutButton" mnemonicParsing="false" prefHeight="26.0" prefWidth="60.0" text="Log out">
                      <VBox.margin>
                         <Insets top="5.0" />
@@ -234,7 +226,7 @@
                   </Button>
                   <Button fx:id="deleteProfileButton" mnemonicParsing="false" prefHeight="26.0" prefWidth="60.0" text="Delete">
                      <VBox.margin>
-                        <Insets top="10.0" />
+                        <Insets top="5.0" />
                      </VBox.margin>
                   </Button>
                </children>

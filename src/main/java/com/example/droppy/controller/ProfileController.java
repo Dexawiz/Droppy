@@ -1,9 +1,10 @@
-import com.gluonhq.charm.glisten.control.Avatar;
-import com.gluonhq.charm.glisten.control.DropdownButton;
+package com.example.droppy.controller;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 
 public class ProfileController {
@@ -12,13 +13,16 @@ public class ProfileController {
     private Button addCreditDebitCardButton;
 
     @FXML
-    private Avatar bigAvatar;
+    private Circle avatarSmall;
 
     @FXML
-    private DropdownButton countryDropDownButton;
+    private Circle bigAvatar;
 
     @FXML
     private Label countryLabel;
+
+    @FXML
+    private TextField countryTextField;
 
     @FXML
     private Label creditDebitCardLabel;
@@ -49,9 +53,6 @@ public class ProfileController {
 
     @FXML
     private Label logOutLabel;
-
-    @FXML
-    private Avatar miniAvatar;
 
     @FXML
     private Text nameText;
