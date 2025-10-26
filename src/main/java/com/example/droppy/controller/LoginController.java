@@ -51,8 +51,22 @@ public class LoginController {
             authService.login(email, password);
             if (onLoginSuccess != null) onLoginSuccess.run();
             loginText.setText("Login Successful " + "Current User: " + email );
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/HomeView.fxml"));
+            Parent rootPane = loader.load();
+
+            HomeController controller = loader.getController();
+            controller.init(authService);
+
+            Scene scene = new Scene(rootPane);
+            stage.setScene(scene);
+            stage.setTitle("Droppy");
+            stage.show();
         } catch (IllegalArgumentException e) {
             loginText.setText(e.getMessage());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
 
     }
