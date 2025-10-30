@@ -1,0 +1,17 @@
+services:
+  mysql:
+    image: mysql:8.4.2
+    environment:
+      MYSQL_ROOT_PASSWORD: attender
+      MYSQL_DATABASE: attender
+      MYSQL_USER: attender
+      MYSQL_PASSWORD: attender
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
+      interval: 10s #default is 30s
+      timeout: 5s   #default is 30s
+      retries: 5    #default is 3
