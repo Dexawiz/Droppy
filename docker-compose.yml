@@ -1,17 +1,23 @@
 services:
-  mysql:
-    image: mysql:8.4.2
-    environment:
-      MYSQL_ROOT_PASSWORD: attender
-      MYSQL_DATABASE: attender
-      MYSQL_USER: attender
-      MYSQL_PASSWORD: attender
+  db:
+    image: postgres:16
+    container_name: droppy-db
     ports:
-      - "3306:3306"
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: droppy
+      POSTGRES_USER: droppy
+      POSTGRES_PASSWORD: admin
     volumes:
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - pgdata:/var/lib/postgresql/data
+      # ← монтируем папку, где реально лежат 01_schema.sql и 02_seed.sql
+      - ./src/main/java/resources/db/init:/docker-entrypoint-initdb.d:ro
     healthcheck:
-      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
-      interval: 10s #default is 30s
-      timeout: 5s   #default is 30s
-      retries: 5    #default is 3
+      test: ["CMD-SHELL", "pg_isready -U droppy -d droppy"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+volumes:
+  pgdata:
