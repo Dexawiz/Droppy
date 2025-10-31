@@ -3,6 +3,7 @@ package com.example.droppy.service;
 import com.example.droppy.domain.entity.User;
 import com.example.droppy.domain.enums.Role;
 import com.example.droppy.repository.UserDao;
+import at.favre.lib.crypto.bcrypt.BCrypt;
 
 public class AuthService {
     private final UserDao userDao;
@@ -35,7 +36,10 @@ public class AuthService {
         // assign default role if none provided
         Role assignedRole = role == null ? Role.CUSTOMER : role;
 
-        userDao.create(name, surname, email, password, assignedRole);
+        // hash password with bcrypt before storing
+        String bcryptHash = BCrypt.withDefaults().hashToString(12, password.toCharArray());
+
+        userDao.create(name, surname, email, bcryptHash, assignedRole);
     }
 
     public void login(String email, String password) {
@@ -43,7 +47,12 @@ public class AuthService {
         if (user == null) {
             throw new IllegalArgumentException("User with email " + email + " does not exist.");
         }
-        if (!user.getPassword().equals(password)) {
+        String storedHash = user.getPassword();
+        if (storedHash == null || storedHash.isEmpty()) {
+            throw new IllegalArgumentException("Invalid password.");
+        }
+        BCrypt.Result result = BCrypt.verifyer().verify(password.toCharArray(), storedHash);
+        if (!result.verified) {
             throw new IllegalArgumentException("Invalid password.");
         }
     }
