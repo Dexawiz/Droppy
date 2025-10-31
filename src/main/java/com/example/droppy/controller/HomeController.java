@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.Pagination;
 import javafx.scene.control.TextField;
 import javafx.scene.shape.Circle;
 
@@ -33,6 +34,9 @@ public class HomeController {
 
     @FXML
     private TextField searchTextField;
+
+    @FXML
+    private Pagination paginationCompany;
 
     @FXML
     void onCategoryItemCheckBoxClicked(ActionEvent event) {

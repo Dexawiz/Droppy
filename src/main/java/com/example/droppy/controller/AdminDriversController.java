@@ -39,7 +39,7 @@ public class AdminDriversController {
     }
 
     @FXML
-    void attendancesListViewMouseClicked(MouseEvent event) {
+    void driversListViewMouseClicked(MouseEvent event) {
 
     }
 

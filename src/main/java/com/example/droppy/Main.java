@@ -21,24 +21,24 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 
-//        var userDao = new MemoryUserDao();
-//        var authService = new AuthService(userDao);
-//
-//        // register default admin
-//        authService.register("Admin",
-//                "Admin",
-//                "admin123@gmail.com",
-//                "admin123",
-//                "admin123",
-//                Role.ADMIN);
+        var userDao = new MemoryUserDao();
+        var authService = new AuthService(userDao);
 
-        var loader = new FXMLLoader(getClass().getResource("/AdminCompaniesView.fxml"));
+        // register default admin
+        authService.register("Admin",
+                "Admin",
+                "admin123@gmail.com",
+                "admin123",
+                "admin123",
+                Role.ADMIN);
+
+        var loader = new FXMLLoader(getClass().getResource("/LoginView.fxml"));
         Parent rootPane = loader.load();
 
-//        // initialize controller with authService
-//        LoginController controller = loader.getController();
-//        controller.init(authService, () -> {
-//        });
+        // initialize controller with authService
+        LoginController controller = loader.getController();
+        controller.init(authService, () -> {
+        });
 
         var scene = new Scene(rootPane);
         stage.setTitle("Droppy");

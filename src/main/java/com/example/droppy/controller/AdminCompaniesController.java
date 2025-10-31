@@ -13,8 +13,6 @@ import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-
 public class AdminCompaniesController {
 
     @FXML
@@ -24,7 +22,7 @@ public class AdminCompaniesController {
     private Button deleteCompanyButton;
 
     @FXML
-    private ListView<?> driversListView;
+    private ListView<?> companiesListView;
 
     @FXML
     private Label droppyTextLogo;
@@ -41,7 +39,7 @@ public class AdminCompaniesController {
     }
 
     @FXML
-    void attendancesListViewMouseClicked(MouseEvent event) {
+    void companiesListViewMouseClicked(MouseEvent event) {
 
     }
 

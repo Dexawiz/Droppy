@@ -10,62 +10,58 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.droppy.controller.HomeController">
-   <children>
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.droppy.controller.HomeController">
       <HBox alignment="CENTER_LEFT">
-         <children>
-            <Label fx:id="droppyTextLogo" prefHeight="27.0" prefWidth="180.0" text="Droppy">
+            <Label fx:id="droppyTextLogo" prefHeight="35.0" prefWidth="280.0" text="Droppy">
                <font>
-                  <Font name="System Bold" size="18.0" />
+                  <Font name="System Bold" size="24.0" />
                </font>
                <HBox.margin>
                   <Insets left="20.0" />
                </HBox.margin>
             </Label>
-            <TextField fx:id="searchTextField" prefWidth="200.0" promptText="Search" />
+            <TextField fx:id="searchTextField" prefHeight="30.0" prefWidth="300.0" promptText="Search" />
             <Circle fx:id="avatarSmall" fill="DODGERBLUE" radius="12.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
                <HBox.margin>
-                  <Insets left="150.0" />
+                  <Insets left="260.0" right="20.0" />
                </HBox.margin>
             </Circle>
-         </children>
          <padding>
             <Insets bottom="5.0" top="5.0" />
          </padding>
       </HBox>
       <HBox prefWidth="200.0">
-         <children>
             <Label fx:id="restaurantsLabel" text="Restaurants">
                <font>
-                  <Font name="System Bold" size="18.0" />
+                  <Font name="System Bold" size="24.0" />
                </font>
                <HBox.margin>
                   <Insets left="40.0" top="30.0" />
                </HBox.margin>
             </Label>
-         </children>
       </HBox>
       <HBox prefWidth="200.0">
-         <children>
             <Label fx:id="categoriesLabel" text="Categories">
                <HBox.margin>
                   <Insets bottom="15.0" left="40.0" top="15.0" />
                </HBox.margin>
                <font>
-                  <Font name="System Bold" size="14.0" />
+                  <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-         </children>
       </HBox>
       <HBox prefWidth="200.0">
-         <children>
             <CheckBox fx:id="categoryItemCheckBox" mnemonicParsing="false" onAction="#onCategoryItemCheckBoxClicked" text="CategoryItem">
                <HBox.margin>
                   <Insets bottom="15.0" left="40.0" />
                </HBox.margin>
+               <font>
+                  <Font size="14.0" />
+               </font>
             </CheckBox>
-         </children>
       </HBox>
-      <Pagination fx:id="paginationCompany" prefHeight="200.0" prefWidth="200.0" />
-   </children>
+      <Pagination fx:id="paginationCompany" prefHeight="500.0" prefWidth="900.0">
+         <VBox.margin>
+            <Insets bottom="10.0" />
+         </VBox.margin></Pagination>
 </VBox>

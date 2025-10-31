@@ -10,59 +10,54 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.droppy.controller.ProfileController">
-   <children>
-      <HBox alignment="CENTER_LEFT" prefHeight="100.0" VBox.vgrow="NEVER">
-         <children>
-            <Label fx:id="droppyTextLogo" prefHeight="27.0" prefWidth="180.0" text="Droppy">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.droppy.controller.ProfileController">
+      <HBox alignment="CENTER_LEFT" VBox.vgrow="NEVER">
+            <Label fx:id="droppyTextLogo" prefHeight="35.0" prefWidth="280.0" text="Droppy">
                <font>
-                  <Font name="System Bold" size="18.0" />
+                  <Font name="System Bold" size="24.0" />
                </font>
                <HBox.margin>
                   <Insets left="20.0" />
                </HBox.margin>
             </Label>
-            <TextField fx:id="searchTextField" prefWidth="200.0" promptText="Search" />
+            <TextField fx:id="searchTextField" prefHeight="30.0" prefWidth="300.0" promptText="Search">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin></TextField>
             <Circle fx:id="avatarSmall" fill="DODGERBLUE" radius="12.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
                <HBox.margin>
-                  <Insets left="150.0" />
+                  <Insets left="260.0" right="20.0" />
                </HBox.margin>
             </Circle>
-         </children>
          <padding>
             <Insets bottom="5.0" top="5.0" />
          </padding>
       </HBox>
       <Label text="Profile">
          <font>
-            <Font name="System Bold" size="18.0" />
+            <Font name="System Bold" size="24.0" />
          </font>
          <VBox.margin>
             <Insets left="40.0" top="30.0" />
          </VBox.margin>
       </Label>
       <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
-         <children>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
-               <children>
                   <Circle fx:id="bigAvatar" fill="DODGERBLUE" radius="30.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-                  <Button fx:id="editProfileButton" alignment="CENTER" mnemonicParsing="false" prefHeight="26.0" prefWidth="60.0" text="Edit">
+                  <Button fx:id="editProfileButton" alignment="CENTER" mnemonicParsing="false" prefHeight="30.0" prefWidth="90.0" text="Edit">
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin>
                   </Button>
-               </children>
                <HBox.margin>
-                  <Insets left="20.0" />
+                  <Insets left="40.0" />
                </HBox.margin>
             </VBox>
             <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
-               <children>
                   <HBox>
-                     <children>
                         <Text fx:id="nameText" strokeType="OUTSIDE" strokeWidth="0.0" text="Name">
                            <font>
-                              <Font size="14.0" />
+                              <Font size="18.0" />
                            </font>
                         </Text>
                         <Text fx:id="surnameText" strokeType="OUTSIDE" strokeWidth="0.0" text="Surname">
@@ -70,74 +65,65 @@
                               <Insets left="30.0" />
                            </HBox.margin>
                            <font>
-                              <Font size="14.0" />
+                              <Font size="18.0" />
                            </font>
                         </Text>
-                     </children>
                      <VBox.margin>
                         <Insets top="20.0" />
                      </VBox.margin>
                   </HBox>
                   <HBox>
-                     <children>
                         <Text fx:id="emailText" strokeType="OUTSIDE" strokeWidth="0.0" text="E-mail">
                            <font>
-                              <Font size="14.0" />
+                              <Font size="18.0" />
                            </font>
                         </Text>
                         <Text fx:id="userEmailDemo" strokeType="OUTSIDE" strokeWidth="0.0" text="user@user.com" wrappingWidth="269.02618396282196" HBox.hgrow="ALWAYS">
                            <HBox.margin>
-                              <Insets left="105.0" />
+                              <Insets left="120.0" />
                            </HBox.margin>
                            <font>
-                              <Font size="14.0" />
+                              <Font size="18.0" />
                            </font>
                         </Text>
-                     </children>
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin>
                   </HBox>
                   <HBox prefHeight="100.0" prefWidth="200.0">
-                     <children>
                         <Text fx:id="phoneNumberText" strokeType="OUTSIDE" strokeWidth="0.0" text="Phone Number">
                            <HBox.margin>
                               <Insets />
                            </HBox.margin>
                            <font>
-                              <Font size="14.0" />
+                              <Font size="18.0" />
                            </font>
                         </Text>
                         <Text fx:id="userPhoneDemo" strokeType="OUTSIDE" strokeWidth="0.0" text="0000000000">
                            <font>
-                              <Font size="14.0" />
+                              <Font size="18.0" />
                            </font>
                            <HBox.margin>
                               <Insets left="50.0" />
                            </HBox.margin>
                         </Text>
-                     </children>
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin>
                   </HBox>
-               </children>
                <HBox.margin>
-                  <Insets left="20.0" />
+                  <Insets left="30.0" />
                </HBox.margin>
             </VBox>
-         </children>
          <VBox.margin>
             <Insets top="10.0" />
          </VBox.margin>
       </HBox>
       <HBox prefHeight="100.0" prefWidth="200.0">
-         <children>
-            <VBox prefHeight="90.0" prefWidth="400.0">
-               <children>
+            <VBox prefHeight="79.0" prefWidth="727.0">
                   <Label fx:id="creditDebitCardLabel" text="Credit/Debit Card">
                      <font>
-                        <Font name="System Bold" size="18.0" />
+                        <Font name="System Bold" size="24.0" />
                      </font>
                   </Label>
                   <Text fx:id="creditDebitCardText" strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
@@ -145,44 +131,41 @@
                         <Insets top="10.0" />
                      </VBox.margin>
                      <font>
-                        <Font size="14.0" />
+                        <Font size="18.0" />
                      </font>
                   </Text>
-               </children>
                <HBox.margin>
-                  <Insets left="35.0" top="10.0" />
+                  <Insets left="40.0" top="10.0" />
                </HBox.margin>
             </VBox>
-            <VBox prefHeight="200.0" prefWidth="100.0">
-               <children>
-                  <Button fx:id="addCreditDebitCardButton" mnemonicParsing="false" prefHeight="26.0" prefWidth="60.0" text="Add" />
-                  <Button fx:id="editCreditDebitCardButton" mnemonicParsing="false" prefHeight="26.0" prefWidth="60.0" text="Edit">
+            <VBox>
+                  <Button fx:id="addCreditDebitCardButton" mnemonicParsing="false" prefHeight="30.0" prefWidth="90.0" text="Add">
                      <VBox.margin>
-                        <Insets top="20.0" />
+                        <Insets top="5.0" />
+                     </VBox.margin></Button>
+                  <Button fx:id="editCreditDebitCardButton" mnemonicParsing="false" prefHeight="30.0" prefWidth="90.0" text="Edit">
+                     <VBox.margin>
+                        <Insets top="10.0" />
                      </VBox.margin>
                   </Button>
-               </children>
                <HBox.margin>
-                  <Insets top="10.0" />
+                  <Insets right="40.0" top="10.0" />
                </HBox.margin>
             </VBox>
-         </children>
          <padding>
             <Insets top="10.0" />
          </padding>
       </HBox>
       <HBox prefHeight="100.0" prefWidth="200.0">
-         <children>
-            <VBox prefHeight="129.0" prefWidth="400.0">
-               <children>
+            <VBox prefHeight="137.0" prefWidth="745.0">
                   <Label fx:id="settingLabel" text="Settings">
                      <font>
-                        <Font name="System Bold" size="18.0" />
+                        <Font name="System Bold" size="24.0" />
                      </font>
                   </Label>
                   <Label fx:id="countryLabel" text="Country">
                      <font>
-                        <Font size="14.0" />
+                        <Font size="18.0" />
                      </font>
                      <VBox.margin>
                         <Insets top="10.0" />
@@ -190,7 +173,7 @@
                   </Label>
                   <Label fx:id="logOutLabel" text="Log out">
                      <font>
-                        <Font size="14.0" />
+                        <Font size="18.0" />
                      </font>
                      <VBox.margin>
                         <Insets top="10.0" />
@@ -198,43 +181,41 @@
                   </Label>
                   <Label fx:id="deleteProfileLabel" text="Delete profile">
                      <font>
-                        <Font size="14.0" />
+                        <Font size="18.0" />
                      </font>
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin>
                   </Label>
-               </children>
                <HBox.margin>
-                  <Insets left="35.0" />
+                  <Insets left="40.0" />
                </HBox.margin>
                <padding>
                   <Insets top="10.0" />
                </padding>
             </VBox>
-            <VBox prefHeight="200.0" prefWidth="100.0">
-               <children>
-                  <TextField fx:id="countryTextField" prefHeight="0.0" prefWidth="100.0">
+            <VBox>
+                  <TextField fx:id="countryTextField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="90.0">
                      <VBox.margin>
-                        <Insets top="5.0" />
+                        <Insets />
                      </VBox.margin>
                   </TextField>
-                  <Button fx:id="logOutButton" mnemonicParsing="false" prefHeight="26.0" prefWidth="60.0" text="Log out">
+                  <Button fx:id="logOutButton" mnemonicParsing="false" prefHeight="30.0" prefWidth="90.0" text="Log out">
                      <VBox.margin>
-                        <Insets top="5.0" />
+                        <Insets top="10.0" />
                      </VBox.margin>
                   </Button>
-                  <Button fx:id="deleteProfileButton" mnemonicParsing="false" prefHeight="26.0" prefWidth="60.0" text="Delete">
+                  <Button fx:id="deleteProfileButton" mnemonicParsing="false" prefHeight="30.0" prefWidth="90.0" text="Delete">
                      <VBox.margin>
-                        <Insets top="5.0" />
+                        <Insets top="10.0" />
                      </VBox.margin>
                   </Button>
-               </children>
                <padding>
                   <Insets top="45.0" />
                </padding>
+               <HBox.margin>
+                  <Insets right="40.0" />
+               </HBox.margin>
             </VBox>
-         </children>
       </HBox>
-   </children>
 </VBox>
