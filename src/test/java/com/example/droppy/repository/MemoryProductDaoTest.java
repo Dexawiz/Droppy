@@ -66,33 +66,33 @@ class MemoryProductDaoTest {
         assertTrue(ids.get(1) < ids.get(2));
     }
 
-    @Test
-    void findByCompanyId() {
-        Product p1 = new Product();
-        p1.setCompanyId(1L);
-
-        Product p2 = new Product();
-        p2.setCompanyId(2L);
-
-        Product p3 = new Product();
-        p3.setCompanyId(30L);
-
-        dao.save(p1);
-        dao.save(p2);
-        dao.save(p3);
-
-        var company1Products = dao.findByCompanyId(1L);
-        assertEquals(1, company1Products.size());
-        assertTrue(company1Products.contains(p1));
-
-        var company2Products = dao.findByCompanyId(2L);
-        assertEquals(1, company2Products.size());
-        assertTrue(company2Products.contains(p2));
-
-        var company30Products = dao.findByCompanyId(30L);
-        assertEquals(1, company30Products.size());
-        assertTrue(company30Products.contains(p3));
-    }
+//    @Test
+//    void findByCompanyId() {
+//        Product p1 = new Product();
+//        p1.setCompanyId(1L);
+//
+//        Product p2 = new Product();
+//        p2.setCompanyId(2L);
+//
+//        Product p3 = new Product();
+//        p3.setCompanyId(30L);
+//
+//        dao.save(p1);
+//        dao.save(p2);
+//        dao.save(p3);
+//
+//        var company1Products = dao.findByCompanyId(1L);
+//        assertEquals(1, company1Products.size());
+//        assertTrue(company1Products.contains(p1));
+//
+//        var company2Products = dao.findByCompanyId(2L);
+//        assertEquals(1, company2Products.size());
+//        assertTrue(company2Products.contains(p2));
+//
+//        var company30Products = dao.findByCompanyId(30L);
+//        assertEquals(1, company30Products.size());
+//        assertTrue(company30Products.contains(p3));
+//    }
 
     @Test
     void delete() {

@@ -16,7 +16,7 @@ INSERT INTO users (name, surname, role, email, phone_number, password_hash) VALU
                                                                                 ('Anna',  'Kováč',       'CUSTOMER', 'anna@droppy.com',         '+421900000003', 'pass123');
 
 INSERT INTO users (name, surname, role, email, phone_number, driver_status, delivery_method, password_hash) VALUES
-                                                                                                                ('Peter', 'Novák',       'DRIVER',   'peter.driver@droppy.com', '+421900000004', 'IDLE',    'CAR',  'driver123'),
+                                                                                                                ('Peter', 'Novák',       'DRIVER',   'peter.driver@droppy.com', '+421900000004', 'OFFLINE',    'CAR',  'driver123'),
                                                                                                                 ('Marek', 'Horváth',     'DRIVER',   'marek.driver@droppy.com', '+421900000005', 'OFFLINE', 'BIKE', 'driver123');
 
 INSERT INTO products (name, description, price, company_id) VALUES
@@ -39,7 +39,7 @@ VALUES (
            'Košice, Watsonova 10',
            now() - interval '1 hour',
            now() + interval '30 minutes',
-           'CARD', 'IN_DELIVERY'
+           'ONLINE', 'READY_FOR_PICKUP'
        );
 
 INSERT INTO orders (customer_id, driver_id, company_id, total_price,

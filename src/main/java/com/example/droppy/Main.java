@@ -3,6 +3,7 @@ package com.example.droppy;
 import com.example.droppy.controller.LoginController;
 import com.example.droppy.domain.entity.User;
 import com.example.droppy.domain.enums.Role;
+import com.example.droppy.repository.HibernateUserDao;
 import com.example.droppy.repository.MemoryUserDao;
 import com.example.droppy.service.AuthService;
 import com.example.droppy.service.Session;
@@ -21,16 +22,20 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 
-        var userDao = new MemoryUserDao();
+        var userDao = new HibernateUserDao();
         var authService = new AuthService(userDao);
 
         // register default admin
-        authService.register("Admin",
-                "Admin",
-                "admin123@gmail.com",
-                "admin123",
-                "admin123",
-                Role.ADMIN);
+        if (userDao.findByEmail("admin@droppy.com") == null) {
+            authService.register(
+                    "Admin",
+                    "Root",
+                    "admin@droppy.com",
+                    "admin123",
+                    "admin123",
+                    Role.ADMIN
+            );
+        }
 
         var loader = new FXMLLoader(getClass().getResource("/LoginView.fxml"));
         Parent rootPane = loader.load();

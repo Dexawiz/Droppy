@@ -20,13 +20,20 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Role role;
     private String email;
+
+    @Column(name = "phone_number")
     private String phoneNumber;
+    @Column(name = "card_number")
     private String cardNumber;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "driver_status")
     private DriverStatus driverStatus;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "delivery_method")
     private DeliveryMethod deliveryMethod;
+
+    @Column(name = "password_hash")
     private String password;
 }
