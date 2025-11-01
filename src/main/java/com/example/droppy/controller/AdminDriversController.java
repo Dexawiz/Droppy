@@ -1,6 +1,7 @@
 package com.example.droppy.controller;
 
 import com.example.droppy.domain.entity.User;
+import com.example.droppy.domain.enums.Role;
 import com.example.droppy.repository.UserDao;
 import com.example.droppy.service.AuthService;
 import javafx.event.ActionEvent;
@@ -17,7 +18,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class AdminDriversController {
     private AuthService authService;
@@ -30,8 +33,8 @@ public class AdminDriversController {
     private Button deleteDriverButton;
 
     @FXML
-    private ListView<String> driversListView;
-    private List<Integer> selectedDrivers;
+    private ListView<User> driversListView;
+    private Set<Long> selectedDrivers;
 
 
     @FXML
@@ -45,21 +48,32 @@ public class AdminDriversController {
 
 
     public void init(AuthService authService) {
-        this.selectedDrivers  = new ArrayList<>();
+        this.selectedDrivers  = new HashSet<>();
         this.authService = authService;
         this.userDao = authService.getUserDao();
+
+        driversListView.addEventFilter(MouseEvent.MOUSE_CLICKED, event -> {
+            var selectionModel = driversListView.getSelectionModel();
+            if (selectionModel == null) {
+                return;
+            }
+            int idx = selectionModel.getSelectedIndex();
+            if (idx < 0) {
+                selectionModel.clearSelection();
+            }
+        });
+
         driversListView.setCellFactory(
                 listView -> new javafx.scene.control.ListCell<>() {
                     @Override
-                    protected void updateItem(String item, boolean empty) {
-                        super.updateItem(item, empty);
-                        int index = getIndex();
-                        if (empty || item == null) {
+                    protected void updateItem(User user, boolean empty) {
+                        super.updateItem(user, empty);
+                        if (empty || user == null) {
                             setText(null);
                             setStyle("");
                         } else {
-                            setText(item);
-                            if (selectedDrivers.contains(index)) {
+                            setText(user.getId() + ": " + user.getName() + " " + user.getSurname() + " - " + user.getEmail() + " " + user.getPhoneNumber() + " (" + user.getRole() + ")");
+                            if (user.getId() != null && selectedDrivers.contains(user.getId())) {
                                 setStyle("-fx-background-color: lightblue;");
                             } else {
                                 setStyle("");
@@ -68,18 +82,12 @@ public class AdminDriversController {
                     }
                 }
         );
-
-
         loadUsers();
     }
 
-    private void loadUsers() {
-        List<User> users = userDao.findAll();
-        driversListView.getItems().clear();
-
-        for (User user : users) {
-            driversListView.getItems().add( user.getId() + ": " + user.getName() + " " + user.getSurname() + "  -  " + user.getEmail() + user.getPhoneNumber() + " (" + user.getRole() + ")" );
-        }
+    void loadUsers() {
+        List<User> allUsers = userDao.findAll();
+        driversListView.getItems().setAll(allUsers);
     }
 
     @FXML
@@ -93,14 +101,23 @@ public class AdminDriversController {
 
         boolean isEmpty = driversListView.getSelectionModel().isEmpty();
         if(isEmpty) return;
-        if (this.selectedDrivers.contains(idx)) {
-            this.selectedDrivers.remove(Integer.valueOf(idx));
+
+        User clickedUser = driversListView.getItems().get(idx);
+        if(clickedUser.getRole() != Role.CUSTOMER) {
+            Alert alert = new Alert(Alert.AlertType.WARNING, "You can only select users!");
+            alert.show();
+            return;
+        }
+
+        Long id = clickedUser.getId();
+        if (selectedDrivers.contains(id)) {
+            selectedDrivers.remove(id);
         } else {
-            this.selectedDrivers.add(idx);
+            selectedDrivers.add(id);
         }
 
         driversListView.refresh();
-        System.out.println(this.selectedDrivers);
+        System.out.println("Selected driver IDs: " + selectedDrivers);
     }
 
     @FXML
@@ -125,7 +142,7 @@ public class AdminDriversController {
     void onLogOutButtonClicked(ActionEvent event) throws Exception {
         var alert = new Alert(Alert.AlertType.CONFIRMATION, "Do you want to log out?");
         var result = alert.showAndWait();
-        if (result.get() == javafx.scene.control.ButtonType.OK) {
+        if (result.isPresent() && result.get() == javafx.scene.control.ButtonType.OK) {
             authService.logout();
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
