@@ -4,9 +4,13 @@ import com.example.droppy.domain.entity.User;
 import com.example.droppy.domain.enums.Role;
 import com.example.droppy.repository.UserDao;
 import at.favre.lib.crypto.bcrypt.BCrypt;
+import lombok.Getter;
 
 public class AuthService {
     private final UserDao userDao;
+    @Getter
+    private User currentUser;
+
 
     public AuthService(UserDao userDao) {
         this.userDao = userDao;
@@ -42,7 +46,7 @@ public class AuthService {
         userDao.create(name, surname, email, bcryptHash, assignedRole);
     }
 
-    public void login(String email, String password) {
+    public User login(String email, String password) {
         User user = userDao.findByEmail(email);
         if (user == null) {
             throw new IllegalArgumentException("User with email " + email + " does not exist.");
@@ -55,6 +59,14 @@ public class AuthService {
         if (!result.verified) {
             throw new IllegalArgumentException("Invalid password.");
         }
+
+        currentUser = user;
+        return user;
     }
+
+    public void logout() {
+        currentUser = null;
+    }
+
 
 }

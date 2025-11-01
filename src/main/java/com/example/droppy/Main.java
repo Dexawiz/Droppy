@@ -42,8 +42,7 @@ public class Main extends Application {
 
         // initialize controller with authService
         LoginController controller = loader.getController();
-        controller.init(authService, () -> {
-        });
+        controller.init(authService, () -> {});
 
         var scene = new Scene(rootPane);
         stage.setTitle("Droppy");

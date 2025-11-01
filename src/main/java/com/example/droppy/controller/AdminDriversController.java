@@ -1,5 +1,6 @@
 package com.example.droppy.controller;
 
+import com.example.droppy.service.AuthService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -32,7 +33,12 @@ public class AdminDriversController {
 
     @FXML
     private Button switchToCompaniesButton;
+    private AuthService authService;
 
+
+    public void init(AuthService authService) {
+        this.authService = authService;
+    }
     @FXML
     void addDriverButtonAction(ActionEvent event) {
 
@@ -66,10 +72,14 @@ public class AdminDriversController {
         var alert = new Alert(Alert.AlertType.CONFIRMATION, "Do you want to log out?");
         var result = alert.showAndWait();
         if (result.get() == javafx.scene.control.ButtonType.OK) {
+            authService.logout();
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/LoginView.fxml"));
             Parent rootPane = loader.load();
+
+            LoginController controller = loader.getController();
+            controller.init(authService, () -> {});
 
             Scene scene = new Scene(rootPane);
             stage.setScene(scene);

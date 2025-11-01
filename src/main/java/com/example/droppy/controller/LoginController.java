@@ -1,5 +1,6 @@
 package com.example.droppy.controller;
 
+import com.example.droppy.domain.entity.User;
 import com.example.droppy.service.AuthService;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -46,20 +47,61 @@ public class LoginController {
         String email = emailTextField.getText();
         String password = passwordTextField.getText();
 
+        if(email.isEmpty() || password.isEmpty()) {
+            loginText.setText("Please enter both email and password.");
+            return;
+        }
+
         try {
-            authService.login(email, password);
-            if (onLoginSuccess != null) onLoginSuccess.run();
+            User currentUser = authService.login(email, password);
+
+            if (onLoginSuccess != null) {
+                onLoginSuccess.run();
+            }
+
             loginText.setText("Login Successful " + "Current User: " + email );
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/HomeView.fxml"));
-            Parent rootPane = loader.load();
+            switch (currentUser.getRole()){
+                case CUSTOMER -> {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/HomeView.fxml"));
+                    Parent rootPane = loader.load();
 
-            HomeController controller = loader.getController();
-            controller.init(authService);
+                    HomeController controller = loader.getController();
+                    controller.init(authService);
 
-            Scene scene = new Scene(rootPane);
-            stage.setScene(scene);
+                    Scene scene = new Scene(rootPane);
+                    stage.setScene(scene);
+                }
+
+                case ADMIN -> {
+
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/AdminDriversView.fxml"));
+                    Parent rootPane = loader.load();
+
+                    AdminDriversController controller = loader.getController();
+                    controller.init(authService);
+
+                    Scene scene = new Scene(rootPane);
+                    stage.setScene(scene);
+                }
+
+                default -> {
+                    throw new IllegalArgumentException("Unsupported role: " + currentUser.getRole());
+                }
+
+//                case DRIVER -> {
+//                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/DriverOrdersView.fxml"));
+//                    Parent rootPane = loader.load();
+//
+//                    DriverOrdersController controller = loader.getController();
+//                    controller.init(authService);
+//
+//                    Scene scene = new Scene(rootPane);
+//                    stage.setScene(scene);
+//                }
+
+            }
             stage.setTitle("Droppy");
             stage.show();
         } catch (IllegalArgumentException e) {
