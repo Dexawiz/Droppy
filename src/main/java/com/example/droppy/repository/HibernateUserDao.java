@@ -24,6 +24,9 @@ public class HibernateUserDao  implements  UserDao {
     public List<User> findAll() {
         try(Session session = HibernateUtil.getSessionFactory().openSession()) {
             return session.createQuery("FROM User", User.class).list();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return List.of();
         }
     }
 
@@ -66,3 +69,4 @@ public class HibernateUserDao  implements  UserDao {
         }
     }
 }
+

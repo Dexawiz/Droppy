@@ -1,5 +1,7 @@
 package com.example.droppy.controller;
 
+import com.example.droppy.domain.entity.User;
+import com.example.droppy.repository.UserDao;
 import com.example.droppy.service.AuthService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,7 +16,12 @@ import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class AdminDriversController {
+    private AuthService authService;
+    private UserDao userDao;
 
     @FXML
     private Button addDriverButton;
@@ -23,7 +30,9 @@ public class AdminDriversController {
     private Button deleteDriverButton;
 
     @FXML
-    private ListView<?> driversListView;
+    private ListView<String> driversListView;
+    private List<Integer> selectedDrivers;
+
 
     @FXML
     private Label droppyTextLogo;
@@ -33,12 +42,46 @@ public class AdminDriversController {
 
     @FXML
     private Button switchToCompaniesButton;
-    private AuthService authService;
 
 
     public void init(AuthService authService) {
+        this.selectedDrivers  = new ArrayList<>();
         this.authService = authService;
+        this.userDao = authService.getUserDao();
+        driversListView.setCellFactory(
+                listView -> new javafx.scene.control.ListCell<>() {
+                    @Override
+                    protected void updateItem(String item, boolean empty) {
+                        super.updateItem(item, empty);
+                        int index = getIndex();
+                        if (empty || item == null) {
+                            setText(null);
+                            setStyle("");
+                        } else {
+                            setText(item);
+                            if (selectedDrivers.contains(index)) {
+                                setStyle("-fx-background-color: lightblue;");
+                            } else {
+                                setStyle("");
+                            }
+                        }
+                    }
+                }
+        );
+
+
+        loadUsers();
     }
+
+    private void loadUsers() {
+        List<User> users = userDao.findAll();
+        driversListView.getItems().clear();
+
+        for (User user : users) {
+            driversListView.getItems().add( user.getId() + ": " + user.getName() + " " + user.getSurname() + "  -  " + user.getEmail() + user.getPhoneNumber() + " (" + user.getRole() + ")" );
+        }
+    }
+
     @FXML
     void addDriverButtonAction(ActionEvent event) {
 
@@ -46,7 +89,18 @@ public class AdminDriversController {
 
     @FXML
     void driversListViewMouseClicked(MouseEvent event) {
+        int idx = driversListView.getSelectionModel().getSelectedIndex();
 
+        boolean isEmpty = driversListView.getSelectionModel().isEmpty();
+        if(isEmpty) return;
+        if (this.selectedDrivers.contains(idx)) {
+            this.selectedDrivers.remove(Integer.valueOf(idx));
+        } else {
+            this.selectedDrivers.add(idx);
+        }
+
+        driversListView.refresh();
+        System.out.println(this.selectedDrivers);
     }
 
     @FXML

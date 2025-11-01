@@ -7,7 +7,8 @@ import at.favre.lib.crypto.bcrypt.BCrypt;
 import lombok.Getter;
 
 public class AuthService {
-    private final UserDao userDao;
+    @Getter
+    private  UserDao userDao;
     @Getter
     private User currentUser;
 
@@ -67,6 +68,4 @@ public class AuthService {
     public void logout() {
         currentUser = null;
     }
-
-
 }
