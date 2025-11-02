@@ -59,7 +59,6 @@ public class HomeController {
         popup.getContent().add(profileMenu);
         popup.setAutoHide(true);
 
-        Bounds bounds = avatarSmall.localToScreen(avatarSmall.getBoundsInLocal());
         popup.show(((Node) event.getSource()), event.getScreenX(), event.getScreenY());
 
     }
