@@ -12,6 +12,8 @@ import javafx.stage.Stage;
 
 public class ProfileOrLogOutComponentController {
 
+
+
     @FXML
     private Button LogOutButton;
 
@@ -24,14 +26,13 @@ public class ProfileOrLogOutComponentController {
         var result = alert.showAndWait();
         if ((result.get() == javafx.scene.control.ButtonType.OK)) {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/LoginView.fxml"));
             Parent rootPane = loader.load();
-
             Scene scene = new Scene(rootPane);
             stage.setScene(scene);
             stage.setTitle("Droppy");
             stage.show();
+
         }
 
     }
