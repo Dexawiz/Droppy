@@ -38,12 +38,12 @@ public class Main extends Application {
             );
         }
 
-        var loader = new FXMLLoader(getClass().getResource("/HomeView.fxml"));
+        var loader = new FXMLLoader(getClass().getResource("/LoginView.fxml"));
         Parent rootPane = loader.load();
 
         // initialize controller with authService
-        HomeController controller = loader.getController();
-        //controller.init(authService, () -> {});
+        LoginController controller = loader.getController();
+        controller.init(authService, () -> {});
 
         var scene = new Scene(rootPane);
         stage.setTitle("Droppy");
