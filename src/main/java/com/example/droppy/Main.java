@@ -1,5 +1,6 @@
 package com.example.droppy;
 
+import com.example.droppy.controller.HomeController;
 import com.example.droppy.controller.LoginController;
 import com.example.droppy.domain.entity.User;
 import com.example.droppy.domain.enums.Role;
@@ -37,12 +38,12 @@ public class Main extends Application {
             );
         }
 
-        var loader = new FXMLLoader(getClass().getResource("/LoginView.fxml"));
+        var loader = new FXMLLoader(getClass().getResource("/HomeView.fxml"));
         Parent rootPane = loader.load();
 
         // initialize controller with authService
-        LoginController controller = loader.getController();
-        controller.init(authService, () -> {});
+        HomeController controller = loader.getController();
+        //controller.init(authService, () -> {});
 
         var scene = new Scene(rootPane);
         stage.setTitle("Droppy");

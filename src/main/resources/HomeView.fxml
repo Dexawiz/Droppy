@@ -21,7 +21,7 @@
                </HBox.margin>
             </Label>
             <TextField fx:id="searchTextField" prefHeight="30.0" prefWidth="300.0" promptText="Search" />
-            <Circle fx:id="avatarSmall" fill="DODGERBLUE" radius="12.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+            <Circle fx:id="avatarSmall" fill="DODGERBLUE" onMouseClicked="#onProfileClick" radius="12.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
                <HBox.margin>
                   <Insets left="260.0" right="20.0" />
                </HBox.margin>
