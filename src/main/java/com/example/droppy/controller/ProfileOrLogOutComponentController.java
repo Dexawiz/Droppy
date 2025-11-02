@@ -1,5 +1,6 @@
 package com.example.droppy.controller;
 
+import com.example.droppy.service.AuthService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,6 +13,12 @@ import javafx.stage.Stage;
 
 public class ProfileOrLogOutComponentController {
 
+    private Stage mainStage;
+    private AuthService authService;
+    public void init(AuthService authService, Stage mainStage) {
+        this.authService = authService;
+        this.mainStage = mainStage;
+    }
 
 
     @FXML
@@ -24,33 +31,35 @@ public class ProfileOrLogOutComponentController {
     void onLogOutButtonClick(ActionEvent event) throws Exception{
         var alert = new Alert(Alert.AlertType.CONFIRMATION, "Do you want to log out?");
         var result = alert.showAndWait();
+
         if ((result.get() == javafx.scene.control.ButtonType.OK)) {
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            authService.logout();
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/LoginView.fxml"));
             Parent rootPane = loader.load();
+
             Scene scene = new Scene(rootPane);
-            stage.setScene(scene);
-            stage.setTitle("Droppy");
-            stage.show();
-
+            mainStage.setScene(scene);
+            mainStage.setTitle("Droppy");
+            mainStage.show();
         }
-
     }
 
     @FXML
     void onProfileButtonClick(ActionEvent event) throws Exception {
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/ProfileView.fxml"));
         Parent rootPane = loader.load();
 
         Scene scene = new Scene(rootPane);
-        stage.setScene(scene);
-        stage.setTitle("Droppy");
-        stage.show();
+        mainStage.setScene(scene);
+        mainStage.setTitle("Droppy");
+        mainStage.show();
 
     }
 
 }
+
+
 
 
