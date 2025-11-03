@@ -2,6 +2,7 @@ package com.example.droppy.service;
 
 import com.example.droppy.domain.entity.User;
 import com.example.droppy.domain.enums.Role;
+import com.example.droppy.repository.HibernateUserDao;
 import com.example.droppy.repository.UserDao;
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import lombok.Getter;
@@ -45,6 +46,7 @@ public class AuthService {
         String bcryptHash = BCrypt.withDefaults().hashToString(12, password.toCharArray());
 
         userDao.create(name, surname, email, bcryptHash, assignedRole);
+
     }
 
     public User login(String email, String password) {
@@ -56,8 +58,30 @@ public class AuthService {
         if (storedHash == null || storedHash.isEmpty()) {
             throw new IllegalArgumentException("Invalid password.");
         }
-        BCrypt.Result result = BCrypt.verifyer().verify(password.toCharArray(), storedHash);
-        if (!result.verified) {
+
+        boolean verified = false;
+
+        // if stored value looks like bcrypt hash (starts with $2), verify with bcrypt
+        if (storedHash.startsWith("$2")) {
+            BCrypt.Result result = BCrypt.verifyer().verify(password.toCharArray(), storedHash);
+            verified = result.verified;
+        } else {
+            // backward compatibility: stored plain password
+            if (storedHash.equals(password)) {
+                verified = true;
+                // re-hash with bcrypt and persist
+                String bcryptHash = BCrypt.withDefaults().hashToString(12, password.toCharArray());
+                user.setPassword(bcryptHash);
+                try {
+                    userDao.save(user);
+                } catch (Exception e) {
+                    // best-effort: log and continue (user still can login this session)
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        if (!verified) {
             throw new IllegalArgumentException("Invalid password.");
         }
 

@@ -6,6 +6,8 @@ import com.example.droppy.domain.enums.Role;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Generated;
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.dialect.type.PostgreSQLEnumJdbcType;
 
 @Data
 @Entity
@@ -18,7 +20,11 @@ public class User {
     private String surname;
 
     @Enumerated(EnumType.STRING)
+    @JdbcType(PostgreSQLEnumJdbcType.class)
+    @Column(name = "role", nullable = false, columnDefinition = "user_role_enum")
     private Role role;
+
+    @Column(nullable = false, unique = true)
     private String email;
 
     @Column(name = "phone_number")
@@ -27,11 +33,13 @@ public class User {
     private String cardNumber;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "driver_status")
+    @JdbcType(PostgreSQLEnumJdbcType.class)
+    @Column(name = "driver_status", columnDefinition = "driver_status_enum")
     private DriverStatus driverStatus;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "delivery_method")
+    @JdbcType(PostgreSQLEnumJdbcType.class)
+    @Column(name = "delivery_method", columnDefinition = "delivery_method_enum")
     private DeliveryMethod deliveryMethod;
 
     @Column(name = "password_hash")

@@ -1,5 +1,6 @@
 package com.example.droppy.controller;
 
+import com.example.droppy.service.AuthService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,6 +15,12 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 public class AdminCompaniesController {
+
+    private AuthService authService;
+
+    public void init(AuthService authService) {
+        this.authService = authService;
+    }
 
     @FXML
     private Button addCompanyButton;
@@ -55,6 +62,11 @@ public class AdminCompaniesController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/AdminDriversView.fxml"));
         Parent rootPane = loader.load();
 
+        AdminDriversController controller = loader.getController();
+        if (this.authService != null) {
+            controller.init(this.authService);
+        }
+
         Scene scene = new Scene(rootPane);
         stage.setScene(scene);
         stage.setTitle("Droppy");
@@ -71,6 +83,11 @@ public class AdminCompaniesController {
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/LoginView.fxml"));
             Parent rootPane = loader.load();
+
+            LoginController loginController = loader.getController();
+            if (this.authService != null) {
+                loginController.init(this.authService, () -> {});
+            }
 
             Scene scene = new Scene(rootPane);
             stage.setScene(scene);

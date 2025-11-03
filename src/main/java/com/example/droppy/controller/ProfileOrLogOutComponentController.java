@@ -38,6 +38,11 @@ public class ProfileOrLogOutComponentController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/LoginView.fxml"));
             Parent rootPane = loader.load();
 
+            LoginController loginController = loader.getController();
+            if (this.authService != null) {
+                loginController.init(this.authService, () -> {});
+            }
+
             Scene scene = new Scene(rootPane);
             mainStage.setScene(scene);
             mainStage.setTitle("Droppy");
@@ -57,9 +62,4 @@ public class ProfileOrLogOutComponentController {
         mainStage.show();
 
     }
-
 }
-
-
-
-

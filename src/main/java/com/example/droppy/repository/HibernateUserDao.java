@@ -14,7 +14,7 @@ public class HibernateUserDao  implements  UserDao {
     @Override
     public void save(User user) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            Transaction tx = session.getTransaction();
+            Transaction tx = session.beginTransaction();
             session.persist(user);
             tx.commit();
         }
@@ -42,7 +42,7 @@ public class HibernateUserDao  implements  UserDao {
     @Override
     public void delete(Long id) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            Transaction tx = session.getTransaction();
+            Transaction tx = session.beginTransaction();
             User user = session.getReference(User.class, id);
             session.remove(user);
             tx.commit();
@@ -51,13 +51,29 @@ public class HibernateUserDao  implements  UserDao {
 
     @Override
     public void create(String name, String surname, String email, String password, Role role) {
-        User user = new User();
-        user.setName(name);
-        user.setSurname(surname);
-        user.setEmail(email);
-        user.setPassword(password);
-        user.setRole(role);
-        save(user);
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+
+            Transaction tx = session.beginTransaction();
+
+            Boolean exists = session.createSelectionQuery(
+                            "select count(u) > 0 from User u where u.email = :email", Boolean.class)
+                    .setParameter("email", email)
+                    .getSingleResult();
+
+            if (Boolean.TRUE.equals(exists)) {
+                throw new IllegalArgumentException("User with email " + email + " already exists.");
+            }
+
+            User newUser = new User();
+            newUser.setName(name);
+            newUser.setSurname(surname);
+            newUser.setEmail(email);
+            newUser.setPassword(password);
+            newUser.setRole(role);
+
+            session.persist(newUser);
+            tx.commit();
+        }
     }
 
     @Override
@@ -69,4 +85,3 @@ public class HibernateUserDao  implements  UserDao {
         }
     }
 }
-
