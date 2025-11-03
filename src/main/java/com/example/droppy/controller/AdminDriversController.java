@@ -72,7 +72,24 @@ public class AdminDriversController {
                             setText(null);
                             setStyle("");
                         } else {
-                            setText(user.getId() + ": " + user.getName() + " " + user.getSurname() + " - " + user.getEmail() + " " + user.getPhoneNumber() + " (" + user.getRole() + ")");
+                            String mail = user.getEmail();
+                            String newMail = "";
+
+                            for (int i = 0; i< mail.length(); i++){
+                                if(mail.charAt(i) == '@'){
+                                    break;
+                                }
+                                newMail += mail.charAt(i);
+                            }
+                            newMail += ".driver@droppy.com";
+
+                            if(userDao.findByEmail(newMail) != null && user.getRole() == Role.CUSTOMER) {
+                                setText(user.getId() + ": " + user.getName() + " " + user.getSurname() + " - " + user.getEmail() + " " + user.getPhoneNumber() + " (" + user.getRole() + ")" +
+                                        " ✅ (Already has driver account)");
+                            }
+                            else {
+                                setText(user.getId() + ": " + user.getName() + " " + user.getSurname() + " - " + user.getEmail() + " " + user.getPhoneNumber() + " (" + user.getRole() + ")");
+                            }
                             if (user.getId() != null && selectedDrivers.contains(user.getId())) {
                                 setStyle("-fx-background-color: lightblue;");
                             } else {
@@ -92,7 +109,49 @@ public class AdminDriversController {
 
     @FXML
     void addDriverButtonAction(ActionEvent event) {
+        List<User> newDrivers = new ArrayList<>();
 
+        if (selectedDrivers.isEmpty()) {
+            new Alert(Alert.AlertType.WARNING, "Please select at least one user.").show();
+            return;
+        }
+
+        for (Long idx : selectedDrivers){
+            User user = userDao.findById( idx);
+            if (user != null) {
+                String mail = user.getEmail();
+                String newMail = "";
+
+                for (int i = 0; i< mail.length(); i++){
+                    if(mail.charAt(i) == '@'){
+                        break;
+                    }
+                    newMail += mail.charAt(i);
+                }
+                newMail += ".driver@droppy.com";
+
+                User copy = new User();
+                copy.setName(user.getName());
+                copy.setSurname(user.getSurname());
+                copy.setEmail(newMail);
+                copy.setPassword(user.getPassword());
+                copy.setRole(Role.DRIVER);
+                copy.setPhoneNumber(user.getPhoneNumber());
+                copy.setCardNumber(user.getCardNumber());
+                copy.setDeliveryMethod(user.getDeliveryMethod());
+                copy.setDriverStatus(user.getDriverStatus());
+
+                userDao.save(copy);
+                newDrivers.add(copy);
+            }
+
+            driversListView.getItems().addAll(newDrivers);
+        }
+
+        driversListView.refresh();
+        selectedDrivers.clear();
+        driversListView.getSelectionModel().clearSelection();
+        new Alert(Alert.AlertType.INFORMATION, "Selected users have been promoted to drivers.").show();
     }
 
     @FXML
@@ -103,7 +162,25 @@ public class AdminDriversController {
         if(isEmpty) return;
 
         User clickedUser = driversListView.getItems().get(idx);
-        if(clickedUser.getRole() != Role.CUSTOMER) {
+
+        String mail = clickedUser.getEmail();
+        String newMail = "";
+
+        for (int i = 0; i< mail.length(); i++){
+            if(mail.charAt(i) == '@'){
+                break;
+            }
+            newMail += mail.charAt(i);
+        }
+        newMail += ".driver@droppy.com";
+
+        if ( userDao.findByEmail(newMail) != null && clickedUser.getRole() == Role.CUSTOMER) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "This user already has a driver account.");
+            alert.show();
+            return;
+        }
+
+        if(clickedUser.getRole() != Role.CUSTOMER ) {
             Alert alert = new Alert(Alert.AlertType.WARNING, "You can only select users!");
             alert.show();
             return;
