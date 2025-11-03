@@ -25,7 +25,7 @@ public class HibernateUtil {
             return configuration.buildSessionFactory(serviceRegistry);
 
         } catch (Exception e) {
-            throw new RuntimeException("Ошибка при создании SessionFactory: " + e.getMessage(), e);
+            throw new RuntimeException("Failed creating SessionFactory: " + e.getMessage(), e);
         }
     }
 

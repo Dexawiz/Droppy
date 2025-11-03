@@ -17,7 +17,6 @@ public class PasswordMigration {
             for (User user : users) {
                 if (!user.getPassword().startsWith("$2a$") && !user.getPassword().startsWith("$2b$")) {
                     String hashed = BCrypt.withDefaults().hashToString(12, user.getPassword().toCharArray());
-                    // Обновляем только поле пароля через HQL, чтобы не трогать enum-поля в БД
                     session.createQuery("UPDATE User u SET u.password = :pw WHERE u.id = :id")
                             .setParameter("pw", hashed)
                             .setParameter("id", user.getId())

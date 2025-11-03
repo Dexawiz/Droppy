@@ -52,12 +52,27 @@ public class SignInController {
         String password = passwordTextField.getText();
         String confirmPassword = confirmPasswordTextField.getText();
 
+        if (name.isEmpty() || surname.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
+            signInText.setText("Please fill in all fields.");
+            return;
+        }
+
+        if (!password.equals(confirmPassword)) {
+            signInText.setText("Passwords do not match.");
+            return;
+        }
+
         try {
             authService.register(name, surname, email, password, confirmPassword, Role.CUSTOMER);
-            onRegisterSuccess.run();
-        } catch (IllegalArgumentException e) {
-            signInText.setText(e.getMessage());
+            signInText.setText("Registration successful! You can now log in.");
+
+            if (onRegisterSuccess != null) {
+                onRegisterSuccess.run();
+            }
+        } catch (Exception e) {
+            signInText.setText("Registration failed: " + e.getMessage());
         }
+
     }
 
     @FXML

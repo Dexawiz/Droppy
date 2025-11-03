@@ -1,22 +1,14 @@
 package com.example.droppy;
 
-import com.example.droppy.controller.HomeController;
 import com.example.droppy.controller.LoginController;
-import com.example.droppy.domain.entity.User;
 import com.example.droppy.domain.enums.Role;
 import com.example.droppy.repository.HibernateUserDao;
-import com.example.droppy.repository.MemoryUserDao;
 import com.example.droppy.service.AuthService;
-import com.example.droppy.service.Session;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-
-import java.io.IOException;
 
 public class Main extends Application {
 
