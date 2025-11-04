@@ -33,7 +33,7 @@
                   <Insets />
                </HBox.margin>
             </Button>
-            <Button fx:id="deleteCompanyButton" mnemonicParsing="false" onAction="#deleteCompanyButtonClick" prefHeight="30.0" prefWidth="110.0" text="Delete Company">
+            <Button fx:id="editCompanyButton" mnemonicParsing="false" onAction="#editCompanyButtonClick" prefHeight="30.0" prefWidth="110.0" text="Edit Company">
                <HBox.margin>
                   <Insets left="20.0" right="20.0" />
                </HBox.margin>

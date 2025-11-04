@@ -74,7 +74,7 @@ public class AdminCompaniesController {
     private Button addCompanyButton;
 
     @FXML
-    private Button deleteCompanyButton;
+    private Button editCompanyButton;
 
     @FXML
     private ListView<Company> companiesListView;
@@ -139,6 +139,11 @@ public class AdminCompaniesController {
         selectedCompanies.clear();
         companiesListView.getSelectionModel().clearSelection();
         new Alert(Alert.AlertType.INFORMATION, "Selected companies have been deleted.").show();
+    }
+
+    @FXML
+    void editCompanyButtonClick(ActionEvent event) {
+
     }
 
     @FXML

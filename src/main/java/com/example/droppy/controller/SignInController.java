@@ -9,6 +9,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -30,7 +31,7 @@ public class SignInController {
     private Button backButton;
 
     @FXML
-    private TextField confirmPasswordTextField;
+    private PasswordField confirmPasswordTextField;
 
     @FXML
     private TextField emailTextField;
@@ -39,7 +40,7 @@ public class SignInController {
     private TextField nameTextField;
 
     @FXML
-    private TextField passwordTextField;
+    private PasswordField passwordTextField;
 
     @FXML
     private Button signInButton;

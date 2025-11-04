@@ -30,7 +30,7 @@ public class AdminDriversController {
     private Button addDriverButton;
 
     @FXML
-    private Button deleteDriverButton;
+    private Button editDriverButton;
 
     @FXML
     private ListView<User> driversListView;
@@ -215,6 +215,11 @@ public class AdminDriversController {
         selectedDrivers.clear();
         driversListView.getSelectionModel().clearSelection();
         new Alert(Alert.AlertType.INFORMATION, "Selected users have been deleted.").show();
+    }
+
+    @FXML
+    void editDriverButtonClick(ActionEvent event) {
+
     }
 
     @FXML
