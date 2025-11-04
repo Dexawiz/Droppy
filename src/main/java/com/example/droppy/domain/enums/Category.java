@@ -6,5 +6,8 @@ public enum Category {
     BURGER,
     DESSERT,
     DRINKS,
+    RESTAURANT,
+    GROCERY,
+    PHARMACY,
     OTHER
 }
