@@ -180,7 +180,7 @@ public class AdminDriversController {
             return;
         }
 
-        if(clickedUser.getRole() != Role.CUSTOMER ) {
+        if(clickedUser.getRole() == Role.ADMIN) {
             Alert alert = new Alert(Alert.AlertType.WARNING, "You can only select users!");
             alert.show();
             return;
@@ -199,7 +199,22 @@ public class AdminDriversController {
 
     @FXML
     void deleteDriverButtonClick(ActionEvent event) {
+        if (selectedDrivers.isEmpty()) {
+            new Alert(Alert.AlertType.WARNING, "Please select at least one user to delete.").show();
+            return;
+        }
 
+        for (Long idx : selectedDrivers){
+            User user = userDao.findById( idx);
+            if (user != null) {
+                userDao.delete(idx);
+            }
+        }
+
+        loadUsers();
+        selectedDrivers.clear();
+        driversListView.getSelectionModel().clearSelection();
+        new Alert(Alert.AlertType.INFORMATION, "Selected users have been deleted.").show();
     }
 
     @FXML
@@ -209,9 +224,12 @@ public class AdminDriversController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/AdminCompaniesView.fxml"));
         Parent rootPane = loader.load();
 
+        AdminCompaniesController controller = loader.getController();
+        controller.init(authService);
+
         Scene scene = new Scene(rootPane);
         stage.setScene(scene);
-        stage.setTitle("Droppy");
+        stage.setTitle("Droppy - Admin Companies");
         stage.show();
     }
 

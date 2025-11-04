@@ -1,5 +1,8 @@
 package com.example.droppy.controller;
 
+import com.example.droppy.domain.entity.Company;
+import com.example.droppy.domain.entity.User;
+import com.example.droppy.repository.CompanyDao;
 import com.example.droppy.service.AuthService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,14 +17,23 @@ import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 public class AdminCompaniesController {
 
     private AuthService authService;
+    private Set<Long> selectedCompanies;
+    private CompanyDao companyDao;
+
+
 
     public void init(AuthService authService) {
+        this.selectedCompanies = new HashSet<>();
         this.authService = authService;
-    }
 
+    }
     @FXML
     private Button addCompanyButton;
 
@@ -50,6 +62,10 @@ public class AdminCompaniesController {
 
     }
 
+    void loadCompanies() {
+
+    }
+
     @FXML
     void deleteCompanyButtonClick(ActionEvent event) {
 
@@ -63,15 +79,12 @@ public class AdminCompaniesController {
         Parent rootPane = loader.load();
 
         AdminDriversController controller = loader.getController();
-        if (this.authService != null) {
-            controller.init(this.authService);
-        }
+        controller.init(authService);
 
         Scene scene = new Scene(rootPane);
         stage.setScene(scene);
-        stage.setTitle("Droppy");
+        stage.setTitle("Droppy - Admin Drivers");
         stage.show();
-
     }
 
     @FXML
