@@ -252,7 +252,5 @@ public class AdminDriversController {
             stage.setTitle("Droppy");
             stage.show();
         }
-
     }
-
 }

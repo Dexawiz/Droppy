@@ -17,12 +17,16 @@ public class Company {
     private Long id;
     private String name;
     private String address;
+    @Column (name = "phone_number")
     private String phoneNumber;
+    @Column(name = "work_start")
     private LocalTime workStart;
+    @Column(name = "work_end")
     private LocalTime workEnd;
 
     @Enumerated(EnumType.STRING)
     @JdbcType(PostgreSQLEnumJdbcType.class)
     @Column(name = "category", columnDefinition = "category_enum")
+
     private Category category;
 }
