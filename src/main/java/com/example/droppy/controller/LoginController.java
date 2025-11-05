@@ -1,5 +1,6 @@
 package com.example.droppy.controller;
 
+import com.example.droppy.Navigator.Navigator;
 import com.example.droppy.domain.entity.User;
 import com.example.droppy.service.AuthService;
 import javafx.fxml.FXML;
@@ -76,12 +77,11 @@ public class LoginController {
                 }
 
                 case ADMIN -> {
-
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/AdminDriversView.fxml"));
                     Parent rootPane = loader.load();
 
                     AdminDriversController controller = loader.getController();
-                    controller.init(authService);
+                    controller.init(authService, AdminDriversController.Mode.LIST_ALL);
 
                     Scene scene = new Scene(rootPane);
                     stage.setScene(scene);

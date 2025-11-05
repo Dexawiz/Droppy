@@ -12,4 +12,6 @@ public interface UserDao {
     void delete(Long id);
     void create (String name, String surname, String email, String password, Role role);
     User findByEmail(String email);
+
+    List<User> findByRole(Role role);
 }

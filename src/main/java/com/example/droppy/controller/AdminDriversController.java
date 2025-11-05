@@ -17,14 +17,26 @@ import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 public class AdminDriversController {
+
+    public enum Mode {
+        LIST_ALL,
+        ADD_DRIVER_FROM_CUSTOMERS,
+        DELETE_DRIVERS
+    }
+
     private AuthService authService;
     private UserDao userDao;
+    private Mode mode;
+
+    @FXML
+    private Button createNewDriver;
 
     @FXML
     private Button addDriverButton;
@@ -33,9 +45,11 @@ public class AdminDriversController {
     private Button editDriverButton;
 
     @FXML
+    private Button returnToDefault;
+
+    @FXML
     private ListView<User> driversListView;
     private Set<Long> selectedDrivers;
-
 
     @FXML
     private Label droppyTextLogo;
@@ -47,21 +61,47 @@ public class AdminDriversController {
     private Button switchToCompaniesButton;
 
 
-    public void init(AuthService authService) {
-        this.selectedDrivers  = new HashSet<>();
+    public void init(AuthService authService, Mode mode) {
+        this.mode = mode;
+        this.selectedDrivers = new HashSet<>();
         this.authService = authService;
         this.userDao = authService.getUserDao();
 
-        driversListView.addEventFilter(MouseEvent.MOUSE_CLICKED, event -> {
-            var selectionModel = driversListView.getSelectionModel();
-            if (selectionModel == null) {
-                return;
-            }
-            int idx = selectionModel.getSelectedIndex();
-            if (idx < 0) {
-                selectionModel.clearSelection();
-            }
-        });
+        if (addDriverButton != null) {
+            addDriverButton.setVisible(mode != Mode.DELETE_DRIVERS);
+            addDriverButton.setManaged(mode != Mode.DELETE_DRIVERS);
+        }
+        if (editDriverButton != null) {
+            editDriverButton.setVisible(mode == Mode.LIST_ALL);
+            editDriverButton.setManaged(mode == Mode.LIST_ALL);
+        }
+        if( createNewDriver != null) {
+            createNewDriver.setVisible(mode == Mode.ADD_DRIVER_FROM_CUSTOMERS);
+            createNewDriver.setManaged(mode == Mode.ADD_DRIVER_FROM_CUSTOMERS);
+        }
+
+        if(returnToDefault != null) {
+            returnToDefault.setVisible(mode != Mode.LIST_ALL);
+            returnToDefault.setManaged(mode != Mode.LIST_ALL);
+        }
+
+        if(switchToCompaniesButton != null) {
+            switchToCompaniesButton.setVisible(mode == Mode.LIST_ALL);
+            switchToCompaniesButton.setManaged(mode == Mode.LIST_ALL);
+        }
+
+        List<User> items;
+        switch (mode) {
+            case ADD_DRIVER_FROM_CUSTOMERS:
+                items = userDao.findByRole(Role.CUSTOMER);
+                break;
+            case DELETE_DRIVERS:
+                items = userDao.findByRole(Role.DRIVER);
+                break;
+            default:
+                items = userDao.findAll();
+                break;
+        }
 
         driversListView.setCellFactory(
                 listView -> new javafx.scene.control.ListCell<>() {
@@ -99,7 +139,8 @@ public class AdminDriversController {
                     }
                 }
         );
-        loadUsers();
+
+        driversListView.getItems().setAll(items);
     }
 
     void loadUsers() {
@@ -109,49 +150,76 @@ public class AdminDriversController {
 
     @FXML
     void addDriverButtonAction(ActionEvent event) {
-        List<User> newDrivers = new ArrayList<>();
+        if(mode != Mode.ADD_DRIVER_FROM_CUSTOMERS) {
+            mode = Mode.ADD_DRIVER_FROM_CUSTOMERS;
+            init(authService, mode);
+            return;
+        }
 
         if (selectedDrivers.isEmpty()) {
             new Alert(Alert.AlertType.WARNING, "Please select at least one user.").show();
             return;
         }
 
-        for (Long idx : selectedDrivers){
-            User user = userDao.findById( idx);
-            if (user != null) {
-                String mail = user.getEmail();
-                String newMail = "";
+        List<User> newDrivers = new ArrayList<>();
+        int skippedCount = 0;
 
-                for (int i = 0; i< mail.length(); i++){
-                    if(mail.charAt(i) == '@'){
-                        break;
-                    }
-                    newMail += mail.charAt(i);
-                }
-                newMail += ".driver@droppy.com";
-
-                User copy = new User();
-                copy.setName(user.getName());
-                copy.setSurname(user.getSurname());
-                copy.setEmail(newMail);
-                copy.setPassword(user.getPassword());
-                copy.setRole(Role.DRIVER);
-                copy.setPhoneNumber(user.getPhoneNumber());
-                copy.setCardNumber(user.getCardNumber());
-                copy.setDeliveryMethod(user.getDeliveryMethod());
-                copy.setDriverStatus(user.getDriverStatus());
-
-                userDao.save(copy);
-                newDrivers.add(copy);
+        for (Long idx : selectedDrivers) {
+            User user = userDao.findById(idx);
+            if (user == null) {
+                skippedCount++;
+                continue;
             }
 
-            driversListView.getItems().addAll(newDrivers);
+            if (user.getRole() != Role.CUSTOMER) {
+                skippedCount++;
+                continue;
+            }
+
+            String mail = user.getEmail();
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < mail.length(); i++) {
+                if (mail.charAt(i) == '@') break;
+                sb.append(mail.charAt(i));
+            }
+            String newMail = sb.append(".driver@droppy.com").toString();
+
+            if (userDao.findByEmail(newMail) != null) {
+                skippedCount++;
+                continue;
+            }
+
+            User copy = new User();
+            copy.setName(user.getName());
+            copy.setSurname(user.getSurname());
+            copy.setEmail(newMail);
+            copy.setPassword(user.getPassword());
+            copy.setRole(Role.DRIVER);
+            copy.setPhoneNumber(user.getPhoneNumber());
+            copy.setCardNumber(user.getCardNumber());
+            copy.setDeliveryMethod(user.getDeliveryMethod());
+            copy.setDriverStatus(user.getDriverStatus());
+
+            userDao.save(copy);
+            newDrivers.add(copy);
         }
 
-        driversListView.refresh();
+        if (!newDrivers.isEmpty()) {
+            driversListView.getItems().addAll(newDrivers);
+        }
+        selectedDrivers.clear();
+
+        String msg = "Selected users have been promoted to drivers.";
+        if (skippedCount > 0) {
+            msg += " Skipped " + skippedCount + " users (not customers, already drivers or missing).";
+        }
+        new Alert(Alert.AlertType.INFORMATION, msg).show();
+
+        mode = Mode.LIST_ALL;
+        init(authService, mode);
         selectedDrivers.clear();
         driversListView.getSelectionModel().clearSelection();
-        new Alert(Alert.AlertType.INFORMATION, "Selected users have been promoted to drivers.").show();
+
     }
 
     @FXML
@@ -174,7 +242,7 @@ public class AdminDriversController {
         }
         newMail += ".driver@droppy.com";
 
-        if ( userDao.findByEmail(newMail) != null && clickedUser.getRole() == Role.CUSTOMER) {
+        if ( userDao.findByEmail(newMail) != null) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION, "This user already has a driver account.");
             alert.show();
             return;
@@ -197,25 +265,6 @@ public class AdminDriversController {
         System.out.println("Selected driver IDs: " + selectedDrivers);
     }
 
-    @FXML
-    void deleteDriverButtonClick(ActionEvent event) {
-        if (selectedDrivers.isEmpty()) {
-            new Alert(Alert.AlertType.WARNING, "Please select at least one user to delete.").show();
-            return;
-        }
-
-        for (Long idx : selectedDrivers){
-            User user = userDao.findById( idx);
-            if (user != null) {
-                userDao.delete(idx);
-            }
-        }
-
-        loadUsers();
-        selectedDrivers.clear();
-        driversListView.getSelectionModel().clearSelection();
-        new Alert(Alert.AlertType.INFORMATION, "Selected users have been deleted.").show();
-    }
 
     @FXML
     void editDriverButtonClick(ActionEvent event) {
@@ -238,6 +287,39 @@ public class AdminDriversController {
         stage.show();
     }
 
+
+    @FXML
+    void createNewDriverButton(ActionEvent event) throws IOException {
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/SaveDriverView.fxml"));
+        Parent rootPane = loader.load();
+
+        SaveDriverController controller = loader.getController();
+
+        controller.init(authService, () -> {
+            try {
+                FXMLLoader driversLoader = new FXMLLoader(getClass().getResource("/AdminDriversView.fxml"));
+                Parent driversRootPane = driversLoader.load();
+
+                AdminDriversController driversController = driversLoader.getController();
+                driversController.init(authService, Mode.LIST_ALL);
+
+                Scene driversScene = new Scene(driversRootPane);
+                stage.setScene(driversScene);
+                stage.setTitle("Droppy - Admin Drivers");
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
+        Scene scene = new Scene(rootPane);
+        stage.setScene(scene);
+        stage.setTitle("Droppy - Create New Driver");
+        stage.show();
+    }
+
     @FXML
     void onLogOutButtonClicked(ActionEvent event) throws Exception {
         var alert = new Alert(Alert.AlertType.CONFIRMATION, "Do you want to log out?");
@@ -257,5 +339,14 @@ public class AdminDriversController {
             stage.setTitle("Droppy");
             stage.show();
         }
+    }
+
+    @FXML
+    void returnToDefaultButton(ActionEvent event) {
+        mode = Mode.LIST_ALL;
+        init(authService, mode);
+        selectedDrivers.clear();
+        driversListView.getSelectionModel().clearSelection();
+
     }
 }

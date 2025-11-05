@@ -13,6 +13,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import com.example.droppy.Navigator.*;
 
 import java.io.IOException;
 
@@ -83,20 +84,12 @@ public class SignInController {
     private TextField surnameTextField;
     @FXML
     void onBackButtonClick(ActionEvent event) throws Exception {
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/LoginView.fxml"));
-        Parent rootPane = loader.load();
-
-        LoginController controller = loader.getController();
-        controller.init(authService, () -> {});
-
-        Scene scene = new Scene(rootPane);
-        stage.setScene(scene);
-        stage.setTitle("Droppy");
-        stage.show();
+        Navigator.switchTo(
+                event,
+                "/LoginView.fxml",
+                "Droppy",
+                LoginController.class,
+                c -> c.init(authService, () -> {})
+        );
     }
-
-
-
 }

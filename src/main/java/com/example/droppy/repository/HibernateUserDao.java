@@ -15,7 +15,11 @@ public class HibernateUserDao  implements  UserDao {
     public void save(User user) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             Transaction tx = session.beginTransaction();
-            session.persist(user);
+            if (user.getId() == null) {
+                session.persist(user);
+            } else {
+                session.merge(user);
+            }
             tx.commit();
         }
     }
@@ -82,6 +86,15 @@ public class HibernateUserDao  implements  UserDao {
             SelectionQuery<User> query = session.createSelectionQuery("FROM User WHERE email = :email", User.class);
             query.setParameter("email", email);
             return query.uniqueResult();
+        }
+    }
+
+    @Override
+    public List<User> findByRole(Role role) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return session.createQuery("FROM User WHERE role = :role", User.class)
+                    .setParameter("role", role)
+                    .list();
         }
     }
 }

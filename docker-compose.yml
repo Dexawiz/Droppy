@@ -10,7 +10,6 @@ services:
       POSTGRES_PASSWORD: admin
     volumes:
       - pgdata:/var/lib/postgresql/data
-      # ← монтируем папку, где реально лежат 01_schema.sql и 02_seed.sql
       - ./src/main/java/resources/db/init:/docker-entrypoint-initdb.d:ro
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U droppy -d droppy"]

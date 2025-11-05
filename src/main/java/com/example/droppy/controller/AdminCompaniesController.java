@@ -112,7 +112,7 @@ public class AdminCompaniesController {
         }
 
         companiesListView.refresh();
-        System.out.println("Selected company IDs: " + selectedCompanies);
+//        System.out.println("Selected company IDs: " + selectedCompanies);
     }
 
     void loadCompanies() {
@@ -154,7 +154,7 @@ public class AdminCompaniesController {
         Parent rootPane = loader.load();
 
         AdminDriversController controller = loader.getController();
-        controller.init(authService);
+        controller.init(authService, AdminDriversController.Mode.LIST_ALL);
 
         Scene scene = new Scene(rootPane);
         stage.setScene(scene);
