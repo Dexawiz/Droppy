@@ -1,7 +1,9 @@
 package com.example.droppy.controller;
 
 import com.example.droppy.Navigator.Navigator;
+import com.example.droppy.domain.entity.User;
 import com.example.droppy.domain.enums.Role;
+import com.example.droppy.repository.UserDao;
 import com.example.droppy.service.AuthService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -64,7 +66,7 @@ public class SaveDriverController {
 
 
         try {
-            authService.register(driverName, driverSurname, driverEmail, driverPassword, driverPassword, Role.DRIVER);
+            authService.register(driverName, driverSurname, driverEmail, driverPhoneNumber, driverPassword, driverPassword, Role.DRIVER);
             driverLabel.setText("Registration successful! You can now log in.");
 
             if (onRegisterSuccess != null) {

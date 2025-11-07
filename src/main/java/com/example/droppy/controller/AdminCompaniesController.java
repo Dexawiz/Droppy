@@ -27,16 +27,36 @@ public class AdminCompaniesController {
     private AuthService authService;
     private Set<Long> selectedCompanies;
     private CompanyDao companyDao;
+    private Mode mode;
 
+    public enum Mode {
+        LIST_ALL,
+        EDITING_COMPANIES
+    }
 
-
-    public void init(AuthService authService) {
+    public void init(AuthService authService, Mode mode) {
         this.selectedCompanies = new HashSet<>();
         this.authService = authService;
-        // инициализируем DAO для компаний
         this.companyDao = new HibernateCompanyDao();
+        this.mode = mode;
 
-        // защитная инициализация ListView: установка cellFactory и фильтра кликов
+        if(deleteCompanyButton != null) {
+            deleteCompanyButton.setVisible(mode != Mode.LIST_ALL);
+            deleteCompanyButton.setManaged(mode != Mode.LIST_ALL);
+        }
+        if(editCompanyButton != null) {
+            editCompanyButton.setVisible(mode == Mode.LIST_ALL);
+            editCompanyButton.setManaged(mode == Mode.LIST_ALL);
+        }
+        if(addCompanyButton != null) {
+            addCompanyButton.setVisible(mode == Mode.LIST_ALL);
+            addCompanyButton.setManaged(mode == Mode.LIST_ALL);
+        }
+        if(returnButton != null) {
+            returnButton.setVisible(mode != Mode.LIST_ALL);
+            returnButton.setManaged(mode != Mode.LIST_ALL);
+        }
+
         companiesListView.addEventFilter(MouseEvent.MOUSE_CLICKED, event -> {
             var selectionModel = companiesListView.getSelectionModel();
             if (selectionModel == null) {
@@ -75,6 +95,12 @@ public class AdminCompaniesController {
 
     @FXML
     private Button editCompanyButton;
+
+    @FXML
+    private Button deleteCompanyButton;
+
+    @FXML
+    private Button returnButton;
 
     @FXML
     private ListView<Company> companiesListView;
@@ -134,16 +160,29 @@ public class AdminCompaniesController {
         for (Long id : selectedCompanies) {
             companyDao.delete(id);
         }
-
-        loadCompanies();
         selectedCompanies.clear();
-        companiesListView.getSelectionModel().clearSelection();
-        new Alert(Alert.AlertType.INFORMATION, "Selected companies have been deleted.").show();
+        loadCompanies();
     }
 
     @FXML
     void editCompanyButtonClick(ActionEvent event) {
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AdminCompaniesView.fxml"));
+            Parent rootPane = loader.load();
+
+            AdminCompaniesController controller = loader.getController();
+            controller.init(authService, Mode.EDITING_COMPANIES);
+
+            Scene scene = new Scene(rootPane);
+            stage.setScene(scene);
+            stage.setTitle("Droppy - Edit Companies");
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, "Failed to switch to editing mode: " + e.getMessage()).showAndWait();
+        }
     }
 
     @FXML
@@ -181,6 +220,27 @@ public class AdminCompaniesController {
             stage.setScene(scene);
             stage.setTitle("Droppy");
             stage.show();
+        }
+    }
+
+    @FXML
+    void returnButtonClick(ActionEvent event) {
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AdminCompaniesView.fxml"));
+            Parent rootPane = loader.load();
+
+            AdminCompaniesController controller = loader.getController();
+            controller.init(authService, Mode.LIST_ALL);
+
+            Scene scene = new Scene(rootPane);
+            stage.setScene(scene);
+            stage.setTitle("Droppy - Admin Companies");
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, "Failed to switch to list all mode: " + e.getMessage()).showAndWait();
         }
     }
 }

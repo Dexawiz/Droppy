@@ -39,6 +39,9 @@ public class AdminDriversController {
     private Button createNewDriver;
 
     @FXML
+    private Button deleteDrivers;
+
+    @FXML
     private Button addDriverButton;
 
     @FXML
@@ -90,18 +93,16 @@ public class AdminDriversController {
             switchToCompaniesButton.setManaged(mode == Mode.LIST_ALL);
         }
 
-        List<User> items;
-        switch (mode) {
-            case ADD_DRIVER_FROM_CUSTOMERS:
-                items = userDao.findByRole(Role.CUSTOMER);
-                break;
-            case DELETE_DRIVERS:
-                items = userDao.findByRole(Role.DRIVER);
-                break;
-            default:
-                items = userDao.findAll();
-                break;
+        if(deleteDrivers != null) {
+            deleteDrivers.setVisible(mode == Mode.DELETE_DRIVERS);
+            deleteDrivers.setManaged(mode == Mode.DELETE_DRIVERS);
         }
+
+        List<User> items = switch (mode) {
+            case ADD_DRIVER_FROM_CUSTOMERS -> userDao.findByRole(Role.CUSTOMER);
+            case DELETE_DRIVERS -> userDao.findByRole(Role.DRIVER);
+            default -> userDao.findAll();
+        };
 
         driversListView.setCellFactory(
                 listView -> new javafx.scene.control.ListCell<>() {
@@ -265,10 +266,42 @@ public class AdminDriversController {
         System.out.println("Selected driver IDs: " + selectedDrivers);
     }
 
+    @FXML
+    void deleteDriversButton(ActionEvent event) {
+        if (selectedDrivers.isEmpty()) {
+            new Alert(Alert.AlertType.WARNING, "Please select at least one driver to delete.").show();
+            return;
+        }
+
+        int deletedCount = 0;
+        for (Long idx : selectedDrivers) {
+            User user = userDao.findById(idx);
+            if (user != null && user.getRole() == Role.DRIVER) {
+                userDao.delete(idx);
+                deletedCount++;
+            }
+        }
+
+        if (deletedCount > 0) {
+            loadUsers();
+            new Alert(Alert.AlertType.INFORMATION, "Selected drivers have been deleted.").show();
+        } else {
+            new Alert(Alert.AlertType.WARNING, "No valid drivers were selected for deletion.").show();
+        }
+
+        selectedDrivers.clear();
+        mode = Mode.LIST_ALL;
+        init(authService, mode);
+        driversListView.getSelectionModel().clearSelection();
+    }
+
 
     @FXML
     void editDriverButtonClick(ActionEvent event) {
-
+        if(mode != Mode.DELETE_DRIVERS) {
+            mode = Mode.DELETE_DRIVERS;
+            init(authService, mode);
+        }
     }
 
     @FXML
@@ -279,7 +312,7 @@ public class AdminDriversController {
         Parent rootPane = loader.load();
 
         AdminCompaniesController controller = loader.getController();
-        controller.init(authService);
+        controller.init(authService, AdminCompaniesController.Mode.LIST_ALL);
 
         Scene scene = new Scene(rootPane);
         stage.setScene(scene);
@@ -347,6 +380,5 @@ public class AdminDriversController {
         init(authService, mode);
         selectedDrivers.clear();
         driversListView.getSelectionModel().clearSelection();
-
     }
 }

@@ -33,7 +33,12 @@
                   <Insets />
                </HBox.margin>
             </Button>
-            <Button fx:id="editCompanyButton" mnemonicParsing="false" onAction="#editCompanyButtonClick" prefHeight="30.0" prefWidth="110.0" text="Edit Company">
+      <Button fx:id="deleteCompanyButton" mnemonicParsing="false" onAction="#deleteCompanyButtonClick" prefHeight="26.0" prefWidth="126.0" text="Delete Companies">
+         <HBox.margin>
+            <Insets left="20.0" />
+         </HBox.margin>
+      </Button>
+            <Button fx:id="editCompanyButton" mnemonicParsing="false" onAction="#editCompanyButtonClick" prefHeight="30.0" prefWidth="110.0" text="Edit Companies">
                <HBox.margin>
                   <Insets left="20.0" right="20.0" />
                </HBox.margin>
@@ -43,6 +48,7 @@
                   <Insets right="20.0" />
                </HBox.margin>
             </Button>
+      <Button fx:id="returnButton" mnemonicParsing="false" onAction="#returnButtonClick" prefHeight="26.0" prefWidth="78.0" text="Return" />
          <VBox.margin>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </VBox.margin>

@@ -97,4 +97,31 @@ public class HibernateUserDao  implements  UserDao {
                     .list();
         }
     }
+
+    @Override
+    public void create(String name, String surname, String email, String phoneNumber, String password, Role role) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            Transaction tx = session.beginTransaction();
+
+            Boolean exists = session.createSelectionQuery(
+                            "select count(u) > 0 from User u where u.email = :email", Boolean.class)
+                    .setParameter("email", email)
+                    .getSingleResult();
+
+            if (Boolean.TRUE.equals(exists)) {
+                throw new IllegalArgumentException("User with email " + email + " already exists.");
+            }
+
+            User newUser = new User();
+            newUser.setName(name);
+            newUser.setSurname(surname);
+            newUser.setEmail(email);
+            newUser.setPhoneNumber(phoneNumber);
+            newUser.setPassword(password);
+            newUser.setRole(role);
+
+            session.persist(newUser);
+            tx.commit();
+        }
+    }
 }

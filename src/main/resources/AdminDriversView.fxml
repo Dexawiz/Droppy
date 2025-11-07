@@ -33,6 +33,11 @@
                 <Insets />
             </HBox.margin>
         </Button>
+      <Button fx:id="deleteDrivers" mnemonicParsing="false" onAction="#deleteDriversButton" prefHeight="26.0" prefWidth="117.0" text="Delete Drivers">
+         <HBox.margin>
+            <Insets left="20.0" />
+         </HBox.margin>
+      </Button>
         <Button fx:id="editDriverButton" mnemonicParsing="false" onAction="#editDriverButtonClick" prefHeight="30.0" prefWidth="110.0" text="Edit Driver">
             <HBox.margin>
                 <Insets left="20.0" right="20.0" />
