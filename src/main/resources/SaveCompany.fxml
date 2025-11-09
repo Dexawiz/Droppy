@@ -122,13 +122,19 @@
       </HBox>
       <HBox alignment="TOP_RIGHT" prefHeight="100.0" prefWidth="200.0">
             <VBox alignment="CENTER">
-                  <Button fx:id="deleteCompanyButton" alignment="CENTER" mnemonicParsing="false" onAction="#onDeleteCompanyButtonClick" prefHeight="35.0" prefWidth="110.0" text="Delete" />
+                  <Button fx:id="deleteCompanyButton" alignment="CENTER" mnemonicParsing="false" onAction="#onDeleteCompanyButtonClick" prefHeight="35.0" prefWidth="110.0" text="Delete">
+            <VBox.margin>
+               <Insets bottom="20.0" />
+            </VBox.margin></Button>
                <HBox.margin>
                   <Insets right="40.0" />
                </HBox.margin>
             </VBox>
             <VBox alignment="CENTER">
-                  <Button fx:id="saveCompanyButton" mnemonicParsing="false" onAction="#onSaveBCompanyButtonClick" prefHeight="35.0" prefWidth="110.0" text="Save" />
+                  <Button fx:id="saveCompanyButton" mnemonicParsing="false" onAction="#onSaveBCompanyButtonClick" prefHeight="35.0" prefWidth="110.0" text="Save">
+            <VBox.margin>
+               <Insets bottom="20.0" />
+            </VBox.margin></Button>
                <HBox.margin>
                   <Insets right="110.0" />
                </HBox.margin>
