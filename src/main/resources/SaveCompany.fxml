@@ -3,32 +3,34 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.droppy.controller.SaveCompanyController">
       <HBox prefHeight="100.0" prefWidth="200.0">
-         <children>
-            <Label text="Comapny">
+            <HBox alignment="CENTER" prefHeight="94.0" prefWidth="110.0">
+                  <Button fx:id="backtoCompaniesButton" mnemonicParsing="false" onAction="#onBackToCompaniesButtonClick" prefHeight="35.0" prefWidth="50.0" text="&lt;-">
+                     <HBox.margin>
+                        <Insets top="30.0" />
+                     </HBox.margin>
+                  </Button>
+            </HBox>
+            <Label fx:id="companyLabel" text="Comapny">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
                <HBox.margin>
-                  <Insets left="110.0" top="50.0" />
+                  <Insets top="50.0" />
                </HBox.margin>
             </Label>
-         </children>
       </HBox>
       <HBox alignment="CENTER">
-         <children>
             <VBox>
-               <children>
                   <TextField fx:id="companyNameTextField" prefHeight="35.0" prefWidth="300.0" promptText="Name of company/restaurant">
                      <VBox.margin>
                         <Insets />
@@ -44,81 +46,92 @@
                         <Insets top="10.0" />
                      </VBox.margin>
                   </TextField>
-               </children>
                <HBox.margin>
                   <Insets right="40.0" />
                </HBox.margin>
             </VBox>
             <VBox>
-               <children>
-                  <TextField fx:id="openingTimeCompanyTextField" prefHeight="35.0" prefWidth="300.0" promptText="Opening time" />
-                  <TextField fx:id="closingTimeCompanyTextField" prefHeight="35.0" prefWidth="300.0" promptText="Closing time">
+                  <HBox>
+                        <ComboBox fx:id="openingHourCBox" prefHeight="35.0" prefWidth="140.0" promptText="OpeningHour">
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                        </ComboBox>
+                        <ComboBox fx:id="openingMinuteCBox" prefHeight="35.0" prefWidth="140.0" promptText="openingMinute">
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </ComboBox>
+                  </HBox>
+                  <HBox>
+                        <ComboBox fx:id="closingHourCBox" prefHeight="35.0" prefWidth="140.0" promptText="ClosingHour">
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                        </ComboBox>
+                        <ComboBox fx:id="closingMinuteCBox" prefHeight="35.0" prefWidth="140.0" promptText="ClosingMinute">
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </ComboBox>
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin>
-                  </TextField>
+                  </HBox>
                   <ChoiceBox fx:id="categoryCompanyChoiceBox" prefHeight="35.0" prefWidth="300.0">
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin>
                   </ChoiceBox>
-               </children>
                <HBox.margin>
                   <Insets left="40.0" />
                </HBox.margin>
             </VBox>
-         </children>
       </HBox>
       <HBox alignment="CENTER">
-         <children>
             <VBox>
-               <children>
-                  <Label text="Food">
+                  <Label fx:id="foodLabel" text="Food">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Label>
-                  <TextField prefHeight="35.0" prefWidth="680.0" promptText="Items">
+                  <ListView fx:id="foodListView" prefHeight="300.0" prefWidth="680.0">
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin>
-                  </TextField>
-                  <TextArea prefHeight="200.0" prefWidth="200.0" promptText="Decsription of items">
-                     <VBox.margin>
-                        <Insets top="10.0" />
-                     </VBox.margin>
-                  </TextArea>
-                  <TextField prefHeight="35.0" prefWidth="680.0" promptText="Price of items">
-                     <VBox.margin>
-                        <Insets top="10.0" />
-                     </VBox.margin>
-                  </TextField>
-               </children>
+                  </ListView>
+                  <HBox>
+                        <Button fx:id="addFoodButton" mnemonicParsing="false" onAction="#onAddButtonClick" prefHeight="30.0" prefWidth="35.0" text="+">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="deleteFoodButton" mnemonicParsing="false" onAction="#onDeleteFoodButtonClick" prefHeight="30.0" prefWidth="35.0" text="-">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </Button>
+                  </HBox>
             </VBox>
-         </children>
          <VBox.margin>
             <Insets top="30.0" />
          </VBox.margin>
       </HBox>
       <HBox alignment="TOP_RIGHT" prefHeight="100.0" prefWidth="200.0">
-         <children>
             <VBox alignment="CENTER">
-               <children>
-                  <Button alignment="CENTER" mnemonicParsing="false" prefHeight="35.0" prefWidth="110.0" text="Delete" />
-               </children>
+                  <Button fx:id="deleteCompanyButton" alignment="CENTER" mnemonicParsing="false" onAction="#onDeleteCompanyButtonClick" prefHeight="35.0" prefWidth="110.0" text="Delete" />
                <HBox.margin>
                   <Insets right="40.0" />
                </HBox.margin>
             </VBox>
             <VBox alignment="CENTER">
-               <children>
-                  <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="110.0" text="Save" />
-               </children>
+                  <Button fx:id="saveCompanyButton" mnemonicParsing="false" onAction="#onSaveBCompanyButtonClick" prefHeight="35.0" prefWidth="110.0" text="Save" />
                <HBox.margin>
                   <Insets right="110.0" />
                </HBox.margin>
             </VBox>
-         </children>
       </HBox>
-   </children>
 </VBox>
