@@ -1,13 +1,47 @@
 package com.example.droppy.controller;
 
+import com.example.droppy.domain.entity.Company;
+import com.example.droppy.domain.entity.Product;
+import com.example.droppy.repository.HibernateProductDao;
+import com.example.droppy.repository.ProductDao;
+import com.example.droppy.service.AuthService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.stage.Stage;
+import lombok.Setter;
 
 public class SaveProductController {
+
+
+    private AuthService authService;
+    private Mode mode;
+    private ProductDao productDao;
+    private Company company;
+
+    public void init(AuthService authService, Company company) {
+        this.authService = authService;
+        this.mode = mode;
+        this.productDao = new HibernateProductDao();
+        this.company = company;
+
+        if(deleteProductButton != null) {
+            deleteProductButton.setVisible(mode == Mode.EDITING_PRODUCT);
+            deleteProductButton.setManaged(mode == Mode.EDITING_PRODUCT);
+        }
+    }
+
+    public enum Mode {
+        ADDING_PRODUCT,
+        EDITING_PRODUCT
+    }
+
+    @Setter
+    private SaveCompanyController parentController;
 
     @FXML
     private Label EURLabel;
@@ -35,6 +69,23 @@ public class SaveProductController {
 
     @FXML
     void onBackToCompanyButtonClick(ActionEvent event) {
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/SaveCompany.fxml"));
+            Parent rootPane = loader.load();
+
+            SaveCompanyController controller = loader.getController();
+            controller.init(authService, SaveCompanyController.Mode.ADDING_COMPANY);
+
+            Scene scene = new Scene(rootPane);
+            stage.setScene(scene);
+            stage.setTitle("Droppy - Admin Companies");
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, "Failed to switch to list all mode: " + e.getMessage()).showAndWait();
+        }
 
     }
 
@@ -45,6 +96,37 @@ public class SaveProductController {
 
     @FXML
     void onSaveProductButtonClick(ActionEvent event) {
+        String name = nameProductTextField.getText().trim();
+        String desc = descProductTextField.getText().trim();
+        String priceText = priceProductTextField.getText().trim();
+
+        if(name.isEmpty() || desc.isEmpty() || priceText.isEmpty()) {
+            new Alert(Alert.AlertType.ERROR, "Please fill in all fields.").showAndWait();
+            return;
+        }
+
+        double price;
+        try {
+            price = Double.parseDouble(priceText);
+        } catch (NumberFormatException e) {
+            new Alert(Alert.AlertType.ERROR, "Invalid price format.").showAndWait();
+            return;
+        }
+
+        Product product = new Product();
+        product.setName(name);
+        product.setDescription(desc);
+        product.setPrice(price);
+        product.setCompany(company);
+        productDao.save(product);
+
+        if (parentController != null) {
+            parentController.addProductToList(product);
+        }
+
+        // закрываем окно добавления продукта
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.close();
 
     }
 

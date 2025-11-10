@@ -1,6 +1,7 @@
 package com.example.droppy.util;
 
 import com.example.droppy.domain.entity.Company;
+import com.example.droppy.domain.entity.Product;
 import com.example.droppy.domain.entity.User;
 import lombok.Getter;
 import org.hibernate.SessionFactory;
@@ -19,6 +20,7 @@ public class HibernateUtil {
 
             configuration.addAnnotatedClass(User.class);
             configuration.addAnnotatedClass(Company.class);
+            configuration.addAnnotatedClass(Product.class);
 
 
             ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()

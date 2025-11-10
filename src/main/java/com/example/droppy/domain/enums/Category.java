@@ -1,5 +1,7 @@
 package com.example.droppy.domain.enums;
 
+import java.util.List;
+
 public enum Category {
     PIZZA,
     SUSHI,
@@ -8,5 +10,9 @@ public enum Category {
     RESTAURANT,
     GROCERY,
     PHARMACY,
-    OTHER
+    OTHER;
+
+    public static List<Category> getAllCategories() {
+        return List.of(Category.values());
+    }
 }

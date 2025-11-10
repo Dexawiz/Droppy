@@ -18,7 +18,6 @@ public class Product {
     private Double price;
 
     @ManyToOne
-    @JoinColumn(name = "company_id")
-    private Company companyId;
-
+    @JoinColumn(name = "company_id", nullable = false)
+    private Company company;
 }

@@ -56,6 +56,10 @@ public class AdminCompaniesController {
             returnButton.setVisible(mode != Mode.LIST_ALL);
             returnButton.setManaged(mode != Mode.LIST_ALL);
         }
+        if(switchToDriversButton != null) {
+            switchToDriversButton.setVisible(mode == Mode.LIST_ALL);
+            switchToDriversButton.setManaged(mode == Mode.LIST_ALL);
+        }
 
         companiesListView.addEventFilter(MouseEvent.MOUSE_CLICKED, event -> {
             var selectionModel = companiesListView.getSelectionModel();
@@ -116,7 +120,23 @@ public class AdminCompaniesController {
 
     @FXML
     void addCompanyButtonAction(ActionEvent event) {
-        new Alert(Alert.AlertType.INFORMATION, "TODO").show();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/SaveCompany.fxml"));
+            Parent rootPane = loader.load();
+
+            SaveCompanyController controller = loader.getController();
+            controller.init(authService, SaveCompanyController.Mode.ADDING_COMPANY);
+
+            Scene scene = new Scene(rootPane);
+            stage.setScene(scene);
+            stage.setTitle("Droppy - Add Company");
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, "Failed to switch to adding mode: " + e.getMessage()).showAndWait();
+        }
     }
 
     @FXML

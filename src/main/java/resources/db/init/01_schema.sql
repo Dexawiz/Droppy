@@ -3,7 +3,15 @@ CREATE SCHEMA IF NOT EXISTS droppy;
 SET search_path TO droppy;
 
 -- ===== ENUM types (PostgreSQL) =====
-CREATE TYPE company_category_enum AS ENUM ('RESTAURANT', 'GROCERY', 'PHARMACY', 'OTHER');
+CREATE TYPE company_category_enum AS ENUM ('PIZZA',
+    'SUSHI',
+    'DESSERT',
+    'DRINKS',
+    'RESTAURANT',
+    'GROCERY',
+    'PHARMACY',
+    'OTHER'
+    );
 
 CREATE TYPE user_role_enum        AS ENUM ('CUSTOMER', 'DRIVER', 'ADMIN');
 CREATE TYPE driver_status_enum    AS ENUM (
