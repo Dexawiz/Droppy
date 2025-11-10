@@ -39,8 +39,11 @@ public class LoginController {
     @FXML
     private Text noAccountText;
 
+//    @FXML
+//    private PasswordField passwordTextField;
+
     @FXML
-    private PasswordField passwordTextField;
+    private TextField passwordTextField;
 
     @FXML
     private Button signinButton;

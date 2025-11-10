@@ -23,11 +23,11 @@
                   <Insets top="25.0" />
                </VBox.margin>
             </TextField>
-      <PasswordField fx:id="passwordTextField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="35.0" prefWidth="300.0" promptText="Password">
+      <TextField fx:id="passwordTextField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="35.0" prefWidth="300.0" promptText="Password">
          <VBox.margin>
             <Insets top="10.0" />
          </VBox.margin>
-      </PasswordField>
+      </TextField>
             <Button fx:id="loginButton" mnemonicParsing="false" onAction="#onLoginButtonClick" prefHeight="35.0" prefWidth="300.0" text="Log in">
                <VBox.margin>
                   <Insets top="25.0" />
