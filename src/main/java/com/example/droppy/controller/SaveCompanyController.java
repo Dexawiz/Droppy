@@ -170,7 +170,13 @@ public class SaveCompanyController {
 
     @FXML
     void onDeleteFoodButtonClick(ActionEvent event) {
-
+        Product selectedProduct = foodListView.getSelectionModel().getSelectedItem();
+        if (selectedProduct != null) {
+            foodListView.getItems().remove(selectedProduct);
+            // Here you would also delete the product from the database if needed
+        } else {
+            new Alert(Alert.AlertType.WARNING, "No product selected to delete.").showAndWait();
+        }
     }
 
     @FXML
