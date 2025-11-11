@@ -2,10 +2,12 @@ package com.example.droppy.controller;
 
 import com.example.droppy.repository.HibernateUserDao;
 import com.example.droppy.service.Session;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import com.example.droppy.domain.entity.User;
@@ -23,9 +25,6 @@ public class ProfileController {
 
     @FXML
     private Label countryLabel;
-
-    @FXML
-    private TextField countryTextField;
 
     @FXML
     private Label creditDebitCardLabel;
@@ -49,7 +48,10 @@ public class ProfileController {
     private Button editProfileButton;
 
     @FXML
-    private Text emailText;
+    private Label emailText;
+
+    @FXML
+    private HBox header;
 
     @FXML
     private Button logOutButton;
@@ -61,7 +63,10 @@ public class ProfileController {
     private Text nameText;
 
     @FXML
-    private Text phoneNumberText;
+    private Label phoneNumberLabel;
+
+    @FXML
+    private Label profileLabel;
 
     @FXML
     private TextField searchTextField;
@@ -77,6 +82,31 @@ public class ProfileController {
 
     @FXML
     private Text userPhoneDemo;
+
+    @FXML
+    void onAddCreditDebitCardButtonClick(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onDeleteProfileButtonClick(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onEditCreditDebitCardButtonClick(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onEditProfileButtonClick(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onLogOutButtonClick(ActionEvent event) {
+
+    }
 
     @FXML
     private void initialize() {
