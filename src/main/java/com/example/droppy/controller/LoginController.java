@@ -3,6 +3,7 @@ package com.example.droppy.controller;
 import com.example.droppy.Navigator.Navigator;
 import com.example.droppy.domain.entity.User;
 import com.example.droppy.service.AuthService;
+import com.example.droppy.service.Session;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -60,6 +61,7 @@ public class LoginController {
         try {
             User currentUser = authService.login(email, password);
 
+            Session.setLoggedUser(currentUser);
             if (onLoginSuccess != null) {
                 onLoginSuccess.run();
             }

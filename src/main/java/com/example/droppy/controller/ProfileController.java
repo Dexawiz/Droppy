@@ -1,13 +1,28 @@
 package com.example.droppy.controller;
 
+import com.example.droppy.repository.HibernateUserDao;
+import com.example.droppy.service.AuthService;
+import com.example.droppy.service.Session;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
+import com.example.droppy.domain.entity.User;
+import javafx.stage.Stage;
 
 public class ProfileController {
+
+    private AuthService authService;
+    private Runnable onLoginSuccess;
 
     @FXML
     private Button addCreditDebitCardButton;
@@ -20,9 +35,6 @@ public class ProfileController {
 
     @FXML
     private Label countryLabel;
-
-    @FXML
-    private TextField countryTextField;
 
     @FXML
     private Label creditDebitCardLabel;
@@ -46,7 +58,10 @@ public class ProfileController {
     private Button editProfileButton;
 
     @FXML
-    private Text emailText;
+    private Label emailText;
+
+    @FXML
+    private HBox header;
 
     @FXML
     private Button logOutButton;
@@ -58,7 +73,10 @@ public class ProfileController {
     private Text nameText;
 
     @FXML
-    private Text phoneNumberText;
+    private Label phoneNumberLabel;
+
+    @FXML
+    private Label profileLabel;
 
     @FXML
     private TextField searchTextField;
@@ -74,5 +92,84 @@ public class ProfileController {
 
     @FXML
     private Text userPhoneDemo;
+
+    @FXML
+    void onAddCreditDebitCardButtonClick(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onDeleteProfileButtonClick(ActionEvent event) throws Exception {
+        var alert = new Alert(Alert.AlertType.CONFIRMATION, "Do you want to delete your profile?");
+        var result = alert.showAndWait();
+        if (result.isPresent() && result.get() == javafx.scene.control.ButtonType.OK) {
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/LoginView.fxml"));
+            Parent rootPane = loader.load();
+
+            LoginController loginController = loader.getController();
+            if (this.authService != null) {
+                loginController.init(this.authService, () -> {
+                });
+            }
+
+            Scene scene = new Scene(rootPane);
+            stage.setScene(scene);
+            stage.setTitle("Droppy");
+            stage.show();
+        }
+    }
+
+    @FXML
+    void onEditCreditDebitCardButtonClick(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onEditProfileButtonClick(ActionEvent event) {
+
+    }
+
+    public void init(AuthService authService) {
+        this.authService = authService;
+    }
+
+    @FXML
+    void onLogOutButtonClick(ActionEvent event) throws Exception {
+        var alert = new Alert(Alert.AlertType.CONFIRMATION, "Do you want to log out?");
+        var result = alert.showAndWait();
+        if (result.isPresent() && result.get() == javafx.scene.control.ButtonType.OK) {
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/LoginView.fxml"));
+            Parent rootPane = loader.load();
+
+            LoginController loginController = loader.getController();
+            if (this.authService != null) {
+                loginController.init(this.authService, () -> {
+                });
+            }
+
+            Scene scene = new Scene(rootPane);
+            stage.setScene(scene);
+            stage.setTitle("Droppy");
+            stage.show();
+        }
+    }
+
+    @FXML
+    private void initialize() {
+        User user = Session.getLoggedUser();
+        if (user != null) {
+            nameText.setText(user.getName());
+            surnameText.setText(user.getSurname());
+            userEmailDemo.setText(user.getEmail());
+            if (user.getPhoneNumber() != null) {
+                userPhoneDemo.setText(user.getPhoneNumber());
+            }
+        }
+    }
 
 }
