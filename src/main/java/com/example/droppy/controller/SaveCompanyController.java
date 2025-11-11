@@ -24,6 +24,7 @@ public class SaveCompanyController {
     private AuthService authService;
     private Mode mode;
     private CompanyDao companyDao;
+    private Company company;
 
     public enum Mode {
         ADDING_COMPANY,
@@ -109,14 +110,16 @@ public class SaveCompanyController {
     @FXML
     void onAddButtonClick(ActionEvent event) {
 
-        Company company = new Company();
-        company.setName( companyNameTextField.getText());
-        company.setAddress( companyAddressTextField.getText());
-        company.setPhoneNumber( phoneNumberCompanyTextField.getText());
-        company.setCategory( categoryCompanyChoiceBox.getValue());
-        company.setWorkStart(LocalTime.parse(String.format("%02d:%02d", openingHourCBox.getValue(), openingMinuteCBox.getValue())));
-        company.setWorkEnd(LocalTime.parse(String.format("%02d:%02d", closingHourCBox.getValue(), closingMinuteCBox.getValue())));
-        companyDao.save(company);
+        if(company == null) {
+            company  = new Company();
+            company.setName( companyNameTextField.getText());
+            company.setAddress( companyAddressTextField.getText());
+            company.setPhoneNumber( phoneNumberCompanyTextField.getText());
+            company.setCategory( categoryCompanyChoiceBox.getValue());
+            company.setWorkStart(LocalTime.parse(String.format("%02d:%02d", openingHourCBox.getValue(), openingMinuteCBox.getValue())));
+            company.setWorkEnd(LocalTime.parse(String.format("%02d:%02d", closingHourCBox.getValue(), closingMinuteCBox.getValue())));
+            companyDao.save(company);
+        }
 
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/SaveProduct.fxml"));
@@ -126,7 +129,6 @@ public class SaveCompanyController {
             controller.init(authService, company);
             controller.setParentController(this);
 
-            // Создаём новое окно для продукта
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.setTitle("Add Product");
