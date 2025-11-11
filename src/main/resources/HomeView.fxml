@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Pagination?>
 <?import javafx.scene.control.TextField?>
@@ -50,16 +49,7 @@
                </font>
             </Label>
       </HBox>
-      <HBox prefWidth="200.0">
-            <CheckBox fx:id="categoryItemCheckBox" mnemonicParsing="false" onAction="#onCategoryItemCheckBoxClicked" text="CategoryItem">
-               <HBox.margin>
-                  <Insets bottom="15.0" left="40.0" />
-               </HBox.margin>
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </CheckBox>
-      </HBox>
+      <HBox fx:id="chceckBoxHBox" />
       <Pagination fx:id="paginationCompany" prefHeight="500.0" prefWidth="900.0">
          <VBox.margin>
             <Insets bottom="10.0" />
