@@ -1,11 +1,14 @@
 package com.example.droppy.controller;
 
+import com.example.droppy.repository.HibernateUserDao;
+import com.example.droppy.service.Session;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
+import com.example.droppy.domain.entity.User;
 
 public class ProfileController {
 
@@ -74,5 +77,18 @@ public class ProfileController {
 
     @FXML
     private Text userPhoneDemo;
+
+    @FXML
+    private void initialize() {
+        User user = Session.getLoggedUser();
+        if(user!=null){
+            nameText.setText(user.getName());
+            surnameText.setText(user.getSurname());
+            userEmailDemo.setText(user.getEmail());
+            if(user.getPhoneNumber()!=null){
+                userPhoneDemo.setText(user.getPhoneNumber());
+            }
+        }
+    }
 
 }

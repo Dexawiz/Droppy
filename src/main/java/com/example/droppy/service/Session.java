@@ -10,6 +10,14 @@ public class Session {
     @Getter
     private static volatile User currentUser;
 
+    public static void setLoggedUser(User user) {
+        currentUser = user;
+    }
+
+    public static User getLoggedUser() {
+        return currentUser;
+    }
+
     public static void logout() {
         currentUser = null;
     }
