@@ -54,12 +54,18 @@ public class ProfileOrLogOutComponentController {
     void onProfileButtonClick(ActionEvent event) throws Exception {
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/ProfileView.fxml"));
-        Parent rootPane = loader.load();
+        Parent root = loader.load();
 
-        Scene scene = new Scene(rootPane);
+        ProfileController profileController = loader.getController();
+        if (this.authService != null) {
+            profileController.init(this.authService, mainStage);
+        }
+
+        Scene scene = new Scene(root);
         mainStage.setScene(scene);
-        mainStage.setTitle("Droppy");
+        mainStage.setTitle("Profile");
         mainStage.show();
+
 
     }
 }

@@ -105,6 +105,4 @@ public class HomeController {
         System.out.println(source.getText() + " is " + (source.isSelected() ? "selected" : "deselected"));
     }
 
-
-
 }

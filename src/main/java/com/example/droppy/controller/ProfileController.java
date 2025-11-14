@@ -23,6 +23,12 @@ public class ProfileController {
 
     private AuthService authService;
     private Runnable onLoginSuccess;
+    private Stage mainStage;
+
+    public void init(AuthService authService, Stage mainStage) {
+        this.authService = authService;
+        this.mainStage = mainStage;
+    }
 
     @FXML
     private Button addCreditDebitCardButton;
@@ -140,22 +146,22 @@ public class ProfileController {
     void onLogOutButtonClick(ActionEvent event) throws Exception {
         var alert = new Alert(Alert.AlertType.CONFIRMATION, "Do you want to log out?");
         var result = alert.showAndWait();
-        if (result.isPresent() && result.get() == javafx.scene.control.ButtonType.OK) {
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        if ((result.get() == javafx.scene.control.ButtonType.OK)) {
+            authService.logout();
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/LoginView.fxml"));
             Parent rootPane = loader.load();
 
             LoginController loginController = loader.getController();
             if (this.authService != null) {
-                loginController.init(this.authService, () -> {
-                });
+                loginController.init(this.authService, () -> {});
             }
 
             Scene scene = new Scene(rootPane);
-            stage.setScene(scene);
-            stage.setTitle("Droppy");
-            stage.show();
+            mainStage.setScene(scene);
+            mainStage.setTitle("Droppy");
+            mainStage.show();
         }
     }
 
