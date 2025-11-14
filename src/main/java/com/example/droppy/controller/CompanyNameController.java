@@ -1,5 +1,6 @@
 package com.example.droppy.controller;
 
+import com.example.droppy.domain.entity.Company;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -22,4 +23,8 @@ public class CompanyNameController {
     @FXML
     private TextField searchTextField;
 
+    public void init(Company company) {
+        restaurantNameLabel.setText(company.getName());
+        categoryNameLabel.setText(company.getCategory().name());
+    }
 }

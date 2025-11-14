@@ -55,4 +55,13 @@ public class HibernateCompanyDao implements CompanyDao {
                     .list();
         }
     }
+
+    @Override
+    public Company findByName(String name) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return session.createQuery("FROM Company WHERE name = :name", Company.class)
+                    .setParameter("name", name)
+                    .uniqueResult();
+        }
+    }
 }

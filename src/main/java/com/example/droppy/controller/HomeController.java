@@ -1,6 +1,9 @@
 package com.example.droppy.controller;
 
+import com.example.droppy.domain.entity.Company;
 import com.example.droppy.domain.enums.Category;
+import com.example.droppy.repository.CompanyDao;
+import com.example.droppy.repository.HibernateCompanyDao;
 import com.example.droppy.service.AuthService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -26,6 +29,23 @@ public class HomeController {
 
     public void init(AuthService authService) {
         this.authService = authService;
+        CompanyDao companyDao = new HibernateCompanyDao();
+        paginationCompany.setPageCount(companyDao.findAll().size());
+        paginationCompany.setPageFactory(pageIndex -> {;
+            Company company = companyDao.findAll().get(pageIndex);
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/components/CompanyComponent.fxml"));
+                Node companyComponent = loader.load();
+                CompanyComponentController controller = loader.getController();
+                if (controller != null) {
+                    controller.init(company);
+                }
+                return companyComponent;
+            } catch (Exception e) {
+                e.printStackTrace();
+                return new Label("Error loading company");
+            }
+        });
 
         for (Category category : Category.getAllCategories()) {
             CheckBox checkBox = new CheckBox(category.name());

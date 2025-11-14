@@ -7,6 +7,7 @@ import org.hibernate.annotations.JdbcType;
 import org.hibernate.dialect.type.PostgreSQLEnumJdbcType;
 
 import java.time.LocalTime;
+import java.util.Collection;
 
 @Data
 @Entity
@@ -29,4 +30,5 @@ public class Company {
     @Column(name = "category", columnDefinition = "category_enum")
 
     private Category category;
+
 }
