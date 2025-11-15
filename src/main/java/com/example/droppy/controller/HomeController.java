@@ -10,10 +10,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Bounds;
 import javafx.scene.Node;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.Pagination;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -22,6 +19,8 @@ import javafx.scene.text.Font;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
 
+import java.util.List;
+
 
 public class HomeController {
 
@@ -29,24 +28,37 @@ public class HomeController {
 
     public void init(AuthService authService) {
         this.authService = authService;
+
+        //Companies
         CompanyDao companyDao = new HibernateCompanyDao();
-        paginationCompany.setPageCount(companyDao.findAll().size());
-        paginationCompany.setPageFactory(pageIndex -> {;
-            Company company = companyDao.findAll().get(pageIndex);
+        List<Company> companies = companyDao.findAll();
+        int index = 0;
+        for (Company company : companies) {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/components/CompanyComponent.fxml"));
                 Node companyComponent = loader.load();
+
                 CompanyComponentController controller = loader.getController();
                 if (controller != null) {
                     controller.init(company);
                 }
-                return companyComponent;
+
+                if (index % 3==0) {
+                    column1VBOX.getChildren().add(companyComponent);
+                }else if (index % 3==1) {
+                    column2VBOX.getChildren().add(companyComponent);
+                }else{
+                   column3VBOX.getChildren().add(companyComponent);
+                }
+
+                index++;
+
             } catch (Exception e) {
                 e.printStackTrace();
-                return new Label("Error loading company");
             }
-        });
+        }
 
+        //Categories
         for (Category category : Category.getAllCategories()) {
             CheckBox checkBox = new CheckBox(category.name());
             checkBox.setFont(Font.font(14));
@@ -65,13 +77,22 @@ public class HomeController {
     private HBox chceckBoxHBox;
 
     @FXML
+    private VBox column1VBOX;
+
+    @FXML
+    private VBox column2VBOX;
+
+    @FXML
+    private VBox column3VBOX;
+
+    @FXML
     private Label droppyTextLogo;
 
     @FXML
-    private Pagination paginationCompany;
+    private Label restaurantsLabel;
 
     @FXML
-    private Label restaurantsLabel;
+    private ScrollPane scrollPane;
 
     @FXML
     private TextField searchTextField;
