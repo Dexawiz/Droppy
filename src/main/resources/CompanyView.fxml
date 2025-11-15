@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -9,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.droppy.controller.CompanyNameController">
-      <HBox alignment="CENTER_LEFT">
+      <HBox fx:id="header" alignment="CENTER_LEFT">
             <Label fx:id="droppyTextLogo" prefHeight="35.0" prefWidth="280.0" text="Droppy">
                <font>
                   <Font name="System Bold" size="24.0" />
@@ -29,17 +30,89 @@
          </padding>
       </HBox>
       <HBox prefWidth="200.0">
-            <Label fx:id="restaurantNameLabel" text="Company Name">
-               <HBox.margin>
-                  <Insets left="40.0" top="30.0" />
-               </HBox.margin>
+      <VBox>
+                  <Label fx:id="restaurantNameLabel" text="Company Name">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Label>
+            <Label fx:id="categoryNameLabel" text="Category">
                <font>
-                  <Font name="System Bold" size="24.0" />
+                  <Font name="System Bold" size="14.0" />
                </font>
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
             </Label>
+            <HBox>
+                  <VBox>
+                        <Label fx:id="OTLabel" text="Opening Time">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="CTLabel" text="Closing Time">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                  </VBox>
+                  <VBox prefHeight="40.0" prefWidth="50.0">
+                        <Label fx:id="OTDemoLabel" text="00:00">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="CTDemoLabel" text="00:00">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </VBox>
+                  <VBox>
+                        <Label fx:id="addressLabel" text="Address">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="PNLabel" text="Phone Number">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                  </VBox>
+                  <VBox>
+                        <Label fx:id="AddressDemo" text="aaaaaaaaaaaaaaaaaaaa">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="PNDemo" text="0000000000">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </VBox>
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
+            </HBox>
+         <HBox.margin>
+            <Insets left="40.0" right="40.0" />
+         </HBox.margin>
+      </VBox>
+      <VBox.margin>
+         <Insets top="20.0" />
+      </VBox.margin>
       </HBox>
       <HBox prefWidth="200.0">
-            <Label fx:id="categoryNameLabel" text="Category name">
+            <Label fx:id="ItemsLabel" text="Items">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
@@ -48,4 +121,29 @@
                </HBox.margin>
             </Label>
       </HBox>
+   <VBox>
+         <ScrollPane fx:id="itemScrollPane" hbarPolicy="NEVER" prefHeight="470.0" prefWidth="900.0" vbarPolicy="ALWAYS">
+            <content>
+               <HBox prefWidth="900.0">
+                     <VBox fx:id="column1VBOX" prefHeight="100.0" prefWidth="250.0">
+                        <HBox.margin>
+                           <Insets />
+                        </HBox.margin>
+                     </VBox>
+                     <VBox fx:id="column2VBOX" prefWidth="250.0">
+                        <HBox.margin>
+                           <Insets left="20.0" right="20.0" />
+                        </HBox.margin>
+                     </VBox>
+                     <VBox fx:id="column3VBOX" prefWidth="250.0" />
+                  <padding>
+                     <Insets left="40.0" right="45.0" />
+                  </padding>
+               </HBox>
+            </content>
+         </ScrollPane>
+      <VBox.margin>
+         <Insets top="10.0" />
+      </VBox.margin>
+   </VBox>
 </VBox>

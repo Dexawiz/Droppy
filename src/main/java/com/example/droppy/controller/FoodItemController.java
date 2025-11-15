@@ -1,5 +1,6 @@
 package com.example.droppy.controller;
 
+import com.example.droppy.domain.entity.Product;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,13 +15,6 @@ import java.io.IOException;
 import java.rmi.server.ExportException;
 
 public class FoodItemController {
-
-    public FoodItemController() throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/components/FoodItemComponent.fxml"));
-        fxmlLoader.setRoot(this);
-        fxmlLoader.setController(this);
-        //fxmlLoader.load();
-    }
 
     @FXML
     private Label ItemNameLabel;
@@ -43,6 +37,12 @@ public class FoodItemController {
     @FXML
     void onAddItemLabelButtonCLick(ActionEvent event) {
 
+    }
+
+    public void init(Product product){
+        ItemNameLabel.setText(product.getName());
+        decriptionText.setText(product.getDescription());
+        priceDemoLabel.setText(String.valueOf(product.getPrice()));
     }
 
 

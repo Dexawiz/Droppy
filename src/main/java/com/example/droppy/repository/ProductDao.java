@@ -10,4 +10,7 @@ public interface ProductDao {
     List<Product> findAll();
     List<Product> findByCompanyId(Long companyId);
     void delete(Long id);
+
+
+
 }
