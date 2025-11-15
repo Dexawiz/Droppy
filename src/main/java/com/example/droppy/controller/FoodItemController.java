@@ -12,6 +12,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
+import java.net.URL;
 import java.rmi.server.ExportException;
 
 public class FoodItemController {
@@ -35,6 +36,9 @@ public class FoodItemController {
     private Label priceLabel;
 
     @FXML
+    private VBox mainPane;
+
+    @FXML
     void onAddItemLabelButtonCLick(ActionEvent event) {
 
     }
@@ -43,6 +47,11 @@ public class FoodItemController {
         ItemNameLabel.setText(product.getName());
         decriptionText.setText(product.getDescription());
         priceDemoLabel.setText(String.valueOf(product.getPrice()));
+
+        URL css = getClass().getResource("/styles/FoodItemCStyle.css.css");
+        if(css != null) {
+            mainPane.getStylesheets().add(css.toExternalForm());
+        }
     }
 
 

@@ -12,7 +12,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
+import java.net.URL;
 
 public class CompanyComponentController {
 
@@ -44,6 +47,9 @@ public class CompanyComponentController {
     private Label openingTimeLabel;
 
     @FXML
+    private VBox mainPane;
+
+    @FXML
     void onOpenCompanyButtonClick(ActionEvent event) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/CompanyView.fxml"));
@@ -68,5 +74,10 @@ public class CompanyComponentController {
         adressCompanyDemoLabel.setText(company.getAddress());
         OTDemoLabel.setText(String.valueOf(company.getWorkStart()));
         CTDemoLabel.setText(String.valueOf(company.getWorkEnd()));
+
+        URL css = getClass().getResource("/styles/CompanyComponentStyl.css");
+        if(css != null) {
+            mainPane.getStylesheets().add(css.toExternalForm());
+        }
     }
 }
