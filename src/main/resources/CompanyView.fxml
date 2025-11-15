@@ -125,7 +125,7 @@
          <ScrollPane fx:id="itemScrollPane" hbarPolicy="NEVER" prefHeight="470.0" prefWidth="900.0" vbarPolicy="ALWAYS">
             <content>
                <HBox prefWidth="900.0">
-                     <VBox fx:id="column1VBOX" prefHeight="100.0" prefWidth="250.0">
+                     <VBox fx:id="column1VBOX" prefWidth="250.0">
                         <HBox.margin>
                            <Insets />
                         </HBox.margin>
