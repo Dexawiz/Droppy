@@ -66,6 +66,5 @@ public class ProfileOrLogOutComponentController {
         mainStage.setTitle("Profile");
         mainStage.show();
 
-
     }
 }

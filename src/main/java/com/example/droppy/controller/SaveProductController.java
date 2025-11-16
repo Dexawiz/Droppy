@@ -124,10 +124,9 @@ public class SaveProductController {
             parentController.addProductToList(product);
         }
 
-        // закрываем окно добавления продукта
+
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.close();
-
     }
 
 }

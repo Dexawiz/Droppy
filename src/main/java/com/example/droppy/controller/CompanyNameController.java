@@ -3,16 +3,22 @@ package com.example.droppy.controller;
 import com.example.droppy.domain.entity.Company;
 import com.example.droppy.domain.entity.Product;
 import com.example.droppy.repository.HibernateProductDao;
+import com.example.droppy.service.AuthService;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.LightBase;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
+import javafx.stage.Stage;
 
 import java.util.List;
 
@@ -75,9 +81,17 @@ public class CompanyNameController {
     @FXML
     private TextField searchTextField;
 
+    @FXML
+    private Button returnButton;
+
     private HibernateProductDao HProductDao = new HibernateProductDao();
 
-    public void init(Company company) {
+    private AuthService authService;
+
+    public void init(AuthService authService, Company company) {
+        this.authService = authService;
+
+         Stage stage = (Stage) returnButton.getScene().getWindow();
         restaurantNameLabel.setText(company.getName());
         categoryNameLabel.setText(company.getCategory().name());
         OTDemoLabel.setText(company.getWorkStart().toString());
@@ -114,4 +128,21 @@ public class CompanyNameController {
             return null;
         }
     }
+
+    @FXML
+    void returnButtonClicked(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/HomeView.fxml"));
+            Parent rootPane = loader.load();
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+            HomeController controller = loader.getController();
+            controller.init(authService);
+
+            Scene scene = new Scene(rootPane);
+            stage.setScene(scene);
+        } catch (Exception e) {
+            e.printStackTrace();
+    }
+        }
 }

@@ -25,6 +25,7 @@ import java.util.List;
 public class HomeController {
 
     private AuthService authService;
+    private List<Company> allCompanies;
 
     public void init(AuthService authService) {
         this.authService = authService;
@@ -32,6 +33,7 @@ public class HomeController {
         //Companies
         CompanyDao companyDao = new HibernateCompanyDao();
         List<Company> companies = companyDao.findAll();
+        allCompanies = companies;
         int index = 0;
         for (Company company : companies) {
             try {
@@ -59,6 +61,11 @@ public class HomeController {
         }
 
         //Categories
+        CheckBox allCompaniesCheckBox = new CheckBox("All");
+        allCompaniesCheckBox.setFont(Font.font(14));
+        allCompaniesCheckBox.setOnAction(this::onCategoryItemCheckBoxClicked);
+        chceckBoxHBox.getChildren().add(allCompaniesCheckBox);
+
         for (Category category : Category.getAllCategories()) {
             CheckBox checkBox = new CheckBox(category.name());
             checkBox.setFont(Font.font(14));
@@ -122,8 +129,63 @@ public class HomeController {
 
     @FXML
     void onCategoryItemCheckBoxClicked(ActionEvent event) {
-        CheckBox source = (CheckBox) event.getSource();
-        System.out.println(source.getText() + " is " + (source.isSelected() ? "selected" : "deselected"));
+        CheckBox sourceCheckBox = (CheckBox) event.getSource();
+        String categoryName = sourceCheckBox.getText();
+
+        if(sourceCheckBox.isSelected()){
+            for(Node node : chceckBoxHBox.getChildren()){
+                if(node instanceof CheckBox checkBox){
+                    if(!checkBox.getText().equals(categoryName)){
+                        checkBox.setSelected(false);
+                    }
+                }
+            }
+        }
+
+        if (sourceCheckBox.isSelected()) {
+            if(categoryName.equals("All")){
+                renderCompanies(allCompanies);
+                return;
+            }
+            List<Company> filteredCompanies = allCompanies.stream()
+                    .filter(company -> company.getCategory().name().equals(categoryName))
+                    .toList();
+            renderCompanies(filteredCompanies);
+        } else {
+            renderCompanies(allCompanies);
+        }
+    }
+
+    private void renderCompanies(List<Company> companies) {
+        column1VBOX.getChildren().clear();
+        column2VBOX.getChildren().clear();
+        column3VBOX.getChildren().clear();
+
+        int index = 0;
+        for (Company company : companies) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/components/CompanyComponent.fxml"));
+                Node companyComponent = loader.load();
+
+                CompanyComponentController controller = loader.getController();
+                if (controller != null) {
+                    controller.init(company);
+                }
+
+                if (index % 3==0) {
+                    column1VBOX.getChildren().add(companyComponent);
+                }else if (index % 3==1) {
+                    column2VBOX.getChildren().add(companyComponent);
+                }else{
+                    column3VBOX.getChildren().add(companyComponent);
+                }
+
+                index++;
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 }

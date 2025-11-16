@@ -39,7 +39,7 @@ public class HibernateProductDao implements ProductDao {
     @Override
     public List<Product> findByCompanyId(Long companyId) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            return session.createQuery("FROM Product WHERE companyId.id = :companyId", Product.class)
+            return session.createQuery("FROM Product p WHERE p.company.id = :companyId", Product.class)
                     .setParameter("companyId", companyId)
                     .list();
         }

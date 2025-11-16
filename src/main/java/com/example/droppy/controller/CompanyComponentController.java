@@ -3,6 +3,7 @@ package com.example.droppy.controller;
 import com.example.droppy.domain.entity.Company;
 import com.example.droppy.repository.CompanyDao;
 import com.example.droppy.repository.HibernateCompanyDao;
+import com.example.droppy.service.AuthService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,6 +19,8 @@ import javafx.stage.Stage;
 import java.net.URL;
 
 public class CompanyComponentController {
+
+    private AuthService authService;
 
     @FXML
     private Label AddressLabel;
@@ -49,6 +52,10 @@ public class CompanyComponentController {
     @FXML
     private VBox mainPane;
 
+    public void init (AuthService authService) {
+        this.authService = authService;
+    }
+
     @FXML
     void onOpenCompanyButtonClick(ActionEvent event) {
         try {
@@ -62,7 +69,7 @@ public class CompanyComponentController {
 
             CompanyNameController controller = fxmlLoader.getController();
             CompanyDao companyDao = new HibernateCompanyDao();
-            controller.init(companyDao.findByName(nameOfCompanyLabel.getText()));
+            controller.init(authService, companyDao.findByName(nameOfCompanyLabel.getText()));
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -109,6 +109,12 @@ public class ProfileController {
         var alert = new Alert(Alert.AlertType.CONFIRMATION, "Do you want to delete your profile?");
         var result = alert.showAndWait();
         if (result.isPresent() && result.get() == javafx.scene.control.ButtonType.OK) {
+            User loggedUser = Session.getLoggedUser();
+            if (loggedUser != null) {
+                HibernateUserDao userDao = new HibernateUserDao();
+                userDao.delete(loggedUser.getId());
+                Session.logout();
+            }
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
 
