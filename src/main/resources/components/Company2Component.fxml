@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="890.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.droppy.controller.Company2ComponentController">
+   <padding>
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+   </padding>
+      <HBox prefHeight="100.0" prefWidth="200.0">
+            <VBox prefWidth="730.0" spacing="5.0">
+                  <HBox spacing="10.0">
+                        <Label fx:id="orderIDLabel" text="OrderID">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="orderIDDemo" text="0000">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                  </HBox>
+                  <HBox spacing="10.0">
+                        <Label fx:id="CompanyLabel" prefHeight="20.0" prefWidth="120.0" text="Company">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="nameCompanyDemo" text="nameCompany">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                  </HBox>
+                  <HBox spacing="10.0">
+                        <Label fx:id="companyAddressLabel" prefHeight="20.0" prefWidth="120.0" text="CompanyAddress">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="addressCompanyDemo" text="addressCompany">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                  </HBox>
+                  <HBox spacing="10.0">
+                        <Label fx:id="addressToDeliverLabel" prefHeight="20.0" prefWidth="120.0" text="AddressToDeliver">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="addressToDeliverDemo" text="addressToDeliverDemo">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                  </HBox>
+                  <HBox spacing="10.0">
+                        <Label fx:id="productToDeliverLabel" text="ProductsToDeliver">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="productToDeliverDemo" prefWidth="580.0" text="Jedloooo">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                  </HBox>
+                  <HBox spacing="10.0">
+                        <Label fx:id="priceLabel" prefHeight="20.0" prefWidth="120.0" text="Price">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="priceDemo" prefHeight="20.0" text="00.0">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="EURLabel" text="EUR">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                  </HBox>
+                  <HBox spacing="10.0">
+                        <Label fx:id="driverLabel" prefHeight="20.0" prefWidth="120.0" text="DriverName">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="driverNameDemo" prefHeight="20.0" text="Name">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="driverSurnameDemo" prefHeight="20.0" text="Surname">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                  </HBox>
+            </VBox>
+            <VBox alignment="CENTER" prefWidth="140.0">
+                  <ChoiceBox fx:id="statusOfDelivery" prefHeight="125.0" prefWidth="125.0" />
+            </VBox>
+      </HBox>
+</VBox>
