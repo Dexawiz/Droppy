@@ -50,6 +50,15 @@ CREATE TABLE companies (
                            CONSTRAINT uq_company_name_addr UNIQUE (name, address)
 );
 
+-- ===== addresses =====
+CREATE TABLE addresses (
+                           id           BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+                           street       VARCHAR(255) NOT NULL,
+                           city         VARCHAR(100) NOT NULL,
+                           postal_code  VARCHAR(20),
+                           country      VARCHAR(100) NOT NULL
+);
+
 -- ===== users =====
 CREATE TABLE users (
                        id              BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -62,8 +71,17 @@ CREATE TABLE users (
                        driver_status   driver_status_enum,
                        delivery_method delivery_method_enum,
                        password_hash   VARCHAR(255) NOT NULL,
-                       CONSTRAINT uq_users_email UNIQUE (email)
+                       address_id      BIGINT,
+
+                       CONSTRAINT uq_users_email UNIQUE (email),
+
+                       CONSTRAINT fk_users_address
+                           FOREIGN KEY (address_id)
+                               REFERENCES addresses(id)
+                               ON DELETE SET NULL
 );
+CREATE INDEX ix_users_address ON users(address_id);
+
 
 -- ===== orders =====
 CREATE TABLE orders (

@@ -1,0 +1,58 @@
+package com.example.droppy.repository;
+
+import com.example.droppy.domain.entity.Address;
+import com.example.droppy.util.HibernateUtil;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
+import java.util.List;
+
+public class HibernateAddressDao  implements AddressDao {
+
+    @Override
+    public void save(Address address) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            Transaction tx = session.beginTransaction();
+            session.persist(address);
+            tx.commit();
+        }
+    }
+
+    @Override
+    public List<Address> findAll() {
+        try(Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return session.createQuery("FROM Address", Address.class).list();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return List.of();
+        }
+    }
+
+    @Override
+    public Address findById(Long id) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return (Address) session.createQuery("FROM Address WHERE id = :id", Address.class)
+                    .setParameter("id", id)
+                    .uniqueResult();
+        }
+    }
+
+    @Override
+    public List<Address> findByUserId(Long userId) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return session.createQuery("FROM Address WHERE user.id = :userId", Address.class)
+                    .setParameter("userId", userId)
+                    .list();
+        }
+    }
+
+    @Override
+    public void delete(Long id) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            Transaction tx = session.beginTransaction();
+            Address address = session.getReference(Address.class, id);
+            session.remove(address);
+            tx.commit();
+        }
+    }
+}

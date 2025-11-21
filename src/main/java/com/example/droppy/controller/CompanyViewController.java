@@ -7,7 +7,6 @@ import com.example.droppy.service.AuthService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.LightBase;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -22,7 +21,7 @@ import javafx.stage.Stage;
 
 import java.util.List;
 
-public class CompanyNameController {
+public class CompanyViewController {
 
     @FXML
     private Label AddressDemo;
@@ -134,15 +133,16 @@ public class CompanyNameController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/HomeView.fxml"));
             Parent rootPane = loader.load();
+
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(rootPane);
+            stage.setScene(scene);
 
             HomeController controller = loader.getController();
             controller.init(authService);
 
-            Scene scene = new Scene(rootPane);
-            stage.setScene(scene);
         } catch (Exception e) {
             e.printStackTrace();
-    }
         }
+    }
 }

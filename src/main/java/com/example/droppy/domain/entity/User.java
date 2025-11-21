@@ -44,4 +44,8 @@ public class User {
 
     @Column(name = "password_hash")
     private String password;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "address_id")
+    private Address address;
 }

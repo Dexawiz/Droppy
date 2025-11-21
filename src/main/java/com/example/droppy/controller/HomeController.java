@@ -42,7 +42,7 @@ public class HomeController {
 
                 CompanyComponentController controller = loader.getController();
                 if (controller != null) {
-                    controller.init(company);
+                    controller.init(this.authService, company);
                 }
 
                 if (index % 3==0) {
@@ -169,7 +169,7 @@ public class HomeController {
 
                 CompanyComponentController controller = loader.getController();
                 if (controller != null) {
-                    controller.init(company);
+                    controller.init(authService, company);
                 }
 
                 if (index % 3==0) {

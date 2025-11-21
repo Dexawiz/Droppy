@@ -11,8 +11,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -52,8 +50,19 @@ public class CompanyComponentController {
     @FXML
     private VBox mainPane;
 
-    public void init (AuthService authService) {
+    public void init (AuthService authService, Company company) {
         this.authService = authService;
+
+        nameOfCompanyLabel.setText(company.getName());
+        categoryLabel.setText(company.getCategory().name());
+        adressCompanyDemoLabel.setText(company.getAddress());
+        OTDemoLabel.setText(String.valueOf(company.getWorkStart()));
+        CTDemoLabel.setText(String.valueOf(company.getWorkEnd()));
+
+        URL css = getClass().getResource("/styles/CompanyComponentStyl.css");
+        if(css != null) {
+            mainPane.getStylesheets().add(css.toExternalForm());
+        }
     }
 
     @FXML
@@ -67,24 +76,11 @@ public class CompanyComponentController {
             stage.setScene(scene);
             stage.show();
 
-            CompanyNameController controller = fxmlLoader.getController();
+            CompanyViewController controller = fxmlLoader.getController();
             CompanyDao companyDao = new HibernateCompanyDao();
             controller.init(authService, companyDao.findByName(nameOfCompanyLabel.getText()));
         } catch (Exception e) {
             e.printStackTrace();
-        }
-    }
-
-    public void init(Company company) {
-        nameOfCompanyLabel.setText(company.getName());
-        categoryLabel.setText(company.getCategory().name());
-        adressCompanyDemoLabel.setText(company.getAddress());
-        OTDemoLabel.setText(String.valueOf(company.getWorkStart()));
-        CTDemoLabel.setText(String.valueOf(company.getWorkEnd()));
-
-        URL css = getClass().getResource("/styles/CompanyComponentStyl.css");
-        if(css != null) {
-            mainPane.getStylesheets().add(css.toExternalForm());
         }
     }
 }
