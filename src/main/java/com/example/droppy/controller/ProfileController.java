@@ -18,6 +18,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import com.example.droppy.domain.entity.User;
 import javafx.stage.Stage;
+import org.kordamp.ikonli.javafx.FontIcon;
 
 public class ProfileController {
 
@@ -29,6 +30,9 @@ public class ProfileController {
         this.authService = authService;
         this.mainStage = mainStage;
     }
+
+    @FXML
+    private FontIcon shoppingCartIcon;
 
     @FXML
     private Button addCreditDebitCardButton;

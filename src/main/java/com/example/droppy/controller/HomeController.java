@@ -18,6 +18,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
+import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.util.List;
 
@@ -73,6 +74,8 @@ public class HomeController {
             chceckBoxHBox.getChildren().add(checkBox);
         }
     }
+    @FXML
+    private FontIcon shoppingCartIcon;
 
     @FXML
     private Circle avatarSmall;

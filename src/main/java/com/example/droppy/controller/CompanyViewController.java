@@ -18,10 +18,13 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
+import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.util.List;
 
 public class CompanyViewController {
+    @FXML
+    private FontIcon shoppingCartIcon;
 
     @FXML
     private Label AddressDemo;
