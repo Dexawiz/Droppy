@@ -2,6 +2,8 @@ package com.example.droppy.controller;
 
 import com.example.droppy.Navigator.Navigator;
 import com.example.droppy.domain.entity.User;
+import com.example.droppy.repository.HibernateOrderDao;
+import com.example.droppy.repository.HibernateUserDao;
 import com.example.droppy.service.AuthService;
 import com.example.droppy.service.Session;
 import javafx.fxml.FXML;
@@ -92,20 +94,21 @@ public class LoginController {
                     stage.setScene(scene);
                 }
 
+                case DRIVER -> {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/DriverAvailableOrderView.fxml"));
+                    Parent rootPane = loader.load();
+
+                    DriverAvailableOrderController controller = loader.getController();
+                    controller.init(authService, new HibernateOrderDao(), DriverAvailableOrderController.Mode.AVAILABLE);
+
+                    Scene scene = new Scene(rootPane);
+                    stage.setScene(scene);
+                }
+
                 default -> {
                     throw new IllegalArgumentException("Unsupported role: " + currentUser.getRole());
                 }
 
-//                case DRIVER -> {
-//                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/DriverOrdersView.fxml"));
-//                    Parent rootPane = loader.load();
-//
-//                    DriverOrdersController controller = loader.getController();
-//                    controller.init(authService);
-//
-//                    Scene scene = new Scene(rootPane);
-//                    stage.setScene(scene);
-//                }
 
             }
             stage.setTitle("Droppy");

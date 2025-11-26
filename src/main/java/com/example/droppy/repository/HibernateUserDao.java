@@ -1,6 +1,7 @@
 package com.example.droppy.repository;
 
 import com.example.droppy.domain.entity.User;
+import com.example.droppy.domain.enums.DriverStatus;
 import com.example.droppy.domain.enums.Role;
 import com.example.droppy.util.HibernateUtil;
 import org.hibernate.Session;
@@ -99,6 +100,18 @@ public class HibernateUserDao  implements  UserDao {
     }
 
     @Override
+    public void updateStatus(Long userId, DriverStatus status) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            Transaction tx = session.beginTransaction();
+            session.createQuery("UPDATE User u SET u.driverStatus = :status WHERE u.id = :id")
+                    .setParameter("status", status)
+                    .setParameter("id", userId)
+                    .executeUpdate();
+            tx.commit();
+        }
+    }
+
+    @Override
     public void create(String name, String surname, String email, String phoneNumber, String password, Role role) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             Transaction tx = session.beginTransaction();
@@ -124,4 +137,6 @@ public class HibernateUserDao  implements  UserDao {
             tx.commit();
         }
     }
+
+
 }

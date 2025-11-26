@@ -1,6 +1,7 @@
 package com.example.droppy.repository;
 
 import com.example.droppy.domain.entity.User;
+import com.example.droppy.domain.enums.DriverStatus;
 import com.example.droppy.domain.enums.Role;
 
 import java.util.List;
@@ -15,4 +16,5 @@ public interface UserDao {
     void create(String name, String surname, String email, String phoneNumber, String password, Role role);
 
     List<User> findByRole(Role role);
+    void updateStatus(Long userId, DriverStatus status);
 }

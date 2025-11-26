@@ -1,6 +1,7 @@
 package com.example.droppy.repository;
 
 import com.example.droppy.domain.entity.Order;
+import com.example.droppy.domain.enums.OrderStatus;
 
 import java.util.List;
 
@@ -11,5 +12,5 @@ public interface OrderDao {
     void delete(Long id);
 
     List<Order> findByUserId(Long userId);
-    List<Order> findByStatus(String status);
+    List<Order> findByStatus(OrderStatus status);
 }

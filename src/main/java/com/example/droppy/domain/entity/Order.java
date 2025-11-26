@@ -4,6 +4,9 @@ import com.example.droppy.domain.enums.MethodOfPayment;
 import com.example.droppy.domain.enums.OrderStatus;
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.dialect.type.PostgreSQLEnumJdbcType;
+
 import java.time.LocalTime;
 import java.util.List;
 
@@ -31,16 +34,28 @@ public class Order {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderItem> orderItems;
 
-
+    @Column(name = "total_price")
     private Double totalPrice;
+
+    @Column(name = "delivery_from_address")
     private String deliveryFromAddress;
+
+    @Column(name = "delivery_to_address")
     private String deliveryToAddress;
+
+    @Column(name = "order_created_time")
     private LocalTime orderCreatedTime;
+
+    @Column(name = "estimated_delivery_time")
     private LocalTime estimatedDeliveryTime;
 
     @Enumerated(EnumType.STRING)
+    @JdbcType(PostgreSQLEnumJdbcType.class)
+    @Column(name = "payment_method", columnDefinition = "payment_method_enum")
     private MethodOfPayment paymentMethod;
 
     @Enumerated(EnumType.STRING)
+    @JdbcType(PostgreSQLEnumJdbcType.class)
+    @Column(name = "status", columnDefinition = "order_status_enum")
     private OrderStatus status;
 }

@@ -48,7 +48,7 @@ VALUES (
            'Košice, Watsonova 10',
            now() - interval '1 hour',
            now() + interval '30 minutes',
-           'ONLINE', 'READY_FOR_PICKUP'
+           'ONLINE', 'PENDING'
        );
 
 INSERT INTO orders (customer_id, driver_id, company_id, total_price,
