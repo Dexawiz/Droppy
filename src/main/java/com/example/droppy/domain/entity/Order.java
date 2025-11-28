@@ -7,6 +7,7 @@ import lombok.Data;
 import org.hibernate.annotations.JdbcType;
 import org.hibernate.dialect.type.PostgreSQLEnumJdbcType;
 
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -44,10 +45,10 @@ public class Order {
     private String deliveryToAddress;
 
     @Column(name = "order_created_time")
-    private LocalTime orderCreatedTime;
+    private LocalDateTime orderCreatedTime;
 
     @Column(name = "estimated_delivery_time")
-    private LocalTime estimatedDeliveryTime;
+    private LocalDateTime estimatedDeliveryTime;
 
     @Enumerated(EnumType.STRING)
     @JdbcType(PostgreSQLEnumJdbcType.class)

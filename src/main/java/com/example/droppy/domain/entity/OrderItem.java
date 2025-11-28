@@ -12,8 +12,7 @@ public class OrderItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
-    @ManyToOne
+    @ManyToOne(fetch =  FetchType.EAGER)
     @JoinColumn(name = "order_id")
     private Order order;
 
@@ -22,5 +21,6 @@ public class OrderItem {
     private Product product;
 
     private Integer quantity;
+    @Column(name = "price_each")
     private Double pricePerItem;
 }

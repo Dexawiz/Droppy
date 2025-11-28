@@ -121,13 +121,14 @@ CREATE INDEX ix_products_company ON products(company_id);
 
 -- ===== order_items =====
 CREATE TABLE order_items (
+                             id         BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
                              order_id   BIGINT NOT NULL,
                              product_id BIGINT NOT NULL,
                              quantity   INT    NOT NULL DEFAULT 1,
                              price_each NUMERIC(10,2) NOT NULL,
-                             PRIMARY KEY (order_id, product_id),
                              CONSTRAINT fk_items_order   FOREIGN KEY (order_id)   REFERENCES orders(id)   ON DELETE CASCADE,
                              CONSTRAINT fk_items_product FOREIGN KEY (product_id) REFERENCES products(id)
 );
+
 
 CREATE INDEX ix_items_product ON order_items(product_id);

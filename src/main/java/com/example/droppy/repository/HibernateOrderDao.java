@@ -30,7 +30,8 @@ public class HibernateOrderDao implements OrderDao {
     @Override
     public Order findById(Long id) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            return session.createQuery("FROM Order WHERE id = :id", Order.class)
+            return session.createQuery(
+                    "FROM Order o WHERE o.id = :id", Order.class)
                     .setParameter("id", id)
                     .uniqueResult();
         }
@@ -62,6 +63,28 @@ public class HibernateOrderDao implements OrderDao {
                             "FROM Order o WHERE o.status = :status", Order.class)
                     .setParameter("status", status)
                     .list();
+        }
+    }
+
+    @Override
+    public void updateOrderStatus(Long orderId, OrderStatus status) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            Transaction tx = session.beginTransaction();
+            Order order = session.getReference(Order.class, orderId);
+            order.setStatus(status);
+            session.merge(order);
+            tx.commit();
+        }
+    }
+
+    @Override
+    public void updateDriverForOrder(Long orderId, Long driverId) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            Transaction tx = session.beginTransaction();
+            Order order = session.getReference(Order.class, orderId);
+            order.setDriverId(session.getReference(com.example.droppy.domain.entity.User.class, driverId));
+            session.merge(order);
+            tx.commit();
         }
     }
 }

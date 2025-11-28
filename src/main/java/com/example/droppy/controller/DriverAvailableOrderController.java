@@ -89,22 +89,63 @@ public class DriverAvailableOrderController {
 
         System.out.println("Found orders: " + orders.size());
         for (Order order : orders) {
-            String deliveryFromAddress = order.getDeliveryFromAddress();
-            String deliveryToAddress = order.getDeliveryToAddress();
-            Double price = order.getTotalPrice();
-
-            if(!Objects.equals(order.getDriverId().getId(), authService.getCurrentUser().getId()) && order.getStatus() == OrderStatus.DELIVERED){
-                continue;
+            if(order.getDriverId() != null) {
+                if (!Objects.equals(order.getDriverId().getId(), authService.getCurrentUser().getId()) && order.getStatus() == OrderStatus.DELIVERED) {
+                    continue;
+                }
             }
-            HBox orderBox = new HBox();
 
-            orderBox.getChildren().add(new Label("Order from " + deliveryFromAddress +" to " + deliveryToAddress + " | Price: $" + price ));
-           if (mode == Mode.AVAILABLE){
-               orderBox.setOnMouseClicked(e -> {
-                   System.out.println("Clicked order!");
-               });
-           }
-            column1VBOX.getChildren().add(orderBox);
+            switch (mode) {
+                case Mode.AVAILABLE -> {
+                    try {
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/components/OrderComponent.fxml"));
+                        Node orderComponent = loader.load();
+
+                        OrderComponentController controller = loader.getController();
+                        if (controller != null) {
+                            controller.init(authService, order);
+                        }
+
+                        column1VBOX.getChildren().add(orderComponent);
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                case Mode.ACCEPTED -> {
+                    try {
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/components/Company2Component.fxml"));
+                        Node orderComponent = loader.load();
+
+                        Company2ComponentController controller = loader.getController();
+                        if (controller != null) {
+                            controller.init(order, Company2ComponentController.Mode.ACCEPTED);
+                        }
+
+                        column1VBOX.getChildren().add(orderComponent);
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                case Mode.DELIVERED -> {
+                    try {
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/components/Company2Component.fxml"));
+                        Node orderComponent = loader.load();
+
+                        Company2ComponentController controller = loader.getController();
+                        if (controller != null) {
+                            controller.init(order, Company2ComponentController.Mode.DELIVERED);
+                        }
+
+                        column1VBOX.getChildren().add(orderComponent);
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
         }
     }
 

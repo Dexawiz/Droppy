@@ -53,6 +53,4 @@ public class FoodItemController {
             mainPane.getStylesheets().add(css.toExternalForm());
         }
     }
-
-
 }

@@ -13,4 +13,6 @@ public interface OrderDao {
 
     List<Order> findByUserId(Long userId);
     List<Order> findByStatus(OrderStatus status);
+    void updateOrderStatus(Long orderId, OrderStatus status);
+    void updateDriverForOrder(Long orderId, Long driverId);
 }

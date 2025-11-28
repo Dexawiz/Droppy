@@ -92,8 +92,7 @@ public class CompanyViewController {
 
     public void init(AuthService authService, Company company) {
         this.authService = authService;
-
-         Stage stage = (Stage) returnButton.getScene().getWindow();
+//         Stage stage = (Stage) returnButton.getScene().getWindow();
         restaurantNameLabel.setText(company.getName());
         categoryNameLabel.setText(company.getCategory().name());
         OTDemoLabel.setText(company.getWorkStart().toString());
