@@ -22,11 +22,14 @@
                </HBox.margin>
             </Label>
             <TextField fx:id="searchTextField" prefHeight="30.0" prefWidth="300.0" promptText="Search" />
-      <FontIcon fx:id="shoppingCartIcon" iconLiteral="fth-shopping-cart" iconSize="20">
+      <Button fx:id="cartButton" mnemonicParsing="false" onAction="#onCartButtonClick" prefHeight="30.0" prefWidth="110.0" text="Cart">
+         <graphic>
+            <FontIcon fx:id="shoppingCartIcon" iconLiteral="fth-shopping-cart" iconSize="15" />
+         </graphic>
          <HBox.margin>
-            <Insets left="210.0" />
+            <Insets left="120.0" />
          </HBox.margin>
-      </FontIcon>
+      </Button>
             <Circle fx:id="avatarSmall" fill="DODGERBLUE" radius="12.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
                <HBox.margin>
                   <Insets left="20.0" />

@@ -86,6 +86,9 @@ public class CompanyViewController {
     @FXML
     private Button returnButton;
 
+    @FXML
+    private Button cartButton;
+
     private HibernateProductDao HProductDao = new HibernateProductDao();
 
     private AuthService authService;
@@ -146,5 +149,10 @@ public class CompanyViewController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    void onCartButtonClick(ActionEvent event) {
+
     }
 }
