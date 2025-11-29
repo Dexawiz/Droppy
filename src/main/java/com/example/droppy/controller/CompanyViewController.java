@@ -4,7 +4,6 @@ import com.example.droppy.domain.entity.Company;
 import com.example.droppy.domain.entity.Product;
 import com.example.droppy.repository.HibernateProductDao;
 import com.example.droppy.service.AuthService;
-import com.example.droppy.service.CartService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -90,7 +89,6 @@ public class CompanyViewController {
     private HibernateProductDao HProductDao = new HibernateProductDao();
 
     private AuthService authService;
-    private CartService cartService;
 
     public void init(AuthService authService, Company company) {
         this.authService = authService;
@@ -124,7 +122,7 @@ public class CompanyViewController {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/components/FoodItemComponent.fxml"));
             Node node = fxmlLoader.load();
             FoodItemController controller = fxmlLoader.getController();
-            controller.init(product,cartService);
+            controller.init(product);
             return node;
         } catch (Exception e) {
             e.printStackTrace();
@@ -143,7 +141,7 @@ public class CompanyViewController {
             stage.setScene(scene);
 
             HomeController controller = loader.getController();
-            controller.init(authService, cartService);
+            controller.init(authService);
 
         } catch (Exception e) {
             e.printStackTrace();

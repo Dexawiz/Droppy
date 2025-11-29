@@ -104,6 +104,9 @@ public class ProfileController {
     private Text userPhoneDemo;
 
     @FXML
+    private Button backButton;
+
+    @FXML
     void onAddCreditDebitCardButtonClick(ActionEvent event) {
 
     }
@@ -145,6 +148,11 @@ public class ProfileController {
 
     @FXML
     void onEditProfileButtonClick(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onBackButtonClick(ActionEvent event) {
 
     }
 

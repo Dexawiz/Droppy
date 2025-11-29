@@ -1,11 +1,8 @@
 package com.example.droppy.controller;
 
-import com.example.droppy.Navigator.Navigator;
 import com.example.droppy.domain.entity.User;
 import com.example.droppy.repository.HibernateOrderDao;
-import com.example.droppy.repository.HibernateUserDao;
 import com.example.droppy.service.AuthService;
-import com.example.droppy.service.CartService;
 import com.example.droppy.service.Session;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,7 +10,6 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -25,17 +21,10 @@ public class LoginController {
 
     private AuthService authService;
     private Runnable onLoginSuccess;
-    private CartService cartService;
 
     public void init(AuthService authService,Runnable onLoginSuccess) {
         this.authService = authService;
         this.onLoginSuccess = onLoginSuccess;
-    }
-
-    public void init1(AuthService authService, CartService cartService,Runnable onLoginSuccess) {
-        this.authService = authService;
-        this.onLoginSuccess = onLoginSuccess;
-        this.cartService = cartService;
     }
 
     @FXML
@@ -85,7 +74,7 @@ public class LoginController {
                     Parent rootPane = loader.load();
 
                     HomeController controller = loader.getController();
-                    controller.init(authService,cartService);
+                    controller.init(authService);
 
                     Scene scene = new Scene(rootPane);
                     stage.setScene(scene);
@@ -143,7 +132,7 @@ public class LoginController {
                 FXMLLoader loginLoader = new FXMLLoader(getClass().getResource("/LoginView.fxml"));
                 Parent loginRoot = loginLoader.load();
                 LoginController loginCtrl = loginLoader.getController();
-                loginCtrl.init1(authService, cartService, this.onLoginSuccess);
+                loginCtrl.init(authService, this.onLoginSuccess);
                 var scene = new Scene(loginRoot);
                 stage.setTitle("Droppy");
                 stage.setScene(scene);
