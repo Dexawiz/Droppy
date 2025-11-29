@@ -32,9 +32,6 @@ public class ProfileController {
     }
 
     @FXML
-    private FontIcon shoppingCartIcon;
-
-    @FXML
     private Button addCreditDebitCardButton;
 
     @FXML
