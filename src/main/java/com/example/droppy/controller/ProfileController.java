@@ -1,6 +1,5 @@
 package com.example.droppy.controller;
 
-import com.example.droppy.domain.enums.Countries;
 import com.example.droppy.domain.enums.Language;
 import com.example.droppy.repository.HibernateUserDao;
 import com.example.droppy.service.AuthService;
@@ -17,8 +16,6 @@ import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import com.example.droppy.domain.entity.User;
 import javafx.stage.Stage;
-
-import java.util.Arrays;
 
 public class ProfileController {
 
@@ -39,9 +36,6 @@ public class ProfileController {
 
     @FXML
     private Circle bigAvatar;
-
-    @FXML
-    private Label countryLabel;
 
     @FXML
     private Label creditDebitCardLabel;
@@ -104,9 +98,6 @@ public class ProfileController {
     private Button backButton;
 
     @FXML
-    private Button returnButton;
-
-    @FXML
     private TextField nameField;
 
     @FXML
@@ -116,13 +107,7 @@ public class ProfileController {
     private TextField phoneField;
 
     @FXML
-    private ChoiceBox<Countries> countryCB;
-
-    @FXML
     private ChoiceBox<Language> languageCB;
-
-    @FXML
-    private Label countryDemo;
 
     private boolean isEditing = false;
 
@@ -184,7 +169,6 @@ public class ProfileController {
             surnameText.setManaged(false);
             userPhoneDemo.setVisible(false);
             userPhoneDemo.setManaged(false);
-            countryDemo.setVisible(false);
 
             //ukazanie text fields
             nameField.setVisible(true);
@@ -193,8 +177,6 @@ public class ProfileController {
             surnameField.setManaged(true);
             phoneField.setVisible(true);
             phoneField.setManaged(true);
-            countryCB.setVisible(true);
-            countryDemo.setManaged(true);
         }else{
             isEditing = false;
             editProfileButton.setText("Edit");
@@ -264,9 +246,14 @@ public class ProfileController {
 
     @FXML
     private void initialize() {
-        countryCB.getItems().setAll(Countries.values());
         languageCB.getItems().setAll(Language.values());
-        languageCB.setValue(Language.English);
+        languageCB.setValue(Session.getCurrentLanguage());
+
+        languageCB.valueProperty().addListener((obs, oldVal, newVal) -> {
+            if (newVal != null) {
+                Session.setCurrentLanguage(newVal);
+            }
+        });
 
         User user = Session.getLoggedUser();
         if (user != null) {

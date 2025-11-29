@@ -1,6 +1,7 @@
 package com.example.droppy.controller;
 
 import com.example.droppy.domain.entity.User;
+import com.example.droppy.domain.enums.Language;
 import com.example.droppy.repository.HibernateOrderDao;
 import com.example.droppy.service.AuthService;
 import com.example.droppy.service.Session;
@@ -10,6 +11,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -25,6 +27,14 @@ public class LoginController {
     public void init(AuthService authService,Runnable onLoginSuccess) {
         this.authService = authService;
         this.onLoginSuccess = onLoginSuccess;
+        languageCB.getItems().setAll(Language.values());
+        languageCB.setValue(Session.getCurrentLanguage());
+
+        languageCB.valueProperty().addListener((obs, oldVal, newVal) -> {
+            if (newVal != null) {
+                Session.setCurrentLanguage(newVal);
+            }
+        });
     }
 
     @FXML
@@ -38,6 +48,9 @@ public class LoginController {
 
     @FXML
     private Text noAccountText;
+
+    @FXML
+    private ChoiceBox<Language> languageCB;
 
 //    @FXML
 //    private PasswordField passwordTextField;

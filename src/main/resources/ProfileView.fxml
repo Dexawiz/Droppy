@@ -96,7 +96,7 @@
                </HBox.margin>
             </VBox>
                      <VBox.margin>
-                        <Insets top="20.0" />
+                        <Insets />
                      </VBox.margin>
                   </HBox>
                   <HBox>
@@ -138,29 +138,6 @@
                         <Insets top="10.0" />
                      </VBox.margin>
                   </HBox>
-         <HBox prefWidth="200.0">
-                        <Label fx:id="countryLabel" prefHeight="27.0" prefWidth="140.0" text="Country">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                  <HBox.margin>
-                     <Insets />
-                  </HBox.margin>
-                        </Label>
-            <VBox>
-               <children>
-                  <Label fx:id="countryDemo" prefHeight="27.0" prefWidth="200.0" text="No country selected">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
-                  <ChoiceBox fx:id="countryCB" managed="false" prefHeight="35.0" prefWidth="150.0" visible="false" />
-               </children>
-            </VBox>
-            <VBox.margin>
-               <Insets top="10.0" />
-            </VBox.margin>
-         </HBox>
                <HBox.margin>
                   <Insets left="30.0" />
                </HBox.margin>
