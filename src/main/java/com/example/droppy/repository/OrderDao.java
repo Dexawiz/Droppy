@@ -1,6 +1,7 @@
 package com.example.droppy.repository;
 
 import com.example.droppy.domain.entity.Order;
+import com.example.droppy.domain.entity.User;
 import com.example.droppy.domain.enums.OrderStatus;
 
 import java.util.List;
@@ -15,4 +16,7 @@ public interface OrderDao {
     List<Order> findByStatus(OrderStatus status);
     void updateOrderStatus(Long orderId, OrderStatus status);
     void updateDriverForOrder(Long orderId, Long driverId);
+    Order findByStatusAndUser(OrderStatus status, User user);
+    Order add(Order order);
+    void update(Order order);
 }

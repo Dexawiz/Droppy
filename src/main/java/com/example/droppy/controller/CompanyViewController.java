@@ -1,8 +1,13 @@
 package com.example.droppy.controller;
 
 import com.example.droppy.domain.entity.Company;
+import com.example.droppy.domain.entity.Order;
 import com.example.droppy.domain.entity.Product;
+import com.example.droppy.domain.enums.MethodOfPayment;
+import com.example.droppy.domain.enums.OrderStatus;
+import com.example.droppy.repository.HibernateOrderDao;
 import com.example.droppy.repository.HibernateProductDao;
+import com.example.droppy.repository.OrderDao;
 import com.example.droppy.service.AuthService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -20,6 +25,7 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import org.kordamp.ikonli.javafx.FontIcon;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CompanyViewController {
@@ -92,9 +98,36 @@ public class CompanyViewController {
     private HibernateProductDao HProductDao = new HibernateProductDao();
 
     private AuthService authService;
+    private Order currentOrder;
 
     public void init(AuthService authService, Company company) {
         this.authService = authService;
+        OrderDao orderDao = new HibernateOrderDao();
+
+        Order existingOrder = orderDao.findByStatusAndUser(OrderStatus.IN_PREPARATION, authService.getCurrentUser());
+
+        if (existingOrder != null) {
+            this.currentOrder = existingOrder;
+        } else {
+            this.currentOrder = new Order();
+            currentOrder.setCustomerId(authService.getCurrentUser());
+            currentOrder.setCompanyId(company);
+            currentOrder.setStatus(OrderStatus.IN_PREPARATION);
+            currentOrder.setDeliveryFromAddress(company.getAddress());
+            String address =
+                    authService.getCurrentUser().getAddress().getStreet() + ", "
+                            + authService.getCurrentUser().getAddress().getPostalCode() + " "
+                            + authService.getCurrentUser().getAddress().getCity() + ", "
+                            + authService.getCurrentUser().getAddress().getCountry();
+            currentOrder.setDeliveryToAddress(address);
+            currentOrder.setTotalPrice(0.);
+            currentOrder.setOrderCreatedTime( java.time.LocalDateTime.now());
+            currentOrder.setPaymentMethod(MethodOfPayment.CASH);
+            if (currentOrder.getOrderItems() == null) {
+                currentOrder.setOrderItems(new ArrayList<>());
+            }
+            orderDao.save(currentOrder);
+        }
 
         restaurantNameLabel.setText(company.getName());
         categoryNameLabel.setText(company.getCategory().name());
@@ -125,7 +158,7 @@ public class CompanyViewController {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/components/FoodItemComponent.fxml"));
             Node node = fxmlLoader.load();
             FoodItemController controller = fxmlLoader.getController();
-            controller.init(product);
+            controller.init(authService, product, currentOrder);
             return node;
         } catch (Exception e) {
             e.printStackTrace();
@@ -153,6 +186,18 @@ public class CompanyViewController {
 
     @FXML
     void onCartButtonClick(ActionEvent event) {
+        try{
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/CheckoutView.fxml"));
+            Parent rootPane = loader.load();
 
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(rootPane);
+            stage.setScene(scene);
+
+            CheckoutController controller = loader.getController();
+            controller.init(authService);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }

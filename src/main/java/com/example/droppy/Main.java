@@ -1,6 +1,7 @@
 package com.example.droppy;
 
 import com.example.droppy.controller.LoginController;
+import com.example.droppy.domain.entity.Order;
 import com.example.droppy.domain.enums.Role;
 import com.example.droppy.repository.HibernateUserDao;
 import com.example.droppy.service.AuthService;
@@ -9,6 +10,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+
+import java.util.List;
 
 public class Main extends Application {
 
@@ -40,6 +43,16 @@ public class Main extends Application {
         var scene = new Scene(rootPane);
         stage.setTitle("Droppy");
         stage.setScene(scene);
+
+        stage.setOnCloseRequest(event -> {
+            var orderDao = new com.example.droppy.repository.HibernateOrderDao();
+            List <Order> ordersForDeleting = orderDao.findByStatus(com.example.droppy.domain.enums.OrderStatus.IN_PREPARATION);
+            for (Order order : ordersForDeleting) {
+                orderDao.delete(order.getId());
+            }
+        });
+
+
         stage.show();
 
     }

@@ -4,7 +4,7 @@ import com.example.droppy.domain.entity.OrderItem;
 
 import java.util.List;
 
-public interface OtderItemDao {
+public interface OrderItemDao {
     void save(OrderItem orderItem);
     void delete(OrderItem orderItem);
     List<OrderItem> findAll();

@@ -6,7 +6,7 @@ import org.hibernate.Session;
 
 import java.util.List;
 
-public class HibernateOrderItemDao implements  OtderItemDao {
+public class HibernateOrderItemDao implements OrderItemDao {
     @Override
     public void save(OrderItem orderItem) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
