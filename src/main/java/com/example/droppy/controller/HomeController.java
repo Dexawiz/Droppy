@@ -75,20 +75,12 @@ public class HomeController {
             chceckBoxHBox.getChildren().add(checkBox);
         }
     }
-    @FXML
-    private FontIcon shoppingCartIcon;
 
     @FXML
     private Circle avatarSmall;
 
     @FXML
-    private StackPane cartIconContainer;
-
-    @FXML
     private Label categoriesLabel;
-
-    @FXML
-    private Label cartBadge;
 
     @FXML
     private HBox chceckBoxHBox;
@@ -196,11 +188,6 @@ public class HomeController {
                 e.printStackTrace();
             }
         }
-    }
-
-    @FXML
-    void onCartButtonClick(ActionEvent event) {
-
     }
 
 }
