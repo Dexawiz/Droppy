@@ -60,6 +60,9 @@
                                  <VBox.margin>
                                     <Insets top="5.0" />
                                  </VBox.margin>
+                                 <content>
+                                    <VBox fx:id="orderListContainer" prefHeight="566.0" prefWidth="402.0" />
+                                 </content>
                               </ScrollPane>
                            </children>
                         </VBox>

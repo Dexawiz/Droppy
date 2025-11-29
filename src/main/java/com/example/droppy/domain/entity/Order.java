@@ -32,7 +32,7 @@ public class Order {
     @JoinColumn(name = "company_id")
     private Company companyId;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<OrderItem> orderItems;
 
     @Column(name = "total_price")
