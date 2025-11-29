@@ -198,4 +198,9 @@ public class HomeController {
         }
     }
 
+    @FXML
+    void onCartButtonClick(ActionEvent event) {
+
+    }
+
 }

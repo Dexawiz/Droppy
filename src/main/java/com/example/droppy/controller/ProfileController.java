@@ -107,6 +107,9 @@ public class ProfileController {
     private Button backButton;
 
     @FXML
+    private Button returnButton;
+
+    @FXML
     void onAddCreditDebitCardButtonClick(ActionEvent event) {
 
     }
@@ -195,5 +198,7 @@ public class ProfileController {
             }
         }
     }
+
+
 
 }
