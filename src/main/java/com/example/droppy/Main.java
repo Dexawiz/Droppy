@@ -4,6 +4,7 @@ import com.example.droppy.controller.LoginController;
 import com.example.droppy.domain.enums.Role;
 import com.example.droppy.repository.HibernateUserDao;
 import com.example.droppy.service.AuthService;
+import com.example.droppy.service.CartService;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -17,6 +18,7 @@ public class Main extends Application {
 
         var userDao = new HibernateUserDao();
         var authService = new AuthService(userDao);
+        var cartService = new CartService();
 
         // register default admin
         if (userDao.findByEmail("admin@droppy.com") == null) {
@@ -35,7 +37,7 @@ public class Main extends Application {
 
         // initialize controller with authService
         LoginController controller = loader.getController();
-        controller.init(authService, () -> {});
+        controller.init1(authService, cartService, () -> {});
 
         var scene = new Scene(rootPane);
         stage.setTitle("Droppy");

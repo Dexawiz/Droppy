@@ -5,6 +5,7 @@ import com.example.droppy.domain.enums.Category;
 import com.example.droppy.repository.CompanyDao;
 import com.example.droppy.repository.HibernateCompanyDao;
 import com.example.droppy.service.AuthService;
+import com.example.droppy.service.CartService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,6 +14,7 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
@@ -26,10 +28,12 @@ import java.util.List;
 public class HomeController {
 
     private AuthService authService;
+    private CartService cartService;
     private List<Company> allCompanies;
 
-    public void init(AuthService authService) {
+    public void init(AuthService authService,CartService cartService) {
         this.authService = authService;
+        this.cartService = cartService;
 
         //Companies
         CompanyDao companyDao = new HibernateCompanyDao();
@@ -81,7 +85,13 @@ public class HomeController {
     private Circle avatarSmall;
 
     @FXML
+    private StackPane cartIconContainer;
+
+    @FXML
     private Label categoriesLabel;
+
+    @FXML
+    private Label cartBadge;
 
     @FXML
     private HBox chceckBoxHBox;
@@ -189,6 +199,18 @@ public class HomeController {
                 e.printStackTrace();
             }
         }
+    }
+
+    private void setCartBadge(){
+        cartService.itemCountProperty().addListener((observable, oldValue, newValue) -> {
+            int count = newValue.intValue();
+            if(count>0){
+                cartBadge.setVisible(true);
+                cartBadge.setText(String.valueOf(count));
+            }else{
+                cartBadge.setVisible(false);
+            }
+        });
     }
 
 }

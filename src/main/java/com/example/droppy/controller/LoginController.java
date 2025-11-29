@@ -5,6 +5,7 @@ import com.example.droppy.domain.entity.User;
 import com.example.droppy.repository.HibernateOrderDao;
 import com.example.droppy.repository.HibernateUserDao;
 import com.example.droppy.service.AuthService;
+import com.example.droppy.service.CartService;
 import com.example.droppy.service.Session;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -24,10 +25,17 @@ public class LoginController {
 
     private AuthService authService;
     private Runnable onLoginSuccess;
+    private CartService cartService;
 
-    public void init(AuthService authService, Runnable onLoginSuccess) {
+    public void init(AuthService authService,Runnable onLoginSuccess) {
         this.authService = authService;
         this.onLoginSuccess = onLoginSuccess;
+    }
+
+    public void init1(AuthService authService, CartService cartService,Runnable onLoginSuccess) {
+        this.authService = authService;
+        this.onLoginSuccess = onLoginSuccess;
+        this.cartService = cartService;
     }
 
     @FXML
@@ -77,7 +85,7 @@ public class LoginController {
                     Parent rootPane = loader.load();
 
                     HomeController controller = loader.getController();
-                    controller.init(authService);
+                    controller.init(authService,cartService);
 
                     Scene scene = new Scene(rootPane);
                     stage.setScene(scene);
@@ -135,7 +143,7 @@ public class LoginController {
                 FXMLLoader loginLoader = new FXMLLoader(getClass().getResource("/LoginView.fxml"));
                 Parent loginRoot = loginLoader.load();
                 LoginController loginCtrl = loginLoader.getController();
-                loginCtrl.init(authService, this.onLoginSuccess);
+                loginCtrl.init1(authService, cartService, this.onLoginSuccess);
                 var scene = new Scene(loginRoot);
                 stage.setTitle("Droppy");
                 stage.setScene(scene);

@@ -51,12 +51,12 @@
                      <children>
                         <VBox>
                            <children>
-                              <Label text="Products">
+                              <Label fx:id="productsLabel" text="Products">
                                  <font>
                                     <Font name="System Bold" size="24.0" />
                                  </font>
                               </Label>
-                              <ScrollPane hbarPolicy="NEVER" prefHeight="570.0" prefWidth="420.0" vbarPolicy="ALWAYS">
+                              <ScrollPane fx:id="orderListScrollPane" hbarPolicy="NEVER" prefHeight="570.0" prefWidth="420.0" vbarPolicy="ALWAYS">
                                  <VBox.margin>
                                     <Insets top="5.0" />
                                  </VBox.margin>
@@ -80,19 +80,19 @@
                                  <children>
                                     <VBox spacing="5.0">
                                        <children>
-                                          <Label text="User Info">
+                                          <Label fx:id="userInfoLabel" text="User Info">
                                              <font>
                                                 <Font name="System Bold" size="24.0" />
                                              </font>
                                           </Label>
                                           <HBox alignment="CENTER_LEFT" prefHeight="30.0" spacing="10.0">
                                              <children>
-                                                <Label text="NAME">
+                                                <Label fx:id="nameDemo" text="NAME">
                                                    <font>
                                                       <Font size="14.0" />
                                                    </font>
                                                 </Label>
-                                                <Label text="SURNAME">
+                                                <Label fx:id="surnameDemo" text="SURNAME">
                                                    <font>
                                                       <Font size="14.0" />
                                                    </font>
@@ -101,22 +101,22 @@
                                           </HBox>
                                           <HBox alignment="CENTER_LEFT" spacing="10.0">
                                              <children>
-                                                <Label prefHeight="20.0" prefWidth="100.0" text="Address">
+                                                <Label fx:id="addressLabel" prefHeight="20.0" prefWidth="100.0" text="Address">
                                                    <font>
                                                       <Font size="14.0" />
                                                    </font>
                                                 </Label>
-                                                <TextField prefHeight="30.0" prefWidth="290.0" />
+                                                <TextField fx:id="addressTextField" prefHeight="30.0" prefWidth="290.0" />
                                              </children>
                                           </HBox>
                                           <HBox alignment="CENTER_LEFT" spacing="10.0">
                                              <children>
-                                                <Label prefHeight="20.0" prefWidth="100.0" text="Phone Number">
+                                                <Label fx:id="PNLabel" prefHeight="20.0" prefWidth="100.0" text="Phone Number">
                                                    <font>
                                                       <Font size="14.0" />
                                                    </font>
                                                 </Label>
-                                                <TextField prefHeight="30.0" prefWidth="290.0" />
+                                                <TextField fx:id="PNTextField" prefHeight="30.0" prefWidth="290.0" />
                                              </children>
                                           </HBox>
                                        </children>
@@ -126,7 +126,7 @@
                                     </VBox>
                                  </children>
                               </HBox>
-                              <Label text="Price">
+                              <Label fx:id="PriceLabel" text="Price">
                                  <font>
                                     <Font name="System Bold" size="24.0" />
                                  </font>
@@ -138,17 +138,17 @@
                                  <children>
                                     <VBox spacing="5.0">
                                        <children>
-                                          <Label prefHeight="20.0" prefWidth="200.0" text="Order total">
+                                          <Label fx:id="OrderTotalLabel" prefHeight="20.0" prefWidth="200.0" text="Order total">
                                              <font>
                                                 <Font name="System Bold" size="18.0" />
                                              </font>
                                           </Label>
-                                          <Label prefHeight="20.0" prefWidth="200.0" text="Service fee">
+                                          <Label fx:id="serviceFeeLabel" prefHeight="20.0" prefWidth="200.0" text="Service fee">
                                              <font>
                                                 <Font name="System Bold" size="18.0" />
                                              </font>
                                           </Label>
-                                          <Label prefHeight="20.0" prefWidth="200.0" text="Total">
+                                          <Label fx:id="totalLabel" prefHeight="20.0" prefWidth="200.0" text="Total">
                                              <font>
                                                 <Font name="System Bold" size="24.0" />
                                              </font>
@@ -160,17 +160,17 @@
                                     </VBox>
                                     <VBox alignment="TOP_RIGHT" spacing="5.0">
                                        <children>
-                                          <Label alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="190.0" text="000.00">
+                                          <Label fx:id="OTDemo" alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="190.0" text="000.00">
                                              <font>
                                                 <Font name="System Bold" size="18.0" />
                                              </font>
                                           </Label>
-                                          <Label alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="190.0" text="0.50">
+                                          <Label fx:id="serviceFee" alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="190.0" text="0.50">
                                              <font>
                                                 <Font name="System Bold" size="18.0" />
                                              </font>
                                           </Label>
-                                          <Label alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="190.0" text="000.00">
+                                          <Label fx:id="totalDemo" alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="190.0" text="000.00">
                                              <font>
                                                 <Font name="System Bold" size="24.0" />
                                              </font>
@@ -213,7 +213,7 @@
                   </HBox>
                   <HBox alignment="TOP_CENTER">
                      <children>
-                        <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="400.0" text="Order">
+                        <Button fx:id="OrderButton" mnemonicParsing="false" onAction="#onOrderButtonClick" prefHeight="40.0" prefWidth="400.0" text="Order">
                            <font>
                               <Font size="18.0" />
                            </font>

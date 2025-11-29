@@ -1,6 +1,8 @@
 package com.example.droppy.controller;
 
+import com.example.droppy.domain.entity.OrderItem;
 import com.example.droppy.domain.entity.Product;
+import com.example.droppy.service.CartService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -38,19 +40,26 @@ public class FoodItemController {
     @FXML
     private VBox mainPane;
 
+    private CartService cartService;
+    private Product product;
+
     @FXML
     void onAddItemLabelButtonCLick(ActionEvent event) {
-
+            //cartService.add(new OrderItem(product, 1));
     }
 
-    public void init(Product product){
-        ItemNameLabel.setText(product.getName());
-        decriptionText.setText(product.getDescription());
-        priceDemoLabel.setText(String.valueOf(product.getPrice()));
+        public void init (Product product, CartService cartService){
+            this.product = product;
+            this.cartService = cartService;
 
-        URL css = getClass().getResource("/styles/FoodItemCStyle.css.css");
-        if(css != null) {
-            mainPane.getStylesheets().add(css.toExternalForm());
+            ItemNameLabel.setText(product.getName());
+            decriptionText.setText(product.getDescription());
+            priceDemoLabel.setText(String.valueOf(product.getPrice()));
+
+            URL css = getClass().getResource("/styles/FoodItemCStyle.css.css");
+            if (css != null) {
+                mainPane.getStylesheets().add(css.toExternalForm());
+            }
         }
     }
-}
+

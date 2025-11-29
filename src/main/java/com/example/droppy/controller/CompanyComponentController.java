@@ -4,6 +4,7 @@ import com.example.droppy.domain.entity.Company;
 import com.example.droppy.repository.CompanyDao;
 import com.example.droppy.repository.HibernateCompanyDao;
 import com.example.droppy.service.AuthService;
+import com.example.droppy.service.CartService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,6 +20,7 @@ import java.net.URL;
 public class CompanyComponentController {
 
     private AuthService authService;
+    private CartService cartService;
 
     @FXML
     private Label AddressLabel;

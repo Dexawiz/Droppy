@@ -4,6 +4,7 @@ import com.example.droppy.domain.entity.Company;
 import com.example.droppy.domain.entity.Product;
 import com.example.droppy.repository.HibernateProductDao;
 import com.example.droppy.service.AuthService;
+import com.example.droppy.service.CartService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -89,10 +90,11 @@ public class CompanyViewController {
     private HibernateProductDao HProductDao = new HibernateProductDao();
 
     private AuthService authService;
+    private CartService cartService;
 
     public void init(AuthService authService, Company company) {
         this.authService = authService;
-//         Stage stage = (Stage) returnButton.getScene().getWindow();
+
         restaurantNameLabel.setText(company.getName());
         categoryNameLabel.setText(company.getCategory().name());
         OTDemoLabel.setText(company.getWorkStart().toString());
@@ -104,27 +106,27 @@ public class CompanyViewController {
         int index = 0;
         for (Product product : products) {
             Node productNode = loadItems(product);
-            if(productNode==null) continue;
+            if (productNode == null) continue;
 
-            if(index%3 ==0){
+            if (index % 3 == 0) {
                 column1VBOX.getChildren().add(productNode);
-            }else if(index%3 ==1){
+            } else if (index % 3 == 1) {
                 column2VBOX.getChildren().add(productNode);
-            }else {
+            } else {
                 column3VBOX.getChildren().add(productNode);
             }
             index++;
         }
     }
 
-    private Node loadItems(Product product){
+    private Node loadItems(Product product) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/components/FoodItemComponent.fxml"));
             Node node = fxmlLoader.load();
             FoodItemController controller = fxmlLoader.getController();
-            controller.init(product);
+            controller.init(product,cartService);
             return node;
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
@@ -141,7 +143,7 @@ public class CompanyViewController {
             stage.setScene(scene);
 
             HomeController controller = loader.getController();
-            controller.init(authService);
+            controller.init(authService, cartService);
 
         } catch (Exception e) {
             e.printStackTrace();
