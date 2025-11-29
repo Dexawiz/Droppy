@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
@@ -71,19 +72,29 @@
             </VBox>
             <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="730.0" HBox.hgrow="ALWAYS">
                   <HBox>
-                        <Text fx:id="nameText" strokeType="OUTSIDE" strokeWidth="0.0" text="Name">
-                           <font>
-                              <Font name="System Bold" size="18.0" />
-                           </font>
-                        </Text>
-                        <Text fx:id="surnameText" strokeType="OUTSIDE" strokeWidth="0.0" text="Surname">
-                           <HBox.margin>
-                              <Insets left="30.0" />
-                           </HBox.margin>
-                           <font>
-                              <Font name="System Bold" size="18.0" />
-                           </font>
-                        </Text>
+            <VBox>
+               <children>
+                              <Text fx:id="nameText" strokeType="OUTSIDE" strokeWidth="0.0" text="Name">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                              </Text>
+                  <TextField fx:id="nameField" managed="false" prefHeight="35.0" prefWidth="100.0" visible="false" />
+               </children>
+            </VBox>
+            <VBox>
+               <children>
+                              <Text fx:id="surnameText" strokeType="OUTSIDE" strokeWidth="0.0" text="Surname">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                              </Text>
+                  <TextField fx:id="surnameField" managed="false" prefHeight="35.0" prefWidth="100.0" visible="false" />
+               </children>
+               <HBox.margin>
+                  <Insets left="30.0" />
+               </HBox.margin>
+            </VBox>
                      <VBox.margin>
                         <Insets top="20.0" />
                      </VBox.margin>
@@ -95,6 +106,7 @@
                </font>
             </Label>
                         <Text fx:id="userEmailDemo" strokeType="OUTSIDE" strokeWidth="0.0" text="user@user.com" wrappingWidth="269.02618396282196" HBox.hgrow="ALWAYS">
+
                            <HBox.margin>
                               <Insets />
                            </HBox.margin>
@@ -112,14 +124,16 @@
                   <Font size="18.0" />
                </font>
             </Label>
-                        <Text fx:id="userPhoneDemo" strokeType="OUTSIDE" strokeWidth="0.0" text="0000000000">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin>
-                        </Text>
+            <VBox>
+               <children>
+                              <Text fx:id="userPhoneDemo" strokeType="OUTSIDE" strokeWidth="0.0" text="No phone number">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Text>
+                  <TextField fx:id="phoneField" managed="false" prefHeight="35.0" prefWidth="100.0" visible="false" />
+               </children>
+            </VBox>
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin>
@@ -133,11 +147,16 @@
                      <Insets />
                   </HBox.margin>
                         </Label>
-               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
-                  <font>
-                     <Font size="18.0" />
-                  </font>
-               </Text>
+            <VBox>
+               <children>
+                  <Label fx:id="countryDemo" prefHeight="27.0" prefWidth="200.0" text="No country selected">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <ChoiceBox fx:id="countryCB" managed="false" prefHeight="35.0" prefWidth="150.0" visible="false" />
+               </children>
+            </VBox>
             <VBox.margin>
                <Insets top="10.0" />
             </VBox.margin>
@@ -150,43 +169,6 @@
             <Insets />
          </VBox.margin>
       </HBox>
-      <HBox prefHeight="100.0" prefWidth="200.0">
-            <VBox prefHeight="79.0" prefWidth="715.0">
-                  <Label fx:id="creditDebitCardLabel" text="Credit/Debit Card">
-                     <font>
-                        <Font name="System Bold" size="24.0" />
-                     </font>
-                  </Label>
-                  <Text fx:id="creditDebitCardText" strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
-                     <VBox.margin>
-                        <Insets top="10.0" />
-                     </VBox.margin>
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Text>
-               <HBox.margin>
-                  <Insets left="40.0" top="10.0" />
-               </HBox.margin>
-            </VBox>
-            <VBox>
-                  <Button fx:id="addCreditDebitCardButton" mnemonicParsing="false" onAction="#onAddCreditDebitCardButtonClick" prefHeight="35.0" prefWidth="110.0" text="Add">
-                     <VBox.margin>
-                        <Insets top="5.0" />
-                     </VBox.margin></Button>
-                  <Button fx:id="editCreditDebitCardButton" mnemonicParsing="false" onAction="#onEditCreditDebitCardButtonClick" prefHeight="35.0" prefWidth="110.0" text="Edit">
-                     <VBox.margin>
-                        <Insets top="10.0" />
-                     </VBox.margin>
-                  </Button>
-               <HBox.margin>
-                  <Insets right="40.0" top="10.0" />
-               </HBox.margin>
-            </VBox>
-         <padding>
-            <Insets top="10.0" />
-         </padding>
-      </HBox>
       <HBox prefWidth="200.0">
             <VBox>
          <HBox>
@@ -195,6 +177,19 @@
                               <Font name="System Bold" size="24.0" />
                            </font>
                         </Label>
+         </HBox>
+         <HBox alignment="CENTER">
+            <children>
+               <Label fx:id="languageLabel" prefHeight="27.0" prefWidth="710.0" text="Language">
+                  <font>
+                     <Font size="18.0" />
+                  </font>
+               </Label>
+               <ChoiceBox fx:id="languageCB" prefHeight="35.0" prefWidth="110.0" />
+            </children>
+            <VBox.margin>
+               <Insets top="10.0" />
+            </VBox.margin>
          </HBox>
          <HBox alignment="CENTER">
                         <Label fx:id="logOutLabel" prefWidth="715.0" text="Log out">

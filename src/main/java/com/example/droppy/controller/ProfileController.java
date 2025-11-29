@@ -1,5 +1,7 @@
 package com.example.droppy.controller;
 
+import com.example.droppy.domain.enums.Countries;
+import com.example.droppy.domain.enums.Language;
 import com.example.droppy.repository.HibernateUserDao;
 import com.example.droppy.service.AuthService;
 import com.example.droppy.service.Session;
@@ -9,16 +11,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import com.example.droppy.domain.entity.User;
 import javafx.stage.Stage;
-import org.kordamp.ikonli.javafx.FontIcon;
+
+import java.util.Arrays;
 
 public class ProfileController {
 
@@ -107,6 +107,26 @@ public class ProfileController {
     private Button returnButton;
 
     @FXML
+    private TextField nameField;
+
+    @FXML
+    private TextField surnameField;
+
+    @FXML
+    private TextField phoneField;
+
+    @FXML
+    private ChoiceBox<Countries> countryCB;
+
+    @FXML
+    private ChoiceBox<Language> languageCB;
+
+    @FXML
+    private Label countryDemo;
+
+    private boolean isEditing = false;
+
+    @FXML
     void onAddCreditDebitCardButtonClick(ActionEvent event) {
 
     }
@@ -148,6 +168,65 @@ public class ProfileController {
 
     @FXML
     void onEditProfileButtonClick(ActionEvent event) {
+        if(!isEditing){
+            isEditing = true;
+            editProfileButton.setText("Save");
+
+            //ziskanie udajov
+            nameField.setText(nameText.getText());
+            surnameField.setText(surnameText.getText());
+            phoneField.setText(userPhoneDemo.getText());
+
+            //skrytie labels
+            nameText.setVisible(false);
+            nameText.setManaged(false);
+            surnameText.setVisible(false);
+            surnameText.setManaged(false);
+            userPhoneDemo.setVisible(false);
+            userPhoneDemo.setManaged(false);
+            countryDemo.setVisible(false);
+
+            //ukazanie text fields
+            nameField.setVisible(true);
+            nameField.setManaged(true);
+            surnameField.setVisible(true);
+            surnameField.setManaged(true);
+            phoneField.setVisible(true);
+            phoneField.setManaged(true);
+            countryCB.setVisible(true);
+            countryDemo.setManaged(true);
+        }else{
+            isEditing = false;
+            editProfileButton.setText("Edit");
+
+            User user = Session.getLoggedUser();
+            if (user != null) {
+                user.setName(nameField.getText());
+                user.setSurname(surnameField.getText());
+                user.setPhoneNumber(phoneField.getText());
+
+                HibernateUserDao userDao = new HibernateUserDao();
+                userDao.save(user);
+
+                nameText.setText(user.getName());
+                surnameText.setText(user.getSurname());
+                userPhoneDemo.setText(user.getPhoneNumber());
+            }
+
+            nameText.setVisible(true);
+            nameText.setManaged(true);
+            surnameText.setVisible(true);
+            surnameText.setManaged(true);
+            userPhoneDemo.setVisible(true);
+            userPhoneDemo.setManaged(true);
+
+            nameField.setVisible(false);
+            nameField.setManaged(false);
+            surnameField.setVisible(false);
+            surnameField.setManaged(false);
+            phoneField.setVisible(false);
+            phoneField.setManaged(false);
+        }
 
     }
 
@@ -185,6 +264,10 @@ public class ProfileController {
 
     @FXML
     private void initialize() {
+        countryCB.getItems().setAll(Countries.values());
+        languageCB.getItems().setAll(Language.values());
+        languageCB.setValue(Language.English);
+
         User user = Session.getLoggedUser();
         if (user != null) {
             nameText.setText(user.getName());
