@@ -4,6 +4,7 @@ import com.example.droppy.domain.entity.User;
 import com.example.droppy.domain.enums.Language;
 import com.example.droppy.repository.HibernateOrderDao;
 import com.example.droppy.service.AuthService;
+import com.example.droppy.service.I18n;
 import com.example.droppy.service.Session;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,6 +19,7 @@ import javafx.stage.Stage;
 
 import javafx.event.ActionEvent;
 import java.io.IOException;
+import java.util.Locale;
 
 public class LoginController {
 
@@ -33,6 +35,8 @@ public class LoginController {
         languageCB.valueProperty().addListener((obs, oldVal, newVal) -> {
             if (newVal != null) {
                 Session.setCurrentLanguage(newVal);
+                I18n.setLocale(new Locale(newVal.getCode()));
+                updateText();
             }
         });
 
@@ -162,5 +166,13 @@ public class LoginController {
         stage.setTitle("Droppy");
         stage.setScene(scene);
         stage.show();
+    }
+
+    private void updateText(){
+        loginText.setText(I18n.get("login"));
+        loginButton.setText(I18n.get("login"));
+        noAccountText.setText(I18n.get("dontHaveAccount"));
+        signinButton.setText(I18n.get("signin"));
+        passwordTextField.promptTextProperty().set(I18n.get("passwd"));
     }
 }
