@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -35,9 +36,7 @@
          </padding>
       </HBox>
    <HBox prefWidth="200.0">
-      <children>
          <VBox spacing="10.0">
-            <children>
                <Button fx:id="backButton" mnemonicParsing="false" onAction="#onBackButtonClick" prefHeight="35.0" prefWidth="110.0" text="&lt;-">
                   <font>
                      <Font size="14.0" />
@@ -48,9 +47,7 @@
                         <Font name="System Bold" size="24.0" />
                      </font>
                   </Label>
-            </children>
          </VBox>
-      </children>
       <VBox.margin>
          <Insets top="20.0" />
       </VBox.margin>
@@ -73,24 +70,20 @@
             <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="730.0" HBox.hgrow="ALWAYS">
                   <HBox>
             <VBox>
-               <children>
                               <Text fx:id="nameText" strokeType="OUTSIDE" strokeWidth="0.0" text="Name">
                                  <font>
                                     <Font name="System Bold" size="18.0" />
                                  </font>
                               </Text>
                   <TextField fx:id="nameField" managed="false" prefHeight="35.0" prefWidth="100.0" visible="false" />
-               </children>
             </VBox>
             <VBox>
-               <children>
                               <Text fx:id="surnameText" strokeType="OUTSIDE" strokeWidth="0.0" text="Surname">
                                  <font>
                                     <Font name="System Bold" size="18.0" />
                                  </font>
                               </Text>
                   <TextField fx:id="surnameField" managed="false" prefHeight="35.0" prefWidth="100.0" visible="false" />
-               </children>
                <HBox.margin>
                   <Insets left="30.0" />
                </HBox.margin>
@@ -125,14 +118,12 @@
                </font>
             </Label>
             <VBox>
-               <children>
                               <Text fx:id="userPhoneDemo" strokeType="OUTSIDE" strokeWidth="0.0" text="No phone number">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
                               </Text>
                   <TextField fx:id="phoneField" managed="false" prefHeight="35.0" prefWidth="100.0" visible="false" />
-               </children>
             </VBox>
                      <VBox.margin>
                         <Insets top="10.0" />
@@ -149,46 +140,31 @@
       <HBox prefWidth="200.0">
             <VBox>
          <HBox>
-                        <Label fx:id="settingLabel" text="Settings">
+                        <Label fx:id="creditDebitCardLabel" prefHeight="35.0" prefWidth="590.0" text="Credit/Debit card">
                            <font>
                               <Font name="System Bold" size="24.0" />
                            </font>
                         </Label>
+            <Button fx:id="deleteCardButton" mnemonicParsing="false" onAction="#onDeleteCardButtonClick" visible="false" prefHeight="35.0" prefWidth="110.0" text="Delete">
+               <HBox.margin>
+                  <Insets right="10.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="addEditCardButton" mnemonicParsing="false" onAction="#onAddEditCardButtonCLick" prefHeight="35.0" prefWidth="110.0" text="Add">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin></Button>
          </HBox>
-         <HBox alignment="CENTER">
-            <children>
-               <Label fx:id="languageLabel" prefHeight="27.0" prefWidth="710.0" text="Language">
+         <HBox spacing="20.0">
+               <Label fx:id="noCardLabel" prefHeight="35.0" text="No card">
                   <font>
                      <Font size="18.0" />
                   </font>
                </Label>
-               <ChoiceBox fx:id="languageCB" prefHeight="35.0" prefWidth="110.0" />
-            </children>
-            <VBox.margin>
-               <Insets top="10.0" />
-            </VBox.margin>
-         </HBox>
-         <HBox alignment="CENTER">
-                        <Label fx:id="logOutLabel" prefWidth="715.0" text="Log out">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Label>
-                        <Button fx:id="logOutButton" mnemonicParsing="false" onAction="#onLogOutButtonClick" prefHeight="35.0" prefWidth="110.0" text="Log out" />
-            <VBox.margin>
-               <Insets top="10.0" />
-            </VBox.margin>
-         </HBox>
-         <HBox alignment="CENTER">
-                        <Label fx:id="deleteProfileLabel" prefWidth="715.0" text="Delete profile">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                  <HBox.margin>
-                     <Insets />
-                  </HBox.margin>
-                        </Label>
-                        <Button fx:id="deleteProfileButton" mnemonicParsing="false" onAction="#onDeleteProfileButtonClick" prefHeight="35.0" prefWidth="110.0" text="Delete" />
+               <TextField fx:id="cardNumberTF" managed="false" prefHeight="35.0" prefWidth="250.0" promptText="Card number" visible="false" />
+               <TextField fx:id="monthTF" managed="false" prefHeight="35.0" prefWidth="50.0" promptText="Month" visible="false" />
+               <TextField fx:id="yearTF" managed="false" prefHeight="35.0" prefWidth="50.0" promptText="Year" visible="false" />
+               <PasswordField fx:id="CCVTF" managed="false" prefHeight="35.0" prefWidth="50.0" promptText="CCV" visible="false" />
             <VBox.margin>
                <Insets top="10.0" />
             </VBox.margin>
@@ -209,4 +185,65 @@
                </HBox.margin>
             </VBox>
       </HBox>
+   <HBox prefWidth="200.0">
+         <VBox>
+            <HBox.margin>
+               <Insets left="40.0" />
+            </HBox.margin>
+            <padding>
+               <Insets top="10.0" />
+            </padding>
+               <HBox>
+                     <Label fx:id="settingLabel1" text="Settings">
+                        <font>
+                           <Font name="System Bold" size="24.0" />
+                        </font>
+                     </Label>
+               </HBox>
+               <HBox alignment="CENTER">
+                     <Label fx:id="languageLabel1" prefHeight="27.0" prefWidth="710.0" text="Language">
+                        <font>
+                           <Font size="18.0" />
+                        </font>
+                     </Label>
+                     <ChoiceBox fx:id="languageCB1" prefHeight="35.0" prefWidth="110.0" />
+                  <VBox.margin>
+                     <Insets top="10.0" />
+                  </VBox.margin>
+               </HBox>
+               <HBox alignment="CENTER">
+                  <VBox.margin>
+                     <Insets top="10.0" />
+                  </VBox.margin>
+                     <Label fx:id="logOutLabel1" prefWidth="715.0" text="Log out">
+                        <font>
+                           <Font size="18.0" />
+                        </font>
+                     </Label>
+                     <Button fx:id="logOutButton1" mnemonicParsing="false" onAction="#onLogOutButtonClick" prefHeight="35.0" prefWidth="110.0" text="Log out" />
+               </HBox>
+               <HBox alignment="CENTER">
+                  <VBox.margin>
+                     <Insets top="10.0" />
+                  </VBox.margin>
+                     <Label fx:id="deleteProfileLabel1" prefWidth="715.0" text="Delete profile">
+                        <font>
+                           <Font size="18.0" />
+                        </font>
+                        <HBox.margin>
+                           <Insets />
+                        </HBox.margin>
+                     </Label>
+                     <Button fx:id="deleteProfileButton1" mnemonicParsing="false" onAction="#onDeleteProfileButtonClick" prefHeight="35.0" prefWidth="110.0" text="Delete" />
+               </HBox>
+         </VBox>
+         <VBox>
+            <padding>
+               <Insets top="45.0" />
+            </padding>
+            <HBox.margin>
+               <Insets right="40.0" />
+            </HBox.margin>
+         </VBox>
+   </HBox>
 </VBox>
