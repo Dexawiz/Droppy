@@ -1,6 +1,8 @@
 package com.example.droppy.controller;
 
 import com.example.droppy.service.AuthService;
+import com.example.droppy.service.I18n;
+import com.example.droppy.service.Session;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,6 +13,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
+import java.util.Locale;
+
 public class ProfileOrLogOutComponentController {
 
     private Stage mainStage;
@@ -18,6 +22,8 @@ public class ProfileOrLogOutComponentController {
     public void init(AuthService authService, Stage mainStage) {
         this.authService = authService;
         this.mainStage = mainStage;
+        I18n.setLocale(new Locale(Session.getCurrentLanguage().getCode()));
+        updateText();
     }
 
 
@@ -65,6 +71,10 @@ public class ProfileOrLogOutComponentController {
         mainStage.setScene(scene);
         mainStage.setTitle("Profile");
         mainStage.show();
+    }
 
+    private void updateText(){
+        ProfileButton.setText(I18n.get("profile"));
+        LogOutButton.setText(I18n.get("log_out"));
     }
 }

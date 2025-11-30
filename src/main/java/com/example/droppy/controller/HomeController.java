@@ -5,6 +5,8 @@ import com.example.droppy.domain.enums.Category;
 import com.example.droppy.repository.CompanyDao;
 import com.example.droppy.repository.HibernateCompanyDao;
 import com.example.droppy.service.AuthService;
+import com.example.droppy.service.I18n;
+import com.example.droppy.service.Session;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,6 +24,7 @@ import javafx.stage.Stage;
 import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.util.List;
+import java.util.Locale;
 
 
 public class HomeController {
@@ -31,6 +34,8 @@ public class HomeController {
 
     public void init(AuthService authService) {
         this.authService = authService;
+        I18n.setLocale(new Locale(Session.getCurrentLanguage().getCode()));
+        updateText();
 
         //Companies
         CompanyDao companyDao = new HibernateCompanyDao();
@@ -188,6 +193,11 @@ public class HomeController {
                 e.printStackTrace();
             }
         }
+    }
+
+    private void updateText(){
+        restaurantsLabel.setText(I18n.get("restaurant"));
+        categoriesLabel.setText(I18n.get("categories"));
     }
 
 }

@@ -32,6 +32,9 @@ public class LoginController {
         languageCB.getItems().setAll(Language.values());
         languageCB.setValue(Session.getCurrentLanguage());
 
+        I18n.setLocale(new Locale(Session.getCurrentLanguage().getCode()));
+        updateText();
+
         languageCB.valueProperty().addListener((obs, oldVal, newVal) -> {
             if (newVal != null) {
                 Session.setCurrentLanguage(newVal);
