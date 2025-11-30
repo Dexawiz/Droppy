@@ -19,4 +19,5 @@ public interface OrderDao {
     Order findByStatusAndUser(OrderStatus status, User user);
     Order add(Order order);
     void update(Order order);
+    Order updateOI (Order order);
 }

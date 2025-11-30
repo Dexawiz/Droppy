@@ -10,6 +10,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class HibernateOrderDao implements OrderDao {
@@ -111,11 +112,9 @@ public class HibernateOrderDao implements OrderDao {
             managedOrder = findById(ordIerm.getId());
 
             if (managedOrder == null) {
-
                 managedOrder = (Order) session.merge(ordIerm);
             } else {
                 List<OrderItem> oldItems = new ArrayList<>(managedOrder.getOrderItems());
-
                 managedOrder.getOrderItems().clear();
                 session.flush();
                 managedOrder.getOrderItems().addAll(oldItems);
@@ -136,11 +135,75 @@ public class HibernateOrderDao implements OrderDao {
     }
 
     @Override
-    public void update(Order order) {
-        try(Session session = HibernateUtil.getSessionFactory().openSession()) {
+    public void update(Order order){
+        try (Session session = HibernateUtil.getSessionFactory().openSession()){
             Transaction tx = session.beginTransaction();
             session.merge(order);
             tx.commit();
+        } catch (Exception e){
+            e.printStackTrace();
         }
+    }
+
+    @Override
+    public Order updateOI(Order order) {
+        Order managedOrder = null;
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            Transaction tx = session.beginTransaction();
+
+            // Получаем managed объект
+            managedOrder = findById( order.getId());
+
+            if (managedOrder == null) {
+                // Если заказа нет, добавляем как новый
+                managedOrder = (Order) session.merge(order);
+            } else {
+                // Сохраняем старые элементы
+                List<OrderItem> oldItems = new ArrayList<>(managedOrder.getOrderItems());
+
+                // Убираем все из коллекции
+                managedOrder.getOrderItems().clear();
+                session.flush(); // синхронизируем удаление с БД
+
+                // Добавляем старые элементы обратно, которые остаются
+                for (OrderItem oldItem : oldItems) {
+                    if (order.getOrderItems().stream().anyMatch(o -> o.getId() != null && o.getId().equals(oldItem.getId()))) {
+                        managedOrder.getOrderItems().add(oldItem);
+                    } else {
+                        // Если элемента нет в обновлённом списке, удаляем из БД
+                        session.remove(oldItem);
+                    }
+                }
+
+                // Добавляем новые элементы
+                for (OrderItem newItem : order.getOrderItems()) {
+                    if (newItem.getId() == null) {
+                        newItem.setOrder(managedOrder);
+                        managedOrder.getOrderItems().add(newItem);
+                    } else {
+                        // Обновляем существующие
+                        OrderItem existing = managedOrder.getOrderItems()
+                                .stream()
+                                .filter(oi -> oi.getId().equals(newItem.getId()))
+                                .findFirst()
+                                .orElse(null);
+                        if (existing != null) {
+                            existing.setQuantity(newItem.getQuantity());
+                        }
+                    }
+                }
+
+                // Обновляем totalPrice
+                managedOrder.setTotalPrice(order.getTotalPrice());
+
+                // Сливаем изменения
+                managedOrder = (Order) session.merge(managedOrder);
+            }
+
+            tx.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return managedOrder;
     }
 }

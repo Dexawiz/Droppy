@@ -214,7 +214,20 @@ public class ProfileController {
 
     @FXML
     void onBackButtonClick(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/HomeView.fxml"));
+            Parent rootPane = loader.load();
 
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(rootPane);
+            stage.setScene(scene);
+
+            HomeController controller = loader.getController();
+            controller.init(this.authService);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void init(AuthService authService) {

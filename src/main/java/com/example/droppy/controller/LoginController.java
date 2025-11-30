@@ -35,6 +35,9 @@ public class LoginController {
                 Session.setCurrentLanguage(newVal);
             }
         });
+
+        emailTextField.setText("ivan@gmail.com");
+        passwordTextField.setText("pass123");
     }
 
     @FXML

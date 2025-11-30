@@ -11,6 +11,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -18,12 +20,15 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
+import javafx.stage.Stage;
 import org.kordamp.ikonli.javafx.FontIcon;
 
 public class CheckoutController {
 
     private AuthService authService;
     private OrderDao orderDao;
+    private Order currentOrder;
+    private Runnable refreshCallback;
 
     public void init(AuthService authService) {
         this.authService = authService;
@@ -31,35 +36,51 @@ public class CheckoutController {
 
         nameDemo.setText(authService.getCurrentUser().getName());
         surnameDemo.setText(authService.getCurrentUser().getSurname());
+
         String address =
                 authService.getCurrentUser().getAddress().getStreet() + ", "
-               + authService.getCurrentUser().getAddress().getPostalCode() + " "
-                + authService.getCurrentUser().getAddress().getCity() + ", "
-                + authService.getCurrentUser().getAddress().getCountry();
+                        + authService.getCurrentUser().getAddress().getPostalCode() + " "
+                        + authService.getCurrentUser().getAddress().getCity() + ", "
+                        + authService.getCurrentUser().getAddress().getCountry();
+
         addressTextField.setText(address);
         PNTextField.setText(authService.getCurrentUser().getPhoneNumber());
 
-        Order currentOrder = orderDao.findByStatusAndUser( OrderStatus.IN_PREPARATION, authService.getCurrentUser());
+        this.currentOrder = orderDao.findByStatusAndUser(
+                OrderStatus.IN_PREPARATION,
+                authService.getCurrentUser()
+        );
+
         OTDemo.setText(String.valueOf(currentOrder.getTotalPrice()));
         totalDemo.setText(String.valueOf(currentOrder.getTotalPrice() + 0.5));
 
+        refreshItems();
+    }
+
+
+    public void refreshItems() {
+        OTDemo.setText(String.format("%.2f", currentOrder.getTotalPrice()));
+        totalDemo.setText(String.format("%.2f", currentOrder.getTotalPrice() + 0.5));
         orderListContainer.getChildren().clear();
 
         for (OrderItem item : currentOrder.getOrderItems()) {
+            if (item.getQuantity() <= 0) continue;
+
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/components/ItemCheckoutComponent.fxml"));
                 Node node = loader.load();
 
                 ItemCheckoutController controller = loader.getController();
-                controller.init(authService, currentOrder, item);
+                controller.init(authService, currentOrder, item, this::refreshItems);
 
                 orderListContainer.getChildren().add(node);
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-
     }
+
 
     @FXML
     private VBox orderListContainer;
@@ -129,11 +150,39 @@ public class CheckoutController {
 
     @FXML
     void onOrderButtonClick(ActionEvent event) {
+        try {
+            FXMLLoader loader  = new FXMLLoader(getClass().getResource("/HomeView.fxml"));
+            Parent rootPane = loader.load();
+
+            HomeController controller = loader.getController();
+            controller.init(authService);
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(rootPane);
+            stage.setScene(scene);
+
+        } catch ( Exception e ){
+            e.printStackTrace();
+        }
+
+        orderDao.updateOrderStatus( currentOrder.getId(), OrderStatus.PENDING);
 
     }
 
     @FXML
     void onProfileClick(MouseEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ProfileView.fxml"));
+            Parent rootPane = loader.load();
 
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(rootPane);
+            stage.setScene(scene);
+
+            ProfileController controller = loader.getController();
+            controller.init(authService);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
