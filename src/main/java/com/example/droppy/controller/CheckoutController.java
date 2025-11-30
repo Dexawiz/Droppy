@@ -3,6 +3,7 @@ package com.example.droppy.controller;
 import com.example.droppy.domain.entity.Order;
 import com.example.droppy.domain.entity.OrderItem;
 import com.example.droppy.domain.entity.Product;
+import com.example.droppy.domain.enums.MethodOfPayment;
 import com.example.droppy.domain.enums.OrderStatus;
 import com.example.droppy.repository.HibernateOrderDao;
 import com.example.droppy.repository.OrderDao;
@@ -13,10 +14,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
@@ -147,6 +145,22 @@ public class CheckoutController {
 
     @FXML
     private Label userInfoLabel;
+
+    @FXML
+    private ChoiceBox<MethodOfPayment> paymentMethodCB;
+
+    @FXML
+    private TextField cardNumberTF;
+
+    @FXML
+    private TextField monthTF;
+
+    @FXML
+    private TextField yearTF;
+
+    @FXML
+    private TextField ccvTF;
+
 
     @FXML
     void onOrderButtonClick(ActionEvent event) {
