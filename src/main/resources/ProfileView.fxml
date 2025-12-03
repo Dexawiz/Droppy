@@ -194,14 +194,14 @@
                <Insets top="10.0" />
             </padding>
                <HBox>
-                     <Label fx:id="settingLabel1" text="Settings">
+                     <Label fx:id="settingLabel" text="Settings">
                         <font>
                            <Font name="System Bold" size="24.0" />
                         </font>
                      </Label>
                </HBox>
                <HBox alignment="CENTER">
-                     <Label fx:id="languageLabel1" prefHeight="27.0" prefWidth="710.0" text="Language">
+                     <Label fx:id="languageLabel" prefHeight="27.0" prefWidth="710.0" text="Language">
                         <font>
                            <Font size="18.0" />
                         </font>
@@ -215,18 +215,18 @@
                   <VBox.margin>
                      <Insets top="10.0" />
                   </VBox.margin>
-                     <Label fx:id="logOutLabel1" prefWidth="715.0" text="Log out">
+                     <Label fx:id="logOutLabel" prefWidth="715.0" text="Log out">
                         <font>
                            <Font size="18.0" />
                         </font>
                      </Label>
-                     <Button fx:id="logOutButton1" mnemonicParsing="false" onAction="#onLogOutButtonClick" prefHeight="35.0" prefWidth="110.0" text="Log out" />
+                     <Button fx:id="logOutButton" mnemonicParsing="false" onAction="#onLogOutButtonClick" prefHeight="35.0" prefWidth="110.0" text="Log out" />
                </HBox>
                <HBox alignment="CENTER">
                   <VBox.margin>
                      <Insets top="10.0" />
                   </VBox.margin>
-                     <Label fx:id="deleteProfileLabel1" prefWidth="715.0" text="Delete profile">
+                     <Label fx:id="deleteProfileLabel" prefWidth="715.0" text="Delete profile">
                         <font>
                            <Font size="18.0" />
                         </font>
@@ -234,7 +234,7 @@
                            <Insets />
                         </HBox.margin>
                      </Label>
-                     <Button fx:id="deleteProfileButton1" mnemonicParsing="false" onAction="#onDeleteProfileButtonClick" prefHeight="35.0" prefWidth="110.0" text="Delete" />
+                     <Button fx:id="deleteProfileButton" mnemonicParsing="false" onAction="#onDeleteProfileButtonClick" prefHeight="35.0" prefWidth="110.0" text="Delete" />
                </HBox>
          </VBox>
          <VBox>

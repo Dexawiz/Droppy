@@ -23,7 +23,6 @@ import java.util.Locale;
 public class ProfileController {
 
     private AuthService authService;
-    private Runnable onLoginSuccess;
     private Stage mainStage;
 
     public void init(AuthService authService, Stage mainStage) {
@@ -36,9 +35,6 @@ public class ProfileController {
     }
 
     @FXML
-    private Button addCreditDebitCardButton;
-
-    @FXML
     private Circle avatarSmall;
 
     @FXML
@@ -48,9 +44,6 @@ public class ProfileController {
     private Label creditDebitCardLabel;
 
     @FXML
-    private Text creditDebitCardText;
-
-    @FXML
     private Button deleteProfileButton;
 
     @FXML
@@ -58,9 +51,6 @@ public class ProfileController {
 
     @FXML
     private Label droppyTextLogo;
-
-    @FXML
-    private Button editCreditDebitCardButton;
 
     @FXML
     private Button editProfileButton;
@@ -87,9 +77,6 @@ public class ProfileController {
     private Label profileLabel;
 
     @FXML
-    private TextField searchTextField;
-
-    @FXML
     private Label settingLabel;
 
     @FXML
@@ -100,9 +87,6 @@ public class ProfileController {
 
     @FXML
     private Text userPhoneDemo;
-
-    @FXML
-    private Button backButton;
 
     @FXML
     private TextField nameField;
@@ -135,6 +119,9 @@ public class ProfileController {
     @FXML
     private Button deleteCardButton;
 
+    @FXML
+    private Label languageLabel;
+
 
     @FXML
     private ChoiceBox<Language> languageCB1;
@@ -149,7 +136,7 @@ public class ProfileController {
 
         if (!isAddingEditingCard) {
             isAddingEditingCard = true;
-            addEditCardButton.setText("Save");
+            addEditCardButton.setText(I18n.get("save"));
 
             if (user != null && user.getCardNumber() != null) {
                 String[] parts = user.getCardNumber().split("/");
@@ -213,6 +200,7 @@ public class ProfileController {
 
                 addEditCardButton.setText("Edit");
                 isAddingEditingCard = false;
+                loadUserData();
 
             }
         }
@@ -253,7 +241,7 @@ public class ProfileController {
     void onEditProfileButtonClick(ActionEvent event) {
         if (!isEditing) {
             isEditing = true;
-            editProfileButton.setText("Save");
+            editProfileButton.setText(I18n.get("save"));
 
             //ziskanie udajov
             nameField.setText(nameText.getText());
@@ -277,7 +265,7 @@ public class ProfileController {
             phoneField.setManaged(true);
         } else {
             isEditing = false;
-            editProfileButton.setText("Edit");
+            editProfileButton.setText(I18n.get("edit"));
 
             User user = Session.getLoggedUser();
             if (user != null) {
@@ -338,6 +326,7 @@ public class ProfileController {
                 loggedUser.setCardNumber(null);
                 HibernateUserDao userDao = new HibernateUserDao();
                 userDao.save(loggedUser);
+                addEditCardButton.setText(I18n.get("add"));
             }
         }
         loadUserData();
@@ -400,6 +389,31 @@ public class ProfileController {
 
     //pre zmenu jazyka -musim este zrobit
     private void updateText() {
+        profileLabel.setText(I18n.get("profile"));
+        phoneNumberLabel.setText(I18n.get("phone_number"));
+        creditDebitCardLabel.setText(I18n.get("credit_debit_card"));
+        settingLabel.setText(I18n.get("settings"));
+        languageLabel.setText(I18n.get("language"));
+        deleteProfileLabel.setText(I18n.get("delete_profile"));
+        logOutLabel.setText(I18n.get("log_out"));
+
+
+        editProfileButton.setText(isEditing ? I18n.get("save") : I18n.get("edit"));
+
+        User user = Session.getLoggedUser();
+        if (isAddingEditingCard) {
+            addEditCardButton.setText(I18n.get("save"));
+        } else {
+            if (user == null || user.getCardNumber() == null || user.getCardNumber().isEmpty()) {
+                addEditCardButton.setText(I18n.get("add"));
+            } else {
+                addEditCardButton.setText(I18n.get("edit"));
+            }
+        }
+
+        deleteProfileButton.setText(I18n.get("delete"));
+        deleteCardButton.setText(I18n.get("delete"));
+        logOutButton.setText(I18n.get("log_out"));
     }
 
     //nacitanie info daneho prihlaseneho usera
@@ -417,16 +431,17 @@ public class ProfileController {
 
             //toto je na to, ze ked uz ma ulozenu kartu, nech ukazuje rovno edit a nie add
             if (user.getCardNumber() == null || user.getCardNumber().isEmpty()) {
-                addEditCardButton.setText("Add");
+                addEditCardButton.setText(I18n.get("add"));
                 deleteCardButton.setVisible(false);
-                noCardLabel.setText("No card");
+                noCardLabel.setText(I18n.get("no_card"));
             } else {
-                addEditCardButton.setText("Edit");
+                addEditCardButton.setText(I18n.get("edit"));
                 noCardLabel.setText("************" + "/" + "**" + "/" + "**");
                 deleteCardButton.setVisible(true);
             }
             isAddingEditingCard = false;
         }
     }
+
 
 }
