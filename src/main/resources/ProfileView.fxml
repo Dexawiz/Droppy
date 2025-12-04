@@ -4,7 +4,6 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -22,13 +21,9 @@
                   <Insets />
                </HBox.margin>
             </Label>
-            <TextField fx:id="searchTextField" prefHeight="30.0" prefWidth="300.0" promptText="Search">
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin></TextField>
             <Circle fx:id="avatarSmall" fill="DODGERBLUE" radius="12.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
                <HBox.margin>
-                  <Insets left="250.0" />
+                  <Insets left="550.0" />
                </HBox.margin>
             </Circle>
          <padding>
@@ -136,54 +131,6 @@
          <VBox.margin>
             <Insets />
          </VBox.margin>
-      </HBox>
-      <HBox prefWidth="200.0">
-            <VBox>
-         <HBox>
-                        <Label fx:id="creditDebitCardLabel" prefHeight="35.0" prefWidth="590.0" text="Credit/Debit card">
-                           <font>
-                              <Font name="System Bold" size="24.0" />
-                           </font>
-                        </Label>
-            <Button fx:id="deleteCardButton" mnemonicParsing="false" onAction="#onDeleteCardButtonClick" visible="false" prefHeight="35.0" prefWidth="110.0" text="Delete">
-               <HBox.margin>
-                  <Insets right="10.0" />
-               </HBox.margin>
-            </Button>
-            <Button fx:id="addEditCardButton" mnemonicParsing="false" onAction="#onAddEditCardButtonCLick" prefHeight="35.0" prefWidth="110.0" text="Add">
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin></Button>
-         </HBox>
-         <HBox spacing="20.0">
-               <Label fx:id="noCardLabel" prefHeight="35.0" text="No card">
-                  <font>
-                     <Font size="18.0" />
-                  </font>
-               </Label>
-               <TextField fx:id="cardNumberTF" managed="false" prefHeight="35.0" prefWidth="250.0" promptText="Card number" visible="false" />
-               <TextField fx:id="monthTF" managed="false" prefHeight="35.0" prefWidth="50.0" promptText="Month" visible="false" />
-               <TextField fx:id="yearTF" managed="false" prefHeight="35.0" prefWidth="50.0" promptText="Year" visible="false" />
-               <PasswordField fx:id="CCVTF" managed="false" prefHeight="35.0" prefWidth="50.0" promptText="CCV" visible="false" />
-            <VBox.margin>
-               <Insets top="10.0" />
-            </VBox.margin>
-         </HBox>
-               <HBox.margin>
-                  <Insets left="40.0" />
-               </HBox.margin>
-               <padding>
-                  <Insets top="10.0" />
-               </padding>
-            </VBox>
-            <VBox>
-               <padding>
-                  <Insets top="45.0" />
-               </padding>
-               <HBox.margin>
-                  <Insets right="40.0" />
-               </HBox.margin>
-            </VBox>
       </HBox>
    <HBox prefWidth="200.0">
          <VBox>

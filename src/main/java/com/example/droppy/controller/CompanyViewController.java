@@ -187,14 +187,14 @@ public class CompanyViewController {
     @FXML
     void onCartButtonClick(ActionEvent event) {
         try{
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/CheckoutView.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/CartView.fxml"));
             Parent rootPane = loader.load();
 
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             Scene scene = new Scene(rootPane);
             stage.setScene(scene);
 
-            CheckoutController controller = loader.getController();
+            CartController controller = loader.getController();
             controller.init(authService);
         } catch (Exception e){
             e.printStackTrace();
