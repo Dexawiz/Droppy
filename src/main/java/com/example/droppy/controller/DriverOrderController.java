@@ -19,11 +19,10 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.sql.Driver;
 import java.util.List;
 import java.util.Objects;
 
-public class DriverAvailableOrderController {
+public class DriverOrderController {
 
     private AuthService authService;
     private OrderDao orderDao;

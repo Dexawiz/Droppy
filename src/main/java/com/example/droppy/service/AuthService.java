@@ -15,6 +15,8 @@ public class AuthService {
     @Getter
     private User currentUser;
 
+    
+
     public AuthService(UserDao userDao) {
         this.userDao = userDao;
     }

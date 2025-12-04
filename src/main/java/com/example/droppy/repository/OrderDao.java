@@ -2,6 +2,7 @@ package com.example.droppy.repository;
 
 import com.example.droppy.domain.entity.Order;
 import com.example.droppy.domain.entity.User;
+import com.example.droppy.domain.enums.MethodOfPayment;
 import com.example.droppy.domain.enums.OrderStatus;
 
 import java.util.List;
@@ -20,4 +21,5 @@ public interface OrderDao {
     Order add(Order order);
     void update(Order order);
     Order updateOI (Order order);
+    void updatePaymentMethod(Long orderId, MethodOfPayment methodOfPayment);
 }

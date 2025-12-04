@@ -69,6 +69,8 @@ public class ItemCheckoutController {
         refreshCallback.run();
     }
 
+
+
     @FXML
     void onDeleteItemButtonClick(ActionEvent event) {
         if (item.getQuantity() > 1) {

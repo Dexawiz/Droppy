@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.droppy.controller.DriverAvailableOrderController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.droppy.controller.DriverOrderController">
       <HBox fx:id="header" alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="900.0">
          <padding>
             <Insets bottom="5.0" top="5.0" />

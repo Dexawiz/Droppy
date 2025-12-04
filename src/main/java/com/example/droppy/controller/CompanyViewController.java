@@ -122,7 +122,7 @@ public class CompanyViewController {
             currentOrder.setDeliveryToAddress(address);
             currentOrder.setTotalPrice(0.);
             currentOrder.setOrderCreatedTime( java.time.LocalDateTime.now());
-            currentOrder.setPaymentMethod(MethodOfPayment.CASH);
+            currentOrder.setPaymentMethod(MethodOfPayment.ONLINE);
             if (currentOrder.getOrderItems() == null) {
                 currentOrder.setOrderItems(new ArrayList<>());
             }

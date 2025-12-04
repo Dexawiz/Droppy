@@ -4,6 +4,7 @@ import com.example.droppy.domain.entity.Company;
 import com.example.droppy.domain.entity.Order;
 import com.example.droppy.domain.entity.OrderItem;
 import com.example.droppy.domain.entity.User;
+import com.example.droppy.domain.enums.MethodOfPayment;
 import com.example.droppy.domain.enums.OrderStatus;
 import com.example.droppy.util.HibernateUtil;
 import org.hibernate.Session;
@@ -205,5 +206,16 @@ public class HibernateOrderDao implements OrderDao {
             e.printStackTrace();
         }
         return managedOrder;
+    }
+
+    @Override
+    public void updatePaymentMethod(Long orderId, MethodOfPayment methodOfPayment) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            Transaction tx = session.beginTransaction();
+            Order order = session.getReference(Order.class, orderId);
+            order.setPaymentMethod(methodOfPayment);
+            session.merge(order);
+            tx.commit();
+        }
     }
 }

@@ -88,7 +88,8 @@ public class FoodItemController {
                 .sum();
         currentOrder.setTotalPrice(total);
         currentOrder.setOrderCreatedTime(java.time.LocalDateTime.now());
-        currentOrder.setPaymentMethod(MethodOfPayment.CASH);
+        currentOrder.setPaymentMethod(MethodOfPayment.ONLINE);
         orderDao.update(currentOrder);
+        addItemButton.setDisable( true );
     }
 }

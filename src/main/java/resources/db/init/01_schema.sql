@@ -16,13 +16,8 @@ CREATE TYPE company_category_enum AS ENUM ('PIZZA',
 CREATE TYPE user_role_enum        AS ENUM ('CUSTOMER', 'DRIVER', 'ADMIN');
 CREATE TYPE driver_status_enum    AS ENUM (
     'OFFLINE',
-    'ONLINE',
-    'AVAILABLE',
-    'EN_ROUTE_TO_PICKUP_ORDER',
-    'ARRIVED_AT_PICKUP',
-    'EN_ROUTE_TO_CLIENT',
-    'ARRIVED_TO_CLIENT',
-    'BANNED');
+    'ONLINE'
+    );
 CREATE TYPE delivery_method_enum  AS ENUM ('CAR', 'BIKE', 'SCOOTER');
 
 CREATE TYPE payment_method_enum   AS ENUM ('CASH', 'ONLINE');
@@ -30,11 +25,7 @@ CREATE TYPE order_status_enum     AS ENUM (
     'PENDING',
     'ACCEPTED',
     'IN_PREPARATION',
-    'READY_FOR_PICKUP',
-    'PICKED_UP',
-    'DELIVERED',
-    'CANCELLED',
-    'COMPLETED'
+    'DELIVERED'
 );
 
 

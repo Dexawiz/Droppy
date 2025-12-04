@@ -115,11 +115,11 @@ public class LoginController {
                 }
 
                 case DRIVER -> {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/DriverAvailableOrderView.fxml"));
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/DriverOrderView.fxml"));
                     Parent rootPane = loader.load();
 
-                    DriverAvailableOrderController controller = loader.getController();
-                    controller.init(authService, new HibernateOrderDao(), DriverAvailableOrderController.Mode.AVAILABLE);
+                    DriverOrderController controller = loader.getController();
+                    controller.init(authService, new HibernateOrderDao(), DriverOrderController.Mode.AVAILABLE);
 
                     Scene scene = new Scene(rootPane);
                     stage.setScene(scene);

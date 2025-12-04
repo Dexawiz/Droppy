@@ -31,9 +31,41 @@ public class CheckoutController {
     public void init(AuthService authService) {
         this.authService = authService;
         this.orderDao = new HibernateOrderDao();
+        this.currentOrder = orderDao.findByStatusAndUser(
+                OrderStatus.IN_PREPARATION,
+                authService.getCurrentUser()
+        );
 
         nameDemo.setText(authService.getCurrentUser().getName());
         surnameDemo.setText(authService.getCurrentUser().getSurname());
+
+        paymentMethodCB .getItems().addAll(MethodOfPayment.values());
+        paymentMethodCB.setValue(currentOrder.getPaymentMethod());
+
+        paymentMethodCB.setOnAction(event -> {
+            MethodOfPayment selectedMethod = paymentMethodCB.getValue();
+            currentOrder.setPaymentMethod(selectedMethod);
+            orderDao.updatePaymentMethod(currentOrder.getId(), selectedMethod);
+
+            //remove after delete adding card
+            if(cardNumberTF != null){
+                cardNumberTF.setVisible( selectedMethod == MethodOfPayment.ONLINE);
+                cardNumberTF.setManaged( selectedMethod == MethodOfPayment.ONLINE);
+            }
+            if(monthTF != null){
+                monthTF.setVisible( selectedMethod == MethodOfPayment.ONLINE);
+                monthTF.setManaged( selectedMethod == MethodOfPayment.ONLINE);
+            }
+            if( yearTF != null){
+                yearTF.setVisible( selectedMethod == MethodOfPayment.ONLINE);
+                yearTF.setManaged( selectedMethod == MethodOfPayment.ONLINE);
+            }
+            if( ccvTF != null){
+                ccvTF.setVisible( selectedMethod == MethodOfPayment.ONLINE);
+                ccvTF.setManaged( selectedMethod == MethodOfPayment.ONLINE);
+            }
+        });
+
 
         String address =
                 authService.getCurrentUser().getAddress().getStreet() + ", "
@@ -43,11 +75,6 @@ public class CheckoutController {
 
         addressTextField.setText(address);
         PNTextField.setText(authService.getCurrentUser().getPhoneNumber());
-
-        this.currentOrder = orderDao.findByStatusAndUser(
-                OrderStatus.IN_PREPARATION,
-                authService.getCurrentUser()
-        );
 
         OTDemo.setText(String.valueOf(currentOrder.getTotalPrice()));
         totalDemo.setText(String.valueOf(currentOrder.getTotalPrice() + 0.5));
