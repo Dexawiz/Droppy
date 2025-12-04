@@ -16,6 +16,13 @@ public class HibernateUtil {
 
             Configuration configuration = new Configuration().configure();
 
+            String env = System.getProperty("env");
+            if ("test".equals(env)) {
+               configuration.configure( "hibernate-test.cfg.xml");
+            } else {
+                configuration.configure( "hibernate.cfg.xml");
+            }
+
             configuration.addAnnotatedClass(User.class);
             configuration.addAnnotatedClass(Company.class);
             configuration.addAnnotatedClass(Product.class);

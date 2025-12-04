@@ -55,7 +55,7 @@ public class HibernateOrderDao implements OrderDao {
     @Override
     public List<Order> findByUserId(Long userId) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            return session.createQuery("FROM Order WHERE customerId = :userId", Order.class)
+            return session.createQuery("FROM Order WHERE customerId.id = :userId", Order.class)
                     .setParameter("userId", userId)
                     .list();
         }
