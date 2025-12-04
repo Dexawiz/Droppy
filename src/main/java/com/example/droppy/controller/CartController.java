@@ -2,7 +2,6 @@ package com.example.droppy.controller;
 
 import com.example.droppy.domain.entity.Order;
 import com.example.droppy.domain.entity.OrderItem;
-import com.example.droppy.domain.entity.Product;
 import com.example.droppy.domain.enums.MethodOfPayment;
 import com.example.droppy.domain.enums.OrderStatus;
 import com.example.droppy.repository.HibernateOrderDao;
@@ -21,7 +20,7 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import org.kordamp.ikonli.javafx.FontIcon;
 
-public class CheckoutController {
+public class CartController {
 
     private AuthService authService;
     private OrderDao orderDao;
@@ -39,7 +38,7 @@ public class CheckoutController {
         nameDemo.setText(authService.getCurrentUser().getName());
         surnameDemo.setText(authService.getCurrentUser().getSurname());
 
-        paymentMethodCB .getItems().addAll(MethodOfPayment.values());
+        paymentMethodCB.getItems().addAll(MethodOfPayment.values());
         paymentMethodCB.setValue(currentOrder.getPaymentMethod());
 
         paymentMethodCB.setOnAction(event -> {
@@ -47,23 +46,6 @@ public class CheckoutController {
             currentOrder.setPaymentMethod(selectedMethod);
             orderDao.updatePaymentMethod(currentOrder.getId(), selectedMethod);
 
-            //remove after delete adding card
-            if(cardNumberTF != null){
-                cardNumberTF.setVisible( selectedMethod == MethodOfPayment.ONLINE);
-                cardNumberTF.setManaged( selectedMethod == MethodOfPayment.ONLINE);
-            }
-            if(monthTF != null){
-                monthTF.setVisible( selectedMethod == MethodOfPayment.ONLINE);
-                monthTF.setManaged( selectedMethod == MethodOfPayment.ONLINE);
-            }
-            if( yearTF != null){
-                yearTF.setVisible( selectedMethod == MethodOfPayment.ONLINE);
-                yearTF.setManaged( selectedMethod == MethodOfPayment.ONLINE);
-            }
-            if( ccvTF != null){
-                ccvTF.setVisible( selectedMethod == MethodOfPayment.ONLINE);
-                ccvTF.setManaged( selectedMethod == MethodOfPayment.ONLINE);
-            }
         });
 
 
@@ -95,7 +77,7 @@ public class CheckoutController {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/components/ItemCheckoutComponent.fxml"));
                 Node node = loader.load();
 
-                ItemCheckoutController controller = loader.getController();
+                ItemCartController controller = loader.getController();
                 controller.init(authService, currentOrder, item, this::refreshItems);
 
                 orderListContainer.getChildren().add(node);
@@ -176,23 +158,11 @@ public class CheckoutController {
     @FXML
     private ChoiceBox<MethodOfPayment> paymentMethodCB;
 
-    @FXML
-    private TextField cardNumberTF;
-
-    @FXML
-    private TextField monthTF;
-
-    @FXML
-    private TextField yearTF;
-
-    @FXML
-    private TextField ccvTF;
-
 
     @FXML
     void onOrderButtonClick(ActionEvent event) {
         try {
-            FXMLLoader loader  = new FXMLLoader(getClass().getResource("/HomeView.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/HomeView.fxml"));
             Parent rootPane = loader.load();
 
             HomeController controller = loader.getController();
@@ -201,11 +171,11 @@ public class CheckoutController {
             Scene scene = new Scene(rootPane);
             stage.setScene(scene);
 
-        } catch ( Exception e ){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
-        orderDao.updateOrderStatus( currentOrder.getId(), OrderStatus.PENDING);
+        orderDao.updateOrderStatus(currentOrder.getId(), OrderStatus.PENDING);
 
     }
 

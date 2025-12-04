@@ -41,9 +41,6 @@ public class ProfileController {
     private Circle bigAvatar;
 
     @FXML
-    private Label creditDebitCardLabel;
-
-    @FXML
     private Button deleteProfileButton;
 
     @FXML
@@ -97,28 +94,6 @@ public class ProfileController {
     @FXML
     private TextField phoneField;
 
-    //pre kartu
-    @FXML
-    private TextField cardNumberTF;
-
-    @FXML
-    private TextField monthTF;
-
-    @FXML
-    private TextField yearTF;
-
-    @FXML
-    private PasswordField CCVTF;
-
-    @FXML
-    private Label noCardLabel;
-
-    @FXML
-    private Button addEditCardButton;
-
-    @FXML
-    private Button deleteCardButton;
-
     @FXML
     private Label languageLabel;
 
@@ -128,83 +103,7 @@ public class ProfileController {
 
     private boolean isEditing = false;
 
-    private boolean isAddingEditingCard = false;
 
-    @FXML
-    void onAddEditCardButtonCLick(ActionEvent event) {
-        User user = Session.getLoggedUser();
-
-        if (!isAddingEditingCard) {
-            isAddingEditingCard = true;
-            addEditCardButton.setText(I18n.get("save"));
-
-            if (user != null && user.getCardNumber() != null) {
-                String[] parts = user.getCardNumber().split("/");
-                if (parts.length == 4) {
-                    cardNumberTF.setText(parts[0]);
-                    monthTF.setText(parts[1]);
-                    yearTF.setText(parts[2]);
-                    CCVTF.setText(parts[3]);
-                }
-            } else {
-                cardNumberTF.clear();
-                monthTF.clear();
-                yearTF.clear();
-                CCVTF.clear();
-            }
-
-
-            cardNumberTF.setVisible(true);
-            cardNumberTF.setManaged(true);
-            monthTF.setVisible(true);
-            monthTF.setManaged(true);
-            yearTF.setVisible(true);
-            yearTF.setManaged(true);
-            CCVTF.setVisible(true);
-            CCVTF.setManaged(true);
-
-            // skry label
-            noCardLabel.setVisible(false);
-            noCardLabel.setManaged(false);
-        } else {
-            // uloženie do DB
-            String cardNumber = cardNumberTF.getText().trim();
-            String month = monthTF.getText().trim();
-            String year = yearTF.getText().trim();
-            String ccv = CCVTF.getText().trim();
-
-            if (!cardNumber.isEmpty() && !month.isEmpty() && !year.isEmpty()) {
-                String card = cardNumber + "/" + month + "/" + year + "/" + ccv;
-
-                //pridanie do db
-                if (user != null) {
-                    user.setCardNumber(card);
-                    HibernateUserDao userDao = new HibernateUserDao();
-                    userDao.save(user);
-                }
-                loadUserData();
-                // maskovanie čísla karty
-                noCardLabel.setText("****************" + "/" + "**" + "/" + "**");
-                noCardLabel.setVisible(true);
-                noCardLabel.setManaged(true);
-
-                // skry text fields
-                cardNumberTF.setVisible(false);
-                cardNumberTF.setManaged(false);
-                monthTF.setVisible(false);
-                monthTF.setManaged(false);
-                yearTF.setVisible(false);
-                yearTF.setManaged(false);
-                CCVTF.setVisible(false);
-                CCVTF.setManaged(false);
-
-                addEditCardButton.setText("Edit");
-                isAddingEditingCard = false;
-                loadUserData();
-
-            }
-        }
-    }
 
     @FXML
     void onDeleteProfileButtonClick(ActionEvent event) throws Exception {
@@ -317,22 +216,6 @@ public class ProfileController {
     }
 
     @FXML
-    void onDeleteCardButtonClick(ActionEvent event) {
-        User loggedUser = Session.getLoggedUser();
-        if (loggedUser != null && loggedUser.getCardNumber() != null && !loggedUser.getCardNumber().isEmpty()) {
-            var alert = new Alert(Alert.AlertType.CONFIRMATION, "Do you want to delete your card?");
-            var result = alert.showAndWait();
-            if ((result.get() == javafx.scene.control.ButtonType.OK)) {
-                loggedUser.setCardNumber(null);
-                HibernateUserDao userDao = new HibernateUserDao();
-                userDao.save(loggedUser);
-                addEditCardButton.setText(I18n.get("add"));
-            }
-        }
-        loadUserData();
-    }
-
-    @FXML
     void onLogOutButtonClick(ActionEvent event) throws Exception {
         var alert = new Alert(Alert.AlertType.CONFIRMATION, "Do you want to log out?");
         var result = alert.showAndWait();
@@ -374,16 +257,6 @@ public class ProfileController {
             }
         });
 
-        //limit znakov na textove polia
-        cardNumberTF.setTextFormatter(new TextFormatter<String>(change ->
-                change.getControlNewText().length() <= 16 ? change : null));
-        monthTF.setTextFormatter(new TextFormatter<String>(change ->
-                change.getControlNewText().length() <= 2 ? change : null));
-        yearTF.setTextFormatter(new TextFormatter<String>(change ->
-                change.getControlNewText().length() <= 2 ? change : null));
-        CCVTF.setTextFormatter(new TextFormatter<String>(change ->
-                change.getControlNewText().length() <= 3 ? change : null));
-
         loadUserData();
     }
 
@@ -391,28 +264,12 @@ public class ProfileController {
     private void updateText() {
         profileLabel.setText(I18n.get("profile"));
         phoneNumberLabel.setText(I18n.get("phone_number"));
-        creditDebitCardLabel.setText(I18n.get("credit_debit_card"));
         settingLabel.setText(I18n.get("settings"));
         languageLabel.setText(I18n.get("language"));
         deleteProfileLabel.setText(I18n.get("delete_profile"));
         logOutLabel.setText(I18n.get("log_out"));
-
-
         editProfileButton.setText(isEditing ? I18n.get("save") : I18n.get("edit"));
-
-        User user = Session.getLoggedUser();
-        if (isAddingEditingCard) {
-            addEditCardButton.setText(I18n.get("save"));
-        } else {
-            if (user == null || user.getCardNumber() == null || user.getCardNumber().isEmpty()) {
-                addEditCardButton.setText(I18n.get("add"));
-            } else {
-                addEditCardButton.setText(I18n.get("edit"));
-            }
-        }
-
         deleteProfileButton.setText(I18n.get("delete"));
-        deleteCardButton.setText(I18n.get("delete"));
         logOutButton.setText(I18n.get("log_out"));
     }
 
@@ -428,18 +285,6 @@ public class ProfileController {
                 userPhoneDemo.setText(user.getPhoneNumber());
             }
 
-
-            //toto je na to, ze ked uz ma ulozenu kartu, nech ukazuje rovno edit a nie add
-            if (user.getCardNumber() == null || user.getCardNumber().isEmpty()) {
-                addEditCardButton.setText(I18n.get("add"));
-                deleteCardButton.setVisible(false);
-                noCardLabel.setText(I18n.get("no_card"));
-            } else {
-                addEditCardButton.setText(I18n.get("edit"));
-                noCardLabel.setText("************" + "/" + "**" + "/" + "**");
-                deleteCardButton.setVisible(true);
-            }
-            isAddingEditingCard = false;
         }
     }
 

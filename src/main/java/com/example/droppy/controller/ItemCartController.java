@@ -2,7 +2,6 @@ package com.example.droppy.controller;
 
 import com.example.droppy.domain.entity.Order;
 import com.example.droppy.domain.entity.OrderItem;
-import com.example.droppy.domain.entity.Product;
 import com.example.droppy.repository.HibernateOrderDao;
 import com.example.droppy.repository.OrderDao;
 import com.example.droppy.service.AuthService;
@@ -12,7 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.text.Text;
 
-public class ItemCheckoutController {
+public class ItemCartController {
 
     private AuthService authService;
     private Order order;
