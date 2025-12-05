@@ -5,7 +5,8 @@ import com.example.droppy.domain.entity.Product;
 import com.example.droppy.repository.HibernateProductDao;
 import com.example.droppy.repository.ProductDao;
 import com.example.droppy.service.AuthService;
-import com.example.droppy.util.HibernateUtil;
+import com.example.droppy.service.I18n;
+import com.example.droppy.service.Session;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,6 +16,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import lombok.Setter;
+
+import java.util.Locale;
 
 public class SaveProductController {
 
@@ -27,8 +30,11 @@ public class SaveProductController {
     public void init(AuthService authService, Company company) {
         this.authService = authService;
         this.mode = mode;
-        this.productDao = new HibernateProductDao(HibernateUtil.getSessionFactory());
+        this.productDao = new HibernateProductDao();
         this.company = company;
+
+        I18n.setLocale(new Locale(Session.getCurrentLanguage().getCode()));
+        updateText();
 
         if(deleteProductButton != null) {
             deleteProductButton.setVisible(mode == Mode.EDITING_PRODUCT);
@@ -128,6 +134,14 @@ public class SaveProductController {
 
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.close();
+    }
+
+    private void updateText(){
+        nameProductTextField.setPromptText(I18n.get("nameProduct"));
+        descProductTextField.setPromptText(I18n.get("descProduct"));
+        priceProductTextField.setPromptText(I18n.get("priceProduct"));
+        deleteProductButton.setText(I18n.get("delete"));
+        saveProductButton.setText(I18n.get("save"));
     }
 
 }

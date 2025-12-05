@@ -83,6 +83,7 @@ public class AdminDriversController {
         if( createNewDriver != null) {
             createNewDriver.setVisible(mode == Mode.ADD_DRIVER_FROM_CUSTOMERS);
             createNewDriver.setManaged(mode == Mode.ADD_DRIVER_FROM_CUSTOMERS);
+            createNewDriver.setText(I18n.get("createNewDriver"));
         }
 
         if(returnToDefault != null) {
@@ -386,8 +387,10 @@ public class AdminDriversController {
 
     private void updateText(){
         addDriverButton.setText(I18n.get("addDriver"));
+        createNewDriver.setText(I18n.get("createNewDriver"));
         editDriverButton.setText(I18n.get("editDriver"));
         switchToCompaniesButton.setText(I18n.get("companies"));
         logOutButton.setText(I18n.get("log_out"));
+        returnToDefault.setText(I18n.get("return"));
     }
 }

@@ -5,6 +5,8 @@ import com.example.droppy.domain.entity.User;
 import com.example.droppy.domain.enums.Role;
 import com.example.droppy.repository.UserDao;
 import com.example.droppy.service.AuthService;
+import com.example.droppy.service.I18n;
+import com.example.droppy.service.Session;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,6 +16,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.BufferedReader;
+import java.util.Locale;
 
 public class SaveDriverController {
 
@@ -23,6 +26,9 @@ public class SaveDriverController {
     public void init(AuthService authService, Runnable onRegisterSuccess) {
         this.onRegisterSuccess = onRegisterSuccess;
         this.authService = authService;
+
+        I18n.setLocale(new Locale(Session.getCurrentLanguage().getCode()));
+        updateText();
     }
 
     @FXML
@@ -88,6 +94,16 @@ public class SaveDriverController {
                 controller -> controller.init(authService,
                         AdminDriversController.Mode.LIST_ALL)
         );
+    }
+
+    private void updateText(){
+        driverLabel.setText(I18n.get("driver"));
+        saveDriverButton.setText(I18n.get("save"));
+        returnToAddDriver.setText(I18n.get("return"));
+        driverNameTextField.promptTextProperty().set(I18n.get("name"));
+        drverSurnameTextField.promptTextProperty().set(I18n.get("surname"));
+        driverPhoneNumberTextField.promptTextProperty().set(I18n.get("phone_number"));
+        driverPasswordField.promptTextProperty().set(I18n.get("passwd"));
     }
 
 }

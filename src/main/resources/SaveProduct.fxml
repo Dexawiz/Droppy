@@ -38,7 +38,7 @@
             <VBox>
                <children>
                   <TextField fx:id="nameProductTextField" prefHeight="35.0" prefWidth="680.0" promptText="Name of the product" />
-                  <TextArea fx:id="descProductTextField" prefHeight="250.0" prefWidth="680.0" promptText="Descrition of the product">
+                  <TextArea fx:id="descProductTextField" prefHeight="250.0" prefWidth="680.0" promptText="Description of the product">
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin>
