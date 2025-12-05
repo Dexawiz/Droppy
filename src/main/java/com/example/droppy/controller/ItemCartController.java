@@ -5,11 +5,15 @@ import com.example.droppy.domain.entity.OrderItem;
 import com.example.droppy.repository.HibernateOrderDao;
 import com.example.droppy.repository.OrderDao;
 import com.example.droppy.service.AuthService;
+import com.example.droppy.service.I18n;
+import com.example.droppy.service.Session;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.text.Text;
+
+import java.util.Locale;
 
 public class ItemCartController {
 
@@ -25,6 +29,8 @@ public class ItemCartController {
         this.item = item;
         this.refreshCallback = refreshCallback;
 
+        I18n.setLocale(new Locale(Session.getCurrentLanguage().getCode()));
+        updateText();
 
         this.orderDao = new HibernateOrderDao();
         ItemNameLabel.setText(item.getProduct().getName());
@@ -85,6 +91,10 @@ public class ItemCartController {
 
         order = orderDao.updateOI(order);
         refreshCallback.run();
+    }
+
+    private void updateText(){
+        priceLabel.setText(I18n.get("price"));
     }
 
 }

@@ -80,7 +80,7 @@ public class CartController {
             if (item.getQuantity() <= 0) continue;
 
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/components/ItemCheckoutComponent.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/components/ItemCartComponent.fxml"));
                 Node node = loader.load();
 
                 ItemCartController controller = loader.getController();

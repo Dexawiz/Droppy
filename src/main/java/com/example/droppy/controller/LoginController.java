@@ -44,12 +44,12 @@ public class LoginController {
             }
         });
 
-//        emailTextField.setText("ivan@gmail.com");
-//        passwordTextField.setText("pass123");
+        emailTextField.setText("ivan@gmail.com");
+        passwordTextField.setText("pass123");
 //        emailTextField.setText("admin@droppy.com");
 //        passwordTextField.setText("admin123");
-        emailTextField.setText("maria.driver@droppy.com");
-        passwordTextField.setText("1234567");
+//        emailTextField.setText("maria.driver@droppy.com");
+//        passwordTextField.setText("1234567");
     }
 
     @FXML
