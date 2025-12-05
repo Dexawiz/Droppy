@@ -118,12 +118,12 @@ public class DriverOrderController {
                 }
                 case Mode.ACCEPTED -> {
                     try {
-                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/components/Company2Component.fxml"));
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/components/Order2Component.fxml"));
                         Node orderComponent = loader.load();
 
-                        Company2ComponentController controller = loader.getController();
+                        Order2ComponentController controller = loader.getController();
                         if (controller != null) {
-                            controller.init(order, Company2ComponentController.Mode.ACCEPTED);
+                            controller.init(order, Order2ComponentController.Mode.ACCEPTED);
                         }
 
                         column1VBOX.getChildren().add(orderComponent);
@@ -135,12 +135,12 @@ public class DriverOrderController {
 
                 case Mode.DELIVERED -> {
                     try {
-                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/components/Company2Component.fxml"));
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/components/Order2Component.fxml"));
                         Node orderComponent = loader.load();
 
-                        Company2ComponentController controller = loader.getController();
+                        Order2ComponentController controller = loader.getController();
                         if (controller != null) {
-                            controller.init(order, Company2ComponentController.Mode.DELIVERED);
+                            controller.init(order, Order2ComponentController.Mode.DELIVERED);
                         }
 
                         column1VBOX.getChildren().add(orderComponent);

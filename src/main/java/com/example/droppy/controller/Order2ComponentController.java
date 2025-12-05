@@ -1,7 +1,6 @@
 package com.example.droppy.controller;
 
 import com.example.droppy.domain.entity.Order;
-import com.example.droppy.domain.enums.DriverStatus;
 import com.example.droppy.domain.enums.OrderStatus;
 import com.example.droppy.repository.HibernateOrderDao;
 import com.example.droppy.repository.HibernateOrderItemDao;
@@ -9,14 +8,13 @@ import com.example.droppy.repository.OrderDao;
 import com.example.droppy.service.I18n;
 import com.example.droppy.service.Session;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
 import java.util.Locale;
 
-public class Company2ComponentController {
+public class Order2ComponentController {
 
     HibernateOrderItemDao orderItemDao = new HibernateOrderItemDao();
     private Mode mode;
@@ -29,6 +27,9 @@ public class Company2ComponentController {
     public void init(Order order, Mode mode) {
         this.mode = mode;
         this.orderDao = new HibernateOrderDao();
+
+        I18n.setLocale(new Locale(Session.getCurrentLanguage().getCode()));
+        updateText();
 
 
         orderIDDemo.setText(String.valueOf(order.getId()));

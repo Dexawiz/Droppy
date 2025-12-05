@@ -6,10 +6,14 @@ import com.example.droppy.repository.HibernateOrderDao;
 import com.example.droppy.repository.HibernateOrderItemDao;
 import com.example.droppy.repository.OrderDao;
 import com.example.droppy.service.AuthService;
+import com.example.droppy.service.I18n;
+import com.example.droppy.service.Session;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+
+import java.util.Locale;
 
 public class OrderComponentController {
     private OrderDao orderDao;
@@ -21,6 +25,10 @@ public class OrderComponentController {
         this.order = order;
         orderDao = new HibernateOrderDao();
         this.authService = authService;
+
+        I18n.setLocale(new Locale(Session.getCurrentLanguage().getCode()));
+        updateText();
+
         orderIDDemo.setText(String.valueOf(order.getId()));
         nameCompanyDemo.setText(order.getCompanyId().getName());
         addressCompanyDemo.setText(order.getCompanyId().getAddress());
@@ -84,6 +92,14 @@ public class OrderComponentController {
         orderDao.updateOrderStatus(order.getId(), com.example.droppy.domain.enums.OrderStatus.ACCEPTED);
         orderDao.updateDriverForOrder(order.getId(), authService.getCurrentUser().getId());
         addButton.setDisable(true);
+    }
+
+    private void updateText(){
+        CompanyLabel.setText(I18n.get("product"));
+        companyAddressLabel.setText(I18n.get("companyAddress"));
+        addressToDeliverLabel.setText(I18n.get("addressToDeliver"));
+        productToDeliverLabel.setText(I18n.get("productsToDeliver"));
+        priceLabel.setText(I18n.get("price"));
     }
 
 }

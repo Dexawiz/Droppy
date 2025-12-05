@@ -16,7 +16,7 @@ public class I18n {
             bundle = ResourceBundle.getBundle(
                     "messages", // base name súborov
                     locale,
-                    ResourceBundle.Control.getControl(ResourceBundle.Control.FORMAT_PROPERTIES) // zabezpečí UTF-8 načítanie
+                    ResourceBundle.Control.getControl(ResourceBundle.Control.FORMAT_PROPERTIES)
             );
     }
 
