@@ -4,6 +4,8 @@ import com.example.droppy.domain.entity.User;
 import com.example.droppy.domain.enums.Role;
 import com.example.droppy.repository.UserDao;
 import com.example.droppy.service.AuthService;
+import com.example.droppy.service.I18n;
+import com.example.droppy.service.Session;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,10 +20,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class AdminDriversController {
 
@@ -69,6 +68,9 @@ public class AdminDriversController {
         this.selectedDrivers = new HashSet<>();
         this.authService = authService;
         this.userDao = authService.getUserDao();
+
+        I18n.setLocale(new Locale(Session.getCurrentLanguage().getCode()));
+        updateText();
 
         if (addDriverButton != null) {
             addDriverButton.setVisible(mode != Mode.DELETE_DRIVERS);
@@ -380,5 +382,12 @@ public class AdminDriversController {
         init(authService, mode);
         selectedDrivers.clear();
         driversListView.getSelectionModel().clearSelection();
+    }
+
+    private void updateText(){
+        addDriverButton.setText(I18n.get("addDriver"));
+        editDriverButton.setText(I18n.get("editDriver"));
+        switchToCompaniesButton.setText(I18n.get("companies"));
+        logOutButton.setText(I18n.get("log_out"));
     }
 }
