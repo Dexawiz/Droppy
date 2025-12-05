@@ -198,7 +198,7 @@ public class CartController {
             stage.setScene(scene);
 
             ProfileController controller = loader.getController();
-            controller.init(authService);
+            controller.init(authService, stage);
 
         } catch (Exception e) {
             e.printStackTrace();
