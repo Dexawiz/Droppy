@@ -8,6 +8,7 @@ import com.example.droppy.repository.OrderDao;
 import com.example.droppy.service.AuthService;
 import com.example.droppy.service.I18n;
 import com.example.droppy.service.Session;
+import com.example.droppy.util.HibernateUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -19,11 +20,11 @@ public class OrderComponentController {
     private OrderDao orderDao;
     private Order order;
     private AuthService authService;
-    HibernateOrderItemDao orderItemDao = new HibernateOrderItemDao();
+    HibernateOrderItemDao orderItemDao = new HibernateOrderItemDao(HibernateUtil.getSessionFactory());
 
     public void init(AuthService authService, Order order) {
         this.order = order;
-        orderDao = new HibernateOrderDao();
+        orderDao = new HibernateOrderDao(HibernateUtil.getSessionFactory());
         this.authService = authService;
 
         I18n.setLocale(new Locale(Session.getCurrentLanguage().getCode()));

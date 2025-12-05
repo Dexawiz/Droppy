@@ -7,6 +7,7 @@ import com.example.droppy.repository.ProductDao;
 import com.example.droppy.service.AuthService;
 import com.example.droppy.service.I18n;
 import com.example.droppy.service.Session;
+import com.example.droppy.util.HibernateUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -30,7 +31,7 @@ public class SaveProductController {
     public void init(AuthService authService, Company company) {
         this.authService = authService;
         this.mode = mode;
-        this.productDao = new HibernateProductDao();
+        this.productDao = new HibernateProductDao(HibernateUtil.getSessionFactory());
         this.company = company;
 
         I18n.setLocale(new Locale(Session.getCurrentLanguage().getCode()));

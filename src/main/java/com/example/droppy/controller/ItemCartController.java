@@ -7,6 +7,7 @@ import com.example.droppy.repository.OrderDao;
 import com.example.droppy.service.AuthService;
 import com.example.droppy.service.I18n;
 import com.example.droppy.service.Session;
+import com.example.droppy.util.HibernateUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -32,7 +33,7 @@ public class ItemCartController {
         I18n.setLocale(new Locale(Session.getCurrentLanguage().getCode()));
         updateText();
 
-        this.orderDao = new HibernateOrderDao();
+        this.orderDao = new HibernateOrderDao( HibernateUtil.getSessionFactory());
         ItemNameLabel.setText(item.getProduct().getName());
         priceDemoLabel.setText(String.valueOf(item.getPricePerItem()));
         numberOfItemsLabel.setText(String.valueOf(item.getQuantity()));
