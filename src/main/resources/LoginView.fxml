@@ -9,20 +9,17 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
+<?import javafx.scene.control.PasswordField?>
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.droppy.controller.LoginController">
       <VBox alignment="TOP_CENTER" prefHeight="700.0" prefWidth="900.0">
       <HBox alignment="TOP_RIGHT">
-         <children>
             <ChoiceBox fx:id="languageCB" prefHeight="35.0" prefWidth="150.0" />
-         </children>
          <VBox.margin>
             <Insets />
          </VBox.margin>
       </HBox>
       <HBox alignment="CENTER" prefHeight="625.0" prefWidth="839.0">
-         <children>
             <VBox alignment="CENTER">
-               <children>
                         <Text fx:id="loginText" strokeType="OUTSIDE" strokeWidth="0.0" text="Log in">
                            <font>
                               <Font size="36.0" />
@@ -36,11 +33,11 @@
                               <Insets top="25.0" />
                            </VBox.margin>
                         </TextField>
-                  <TextField fx:id="passwordTextField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="35.0" prefWidth="300.0" promptText="Password">
+                  <PasswordField fx:id="passwordTextField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="35.0" prefWidth="300.0" promptText="Password">
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin>
-                  </TextField>
+                  </PasswordField>
                         <Button fx:id="loginButton" mnemonicParsing="false" onAction="#onLoginButtonClick" prefHeight="35.0" prefWidth="300.0" text="Log in">
                            <VBox.margin>
                               <Insets top="25.0" />
@@ -59,7 +56,6 @@
                               <Insets top="20.0" />
                            </VBox.margin>
                         </Button>
-               </children>
                <HBox.margin>
                   <Insets />
                </HBox.margin>
@@ -67,7 +63,6 @@
                   <Insets bottom="35.0" />
                </padding>
             </VBox>
-         </children>
       </HBox>
       <VBox.margin>
          <Insets />

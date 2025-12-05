@@ -15,13 +15,11 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
-import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.util.List;
 import java.util.Locale;
@@ -74,7 +72,7 @@ public class HomeController {
         chceckBoxHBox.getChildren().add(allCompaniesCheckBox);
 
         for (Category category : Category.getAllCategories()) {
-            CheckBox checkBox = new CheckBox(category.name());
+            CheckBox checkBox = new CheckBox(category.getTranslated());
             checkBox.setFont(Font.font(14));
             checkBox.setOnAction(this::onCategoryItemCheckBoxClicked);
             chceckBoxHBox.getChildren().add(checkBox);

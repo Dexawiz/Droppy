@@ -9,6 +9,8 @@ import com.example.droppy.repository.HibernateOrderDao;
 import com.example.droppy.repository.HibernateProductDao;
 import com.example.droppy.repository.OrderDao;
 import com.example.droppy.service.AuthService;
+import com.example.droppy.service.I18n;
+import com.example.droppy.service.Session;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -27,6 +29,7 @@ import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class CompanyViewController {
     @FXML
@@ -99,9 +102,14 @@ public class CompanyViewController {
 
     private AuthService authService;
     private Order currentOrder;
+    private Company company;
 
     public void init(AuthService authService, Company company) {
         this.authService = authService;
+        this.company=company;
+        I18n.setLocale(new Locale(Session.getCurrentLanguage().getCode()));
+        updateText();
+
         OrderDao orderDao = new HibernateOrderDao();
 
         Order existingOrder = orderDao.findByStatusAndUser(OrderStatus.IN_PREPARATION, authService.getCurrentUser());
@@ -130,7 +138,7 @@ public class CompanyViewController {
         }
 
         restaurantNameLabel.setText(company.getName());
-        categoryNameLabel.setText(company.getCategory().name());
+        categoryNameLabel.setText(company.getCategory().getTranslated());
         OTDemoLabel.setText(company.getWorkStart().toString());
         CTDemoLabel.setText(company.getWorkEnd().toString());
         AddressDemo.setText(company.getAddress());
@@ -199,5 +207,14 @@ public class CompanyViewController {
         } catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    private void updateText(){
+        OTLabel.setText(I18n.get("oTime"));
+        CTLabel.setText(I18n.get("cTime"));
+        addressLabel.setText(I18n.get("address"));
+        PNLabel.setText(I18n.get("pNumber"));
+        ItemsLabel.setText(I18n.get("items"));
+
     }
 }

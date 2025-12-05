@@ -7,6 +7,8 @@ import com.example.droppy.domain.enums.OrderStatus;
 import com.example.droppy.repository.OrderDao;
 import com.example.droppy.repository.UserDao;
 import com.example.droppy.service.AuthService;
+import com.example.droppy.service.I18n;
+import com.example.droppy.service.Session;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,6 +22,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 public class DriverOrderController {
@@ -40,6 +43,8 @@ public class DriverOrderController {
         this.mode = mode;
         this.orderDao = orderDao;
         this.userDao = authService.getUserDao();
+        I18n.setLocale(new Locale(Session.getCurrentLanguage().getCode()));
+        updateText();
 
         User user  = authService.getCurrentUser();
         if(user != null){
@@ -73,9 +78,9 @@ public class DriverOrderController {
 
 
         switch (mode) {
-            case AVAILABLE -> availableOrderLabel.setText("Available Orders");
-            case ACCEPTED -> availableOrderLabel.setText("Accepted Orders");
-            case DELIVERED -> availableOrderLabel.setText("Delivered Orders");
+            case AVAILABLE -> availableOrderLabel.setText(I18n.get("avaOrder"));
+            case ACCEPTED -> availableOrderLabel.setText(I18n.get("accOrder"));
+            case DELIVERED -> availableOrderLabel.setText(I18n.get("deliOrder"));
         }
 
         List<Order> orders = switch (mode) {
@@ -232,5 +237,13 @@ public class DriverOrderController {
             stage.setTitle("Droppy");
             stage.show();
         }
+    }
+
+    private void updateText(){
+        availableOrderLabel.setText(I18n.get("avaOrder"));
+        AvOrderButton.setText(I18n.get("avaOrder"));
+        AcOrderButton.setText(I18n.get("accOrder"));
+        DeOrderButton.setText(I18n.get("deliOrder"));
+        logOutButton.setText(I18n.get("log_out"));
     }
 }

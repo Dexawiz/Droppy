@@ -8,6 +8,8 @@ import com.example.droppy.domain.enums.OrderStatus;
 import com.example.droppy.repository.HibernateOrderDao;
 import com.example.droppy.repository.OrderDao;
 import com.example.droppy.service.AuthService;
+import com.example.droppy.service.I18n;
+import com.example.droppy.service.Session;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -18,6 +20,7 @@ import javafx.scene.text.Text;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class FoodItemController {
     private Product product;
@@ -28,6 +31,9 @@ public class FoodItemController {
         this.currentOrder = currentOrder;
         this.product = product;
         this.authService = authService;
+
+        I18n.setLocale(new Locale(Session.getCurrentLanguage().getCode()));
+        updateText();
 
         ItemNameLabel.setText(product.getName());
         decriptionText.setText(product.getDescription());
@@ -91,5 +97,10 @@ public class FoodItemController {
         currentOrder.setPaymentMethod(MethodOfPayment.ONLINE);
         orderDao.update(currentOrder);
         addItemButton.setDisable( true );
+    }
+
+    private void updateText(){
+        priceLabel.setText(I18n.get("price"));
+        addItemButton.setText(I18n.get("addItem"));
     }
 }

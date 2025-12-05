@@ -4,6 +4,8 @@ import com.example.droppy.domain.entity.Company;
 import com.example.droppy.repository.CompanyDao;
 import com.example.droppy.repository.HibernateCompanyDao;
 import com.example.droppy.service.AuthService;
+import com.example.droppy.service.I18n;
+import com.example.droppy.service.Session;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,6 +17,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.net.URL;
+import java.util.Locale;
 
 public class CompanyComponentController {
 
@@ -53,8 +56,11 @@ public class CompanyComponentController {
     public void init (AuthService authService, Company company) {
         this.authService = authService;
 
+        I18n.setLocale(new Locale(Session.getCurrentLanguage().getCode()));
+        updateText();
+
         nameOfCompanyLabel.setText(company.getName());
-        categoryLabel.setText(company.getCategory().name());
+        categoryLabel.setText(company.getCategory().getTranslated());
         adressCompanyDemoLabel.setText(company.getAddress());
         OTDemoLabel.setText(String.valueOf(company.getWorkStart()));
         CTDemoLabel.setText(String.valueOf(company.getWorkEnd()));
@@ -82,5 +88,11 @@ public class CompanyComponentController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void updateText(){
+        CosingTimeLabel.setText(I18n.get("cTimeShort"));
+        openingTimeLabel.setText(I18n.get("oTimeShort"));
+        AddressLabel.setText(I18n.get("address"));
     }
 }

@@ -4,6 +4,8 @@ import com.example.droppy.domain.entity.Company;
 import com.example.droppy.repository.CompanyDao;
 import com.example.droppy.repository.HibernateCompanyDao;
 import com.example.droppy.service.AuthService;
+import com.example.droppy.service.I18n;
+import com.example.droppy.service.Session;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,6 +22,7 @@ import javafx.stage.Stage;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 
 public class AdminCompaniesController {
@@ -39,6 +42,9 @@ public class AdminCompaniesController {
         this.authService = authService;
         this.companyDao = new HibernateCompanyDao();
         this.mode = mode;
+
+        I18n.setLocale(new Locale(Session.getCurrentLanguage().getCode()));
+        updateText();
 
         if(deleteCompanyButton != null) {
             deleteCompanyButton.setVisible(mode != Mode.LIST_ALL);
@@ -262,5 +268,12 @@ public class AdminCompaniesController {
             e.printStackTrace();
             new Alert(Alert.AlertType.ERROR, "Failed to switch to list all mode: " + e.getMessage()).showAndWait();
         }
+    }
+
+    private void updateText(){
+        addCompanyButton.setText(I18n.get("addCompany"));
+        editCompanyButton.setText(I18n.get("editCompany"));
+        switchToDriversButton.setText(I18n.get("drivers"));
+        logOutButton.setText(I18n.get("log_out"));
     }
 }

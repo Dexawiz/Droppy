@@ -13,6 +13,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -62,11 +63,11 @@ public class LoginController {
     @FXML
     private ChoiceBox<Language> languageCB;
 
-//    @FXML
-//    private PasswordField passwordTextField;
-
     @FXML
-    private TextField passwordTextField;
+    private PasswordField passwordTextField;
+
+//    @FXML
+//    private TextField passwordTextField;
 
     @FXML
     private Button signinButton;

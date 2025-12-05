@@ -6,11 +6,15 @@ import com.example.droppy.domain.enums.OrderStatus;
 import com.example.droppy.repository.HibernateOrderDao;
 import com.example.droppy.repository.HibernateOrderItemDao;
 import com.example.droppy.repository.OrderDao;
+import com.example.droppy.service.I18n;
+import com.example.droppy.service.Session;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+
+import java.util.Locale;
 
 public class Company2ComponentController {
 
@@ -25,6 +29,8 @@ public class Company2ComponentController {
     public void init(Order order, Mode mode) {
         this.mode = mode;
         this.orderDao = new HibernateOrderDao();
+
+
         orderIDDemo.setText(String.valueOf(order.getId()));
         nameCompanyDemo.setText(order.getCompanyId().getName());
         addressCompanyDemo.setText(order.getCompanyId().getAddress());
@@ -43,6 +49,7 @@ public class Company2ComponentController {
 
 
         statusOfDelivery.getItems().setAll(OrderStatus.values());
+
         if(mode == Mode.ACCEPTED){
             statusOfDelivery.setValue(OrderStatus.ACCEPTED);
             orderDao .updateOrderStatus(order.getId(), OrderStatus.ACCEPTED);
@@ -115,5 +122,14 @@ public class Company2ComponentController {
 
     @FXML
     private ChoiceBox<OrderStatus> statusOfDelivery;
+
+    private void updateText(){
+        CompanyLabel.setText(I18n.get("product"));
+        companyAddressLabel.setText(I18n.get("companyAddress"));
+        addressToDeliverLabel.setText(I18n.get("addressToDeliver"));
+        productToDeliverLabel.setText(I18n.get("productsToDeliver"));
+        priceLabel.setText(I18n.get("price"));
+        driverLabel.setText(I18n.get("driverName"));
+    }
 
 }

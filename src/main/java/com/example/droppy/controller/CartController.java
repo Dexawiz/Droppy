@@ -7,6 +7,8 @@ import com.example.droppy.domain.enums.OrderStatus;
 import com.example.droppy.repository.HibernateOrderDao;
 import com.example.droppy.repository.OrderDao;
 import com.example.droppy.service.AuthService;
+import com.example.droppy.service.I18n;
+import com.example.droppy.service.Session;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,8 +22,9 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import org.kordamp.ikonli.javafx.FontIcon;
 
-public class CartController {
+import java.util.Locale;
 
+public class CartController {
     private AuthService authService;
     private OrderDao orderDao;
     private Order currentOrder;
@@ -34,6 +37,9 @@ public class CartController {
                 OrderStatus.IN_PREPARATION,
                 authService.getCurrentUser()
         );
+
+        I18n.setLocale(new Locale(Session.getCurrentLanguage().getCode()));
+        updateText();
 
         nameDemo.setText(authService.getCurrentUser().getName());
         surnameDemo.setText(authService.getCurrentUser().getSurname());
@@ -88,6 +94,8 @@ public class CartController {
         }
     }
 
+    @FXML
+    public Label paymentMethodLalbel;
 
     @FXML
     private VBox orderListContainer;
@@ -195,5 +203,18 @@ public class CartController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void updateText(){
+        productsLabel.setText(I18n.get("product"));
+        userInfoLabel.setText(I18n.get("userInfo"));
+        addressLabel.setText(I18n.get("address"));
+        PNLabel.setText(I18n.get("pNumber"));
+        PriceLabel.setText(I18n.get("price"));
+        OrderTotalLabel.setText(I18n.get("orderTotalPrice"));
+        serviceFeeLabel.setText(I18n.get("serviceFee"));
+        totalLabel.setText(I18n.get("total"));
+        paymentMethodLalbel.setText(I18n.get("payMethod"));
+        OrderButton.setText(I18n.get("order"));
     }
 }
