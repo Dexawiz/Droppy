@@ -54,9 +54,7 @@
                                  <VBox.margin>
                                     <Insets top="5.0" />
                                  </VBox.margin>
-                                 <content>
                                     <VBox fx:id="orderListContainer" prefHeight="566.0" prefWidth="402.0" />
-                                 </content>
                               </ScrollPane>
                         </VBox>
                   </HBox>
@@ -185,7 +183,7 @@
                   <HBox prefHeight="200.0" prefWidth="405.0">
                         <VBox>
                               <HBox spacing="55.0">
-                                    <Label text="Payment method">
+                                    <Label fx:id="paymentMethodLalbel" text="Payment method">
                                        <font>
                                           <Font name="System Bold" size="24.0" />
                                        </font>
