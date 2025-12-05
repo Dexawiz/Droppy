@@ -31,7 +31,7 @@
       </HBox>
       <HBox alignment="CENTER">
             <VBox>
-                  <TextField fx:id="companyNameTextField" prefHeight="35.0" prefWidth="300.0" promptText="Name of company/restaurant">
+                  <TextField fx:id="companyNameTextField" prefHeight="35.0" prefWidth="300.0" promptText="Name of company">
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
@@ -90,23 +90,23 @@
       </HBox>
       <HBox alignment="CENTER">
             <VBox>
-                  <Label fx:id="foodLabel" text="Food">
+                  <Label fx:id="productLabel" text="Product">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Label>
-                  <ListView fx:id="foodListView" prefHeight="300.0" prefWidth="680.0">
+                  <ListView fx:id="productListView" prefHeight="300.0" prefWidth="680.0">
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin>
                   </ListView>
                   <HBox>
-                        <Button fx:id="addFoodButton" mnemonicParsing="false" onAction="#onAddButtonClick" prefHeight="30.0" prefWidth="35.0" text="+">
+                        <Button fx:id="addProductButton" mnemonicParsing="false" onAction="#onAddProductButtonClick" prefHeight="30.0" prefWidth="35.0" text="+">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Button>
-                        <Button fx:id="deleteFoodButton" mnemonicParsing="false" onAction="#onDeleteFoodButtonClick" prefHeight="30.0" prefWidth="35.0" text="-">
+                        <Button fx:id="deleteProductButton" mnemonicParsing="false" onAction="#onDeleteProductButtonClick" prefHeight="30.0" prefWidth="35.0" text="-">
                            <font>
                               <Font size="14.0" />
                            </font>

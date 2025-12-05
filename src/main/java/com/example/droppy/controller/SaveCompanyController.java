@@ -6,6 +6,8 @@ import com.example.droppy.domain.enums.Category;
 import com.example.droppy.repository.CompanyDao;
 import com.example.droppy.repository.HibernateCompanyDao;
 import com.example.droppy.service.AuthService;
+import com.example.droppy.service.I18n;
+import com.example.droppy.service.Session;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,10 +16,13 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
 import lombok.Setter;
 
 import java.time.LocalTime;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 public class SaveCompanyController {
 
@@ -36,12 +41,15 @@ public class SaveCompanyController {
         this.authService = authService;
         this.companyDao =  new HibernateCompanyDao();
 
+        I18n.setLocale(new Locale(Session.getCurrentLanguage().getCode()));
+        updateText();
+
         if(deleteCompanyButton != null) {
             deleteCompanyButton.setVisible(mode == Mode.EDITING_COMPANY);
             deleteCompanyButton.setManaged(mode == Mode.EDITING_COMPANY);
         }
 
-        foodListView.setCellFactory(
+        productListView.setCellFactory(
             param -> new ListCell<>() {
                 @Override
                 protected void updateItem(Product item, boolean empty) {
@@ -54,13 +62,14 @@ public class SaveCompanyController {
                 }
             }
         );
+
     }
 
     @Setter
     private SaveCompanyController parentController;
 
     @FXML
-    private Button addFoodButton;
+    private Button addProductButton;
 
     @FXML
     private Button backtoCompaniesButton;
@@ -87,13 +96,13 @@ public class SaveCompanyController {
     private Button deleteCompanyButton;
 
     @FXML
-    private Button deleteFoodButton;
+    private Button deleteProductButton;
 
     @FXML
-    private Label foodLabel;
+    private Label productLabel;
 
     @FXML
-    private ListView<Product> foodListView;
+    private ListView<Product> productListView;
 
     @FXML
     private ComboBox<Integer> openingHourCBox;
@@ -108,7 +117,7 @@ public class SaveCompanyController {
     private Button saveCompanyButton;
 
     @FXML
-    void onAddButtonClick(ActionEvent event) {
+    void onAddProductButtonClick(ActionEvent event) {
 
         if(company == null) {
             company  = new Company();
@@ -140,7 +149,7 @@ public class SaveCompanyController {
     }
 
     public void addProductToList(Product product) {
-        foodListView.getItems().add(product);
+        productListView.getItems().add(product);
     }
 
 
@@ -171,10 +180,10 @@ public class SaveCompanyController {
     }
 
     @FXML
-    void onDeleteFoodButtonClick(ActionEvent event) {
-        Product selectedProduct = foodListView.getSelectionModel().getSelectedItem();
+    void onDeleteProductButtonClick(ActionEvent event) {
+        Product selectedProduct = productListView.getSelectionModel().getSelectedItem();
         if (selectedProduct != null) {
-            foodListView.getItems().remove(selectedProduct);
+            productListView.getItems().remove(selectedProduct);
             // Here you would also delete the product from the database if needed
         } else {
             new Alert(Alert.AlertType.WARNING, "No product selected to delete.").showAndWait();
@@ -232,6 +241,38 @@ public class SaveCompanyController {
             categoryCompanyChoiceBox.getItems().addAll(categories);
             categoryCompanyChoiceBox.setValue(Category.OTHER);
         }
+
+        categoryCompanyChoiceBox.setConverter(new StringConverter<>() {
+            @Override
+            public String toString(Category category) {
+                return category != null ? category.getTranslated() : "";
+            }
+
+            @Override
+            public Category fromString(String string) {
+                return Arrays.stream(Category.values())
+                        .filter(c -> c.getTranslated().equals(string))
+                        .findFirst()
+                        .orElse(null);
+            }
+        });
     }
+
+    private void updateText(){
+        companyLabel.setText(I18n.get("company"));
+        companyNameTextField.setPromptText(I18n.get("companyName"));
+        companyAddressTextField.setPromptText(I18n.get("address"));
+        phoneNumberCompanyTextField.setPromptText(I18n.get("phone_number"));
+        openingHourCBox.setPromptText(I18n.get("openingHour"));
+        openingMinuteCBox.setPromptText(I18n.get("openingMinute"));
+        closingHourCBox.setPromptText(I18n.get("closingHour"));
+        closingMinuteCBox.setPromptText(I18n.get("closingMinute"));
+        productLabel.setText(I18n.get("product"));
+        deleteCompanyButton.setText(I18n.get("delete"));
+        saveCompanyButton.setText(I18n.get("save"));
+    }
+
+
+
 
 }
