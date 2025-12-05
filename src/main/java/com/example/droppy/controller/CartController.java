@@ -9,6 +9,7 @@ import com.example.droppy.repository.OrderDao;
 import com.example.droppy.service.AuthService;
 import com.example.droppy.service.I18n;
 import com.example.droppy.service.Session;
+import com.example.droppy.util.HibernateUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -32,7 +33,7 @@ public class CartController {
 
     public void init(AuthService authService) {
         this.authService = authService;
-        this.orderDao = new HibernateOrderDao();
+        this.orderDao = new HibernateOrderDao( HibernateUtil.getSessionFactory());
         this.currentOrder = orderDao.findByStatusAndUser(
                 OrderStatus.IN_PREPARATION,
                 authService.getCurrentUser()

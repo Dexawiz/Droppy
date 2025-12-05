@@ -8,6 +8,7 @@ import com.example.droppy.repository.HibernateOrderItemDao;
 import com.example.droppy.repository.OrderDao;
 import com.example.droppy.service.I18n;
 import com.example.droppy.service.Session;
+import com.example.droppy.util.HibernateUtil;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ChoiceBox;
@@ -18,7 +19,7 @@ import java.util.Locale;
 
 public class Company2ComponentController {
 
-    HibernateOrderItemDao orderItemDao = new HibernateOrderItemDao();
+    HibernateOrderItemDao orderItemDao = new HibernateOrderItemDao( HibernateUtil.getSessionFactory());
     private Mode mode;
     private OrderDao orderDao;
     public enum Mode{
@@ -28,7 +29,7 @@ public class Company2ComponentController {
 
     public void init(Order order, Mode mode) {
         this.mode = mode;
-        this.orderDao = new HibernateOrderDao();
+        this.orderDao = new HibernateOrderDao(HibernateUtil.getSessionFactory());
 
 
         orderIDDemo.setText(String.valueOf(order.getId()));

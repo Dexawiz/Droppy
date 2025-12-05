@@ -18,5 +18,25 @@ services:
       retries: 5
     restart: unless-stopped
 
+  db-test:
+    image: postgres:16
+    container_name: droppy-test-db
+    ports:
+      - "5433:5432"   # test database on different port to avoid conflicts
+    environment:
+      POSTGRES_DB: droppy_test
+      POSTGRES_USER: droppy
+      POSTGRES_PASSWORD: admin
+    volumes:
+      - pgdata_test:/var/lib/postgresql/data
+      - ./src/main/java/resources/db/init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U droppy -d droppy_test"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
 volumes:
   pgdata:
+  pgdata_test:

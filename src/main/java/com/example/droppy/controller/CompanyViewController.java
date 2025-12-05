@@ -11,6 +11,7 @@ import com.example.droppy.repository.OrderDao;
 import com.example.droppy.service.AuthService;
 import com.example.droppy.service.I18n;
 import com.example.droppy.service.Session;
+import com.example.droppy.util.HibernateUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -98,7 +99,7 @@ public class CompanyViewController {
     @FXML
     private Button cartButton;
 
-    private HibernateProductDao HProductDao = new HibernateProductDao();
+    private HibernateProductDao HProductDao = new HibernateProductDao(HibernateUtil.getSessionFactory());
 
     private AuthService authService;
     private Order currentOrder;
@@ -110,7 +111,7 @@ public class CompanyViewController {
         I18n.setLocale(new Locale(Session.getCurrentLanguage().getCode()));
         updateText();
 
-        OrderDao orderDao = new HibernateOrderDao();
+        OrderDao orderDao = new HibernateOrderDao( HibernateUtil.getSessionFactory());
 
         Order existingOrder = orderDao.findByStatusAndUser(OrderStatus.IN_PREPARATION, authService.getCurrentUser());
 

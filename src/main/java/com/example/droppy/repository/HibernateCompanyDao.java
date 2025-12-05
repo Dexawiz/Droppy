@@ -4,11 +4,20 @@ import com.example.droppy.domain.entity.Company;
 import com.example.droppy.domain.enums.Category;
 import com.example.droppy.util.HibernateUtil;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 import java.util.List;
 
 public class HibernateCompanyDao implements CompanyDao {
+
+    private final SessionFactory sessionFactory;
+
+    public HibernateCompanyDao (SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
+
+
     @Override
     public void save(Company company) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {

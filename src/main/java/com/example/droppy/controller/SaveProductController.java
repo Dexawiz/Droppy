@@ -5,6 +5,7 @@ import com.example.droppy.domain.entity.Product;
 import com.example.droppy.repository.HibernateProductDao;
 import com.example.droppy.repository.ProductDao;
 import com.example.droppy.service.AuthService;
+import com.example.droppy.util.HibernateUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -26,7 +27,7 @@ public class SaveProductController {
     public void init(AuthService authService, Company company) {
         this.authService = authService;
         this.mode = mode;
-        this.productDao = new HibernateProductDao();
+        this.productDao = new HibernateProductDao(HibernateUtil.getSessionFactory());
         this.company = company;
 
         if(deleteProductButton != null) {

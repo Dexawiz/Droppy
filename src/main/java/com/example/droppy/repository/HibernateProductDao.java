@@ -3,11 +3,18 @@ package com.example.droppy.repository;
 import com.example.droppy.domain.entity.Product;
 import com.example.droppy.util.HibernateUtil;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 import java.util.List;
 
 public class HibernateProductDao implements ProductDao {
+    private final SessionFactory sessionFactory;
+
+    public HibernateProductDao(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
+
     @Override
     public void save(Product product) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {

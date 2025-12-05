@@ -13,15 +13,7 @@ public class HibernateUtil {
 
     private static SessionFactory buildSessionFactory() {
         try {
-
-            Configuration configuration = new Configuration().configure();
-
-            String env = System.getProperty("env");
-            if ("test".equals(env)) {
-               configuration.configure( "hibernate-test.cfg.xml");
-            } else {
-                configuration.configure( "hibernate.cfg.xml");
-            }
+            Configuration configuration = new Configuration().configure("hibernate.cfg.xml");
 
             configuration.addAnnotatedClass(User.class);
             configuration.addAnnotatedClass(Company.class);
@@ -38,6 +30,27 @@ public class HibernateUtil {
 
         } catch (Exception e) {
             throw new RuntimeException("Failed creating SessionFactory: " + e.getMessage(), e);
+        }
+    }
+
+    public static SessionFactory buildTestSessionFactory() {
+        try {
+            Configuration configuration = new Configuration().configure("hibernate-test.cfg.xml");
+
+            configuration.addAnnotatedClass(User.class);
+            configuration.addAnnotatedClass(Company.class);
+            configuration.addAnnotatedClass(Product.class);
+            configuration.addAnnotatedClass(Address.class);
+            configuration.addAnnotatedClass(OrderItem.class);
+            configuration.addAnnotatedClass(Order.class);
+
+            ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
+                    .applySettings(configuration.getProperties())
+                    .build();
+
+            return configuration.buildSessionFactory(serviceRegistry);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed creating Test SessionFactory: " + e.getMessage(), e);
         }
     }
 

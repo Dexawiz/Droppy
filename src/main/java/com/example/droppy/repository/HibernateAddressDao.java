@@ -4,11 +4,18 @@ import com.example.droppy.domain.entity.Address;
 import com.example.droppy.domain.entity.User;
 import com.example.droppy.util.HibernateUtil;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 import java.util.List;
 
 public class HibernateAddressDao  implements AddressDao {
+
+    private final SessionFactory sessionFactory;
+
+    public HibernateAddressDao (SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
 
     @Override
     public void save(Address address) {

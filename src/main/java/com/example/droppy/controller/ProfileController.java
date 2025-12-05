@@ -5,6 +5,7 @@ import com.example.droppy.repository.HibernateUserDao;
 import com.example.droppy.service.AuthService;
 import com.example.droppy.service.I18n;
 import com.example.droppy.service.Session;
+import com.example.droppy.util.HibernateUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -128,7 +129,7 @@ public class ProfileController {
         if (result.isPresent() && result.get() == javafx.scene.control.ButtonType.OK) {
             User loggedUser = Session.getLoggedUser();
             if (loggedUser != null) {
-                HibernateUserDao userDao = new HibernateUserDao();
+                HibernateUserDao userDao = new HibernateUserDao(HibernateUtil.getSessionFactory());
                 userDao.delete(loggedUser.getId());
                 Session.logout();
             }
@@ -188,7 +189,7 @@ public class ProfileController {
                 user.setSurname(surnameField.getText());
                 user.setPhoneNumber(phoneField.getText());
 
-                HibernateUserDao userDao = new HibernateUserDao();
+                HibernateUserDao userDao = new HibernateUserDao(HibernateUtil.getSessionFactory());
                 userDao.save(user);
 
                 nameText.setText(user.getName());

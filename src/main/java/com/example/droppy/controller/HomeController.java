@@ -7,6 +7,7 @@ import com.example.droppy.repository.HibernateCompanyDao;
 import com.example.droppy.service.AuthService;
 import com.example.droppy.service.I18n;
 import com.example.droppy.service.Session;
+import com.example.droppy.util.HibernateUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -36,7 +37,7 @@ public class HomeController {
         updateText();
 
         //Companies
-        CompanyDao companyDao = new HibernateCompanyDao();
+        CompanyDao companyDao = new HibernateCompanyDao(HibernateUtil.getSessionFactory());
         List<Company> companies = companyDao.findAll();
         allCompanies = companies;
         int index = 0;

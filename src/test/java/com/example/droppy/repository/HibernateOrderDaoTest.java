@@ -8,7 +8,6 @@ import com.example.droppy.domain.enums.MethodOfPayment;
 import com.example.droppy.domain.enums.OrderStatus;
 import com.example.droppy.domain.enums.Role;
 import com.example.droppy.util.HibernateUtil;
-import org.checkerframework.checker.units.qual.C;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.junit.jupiter.api.*;
@@ -35,9 +34,9 @@ class HibernateOrderDaoTest {
 
     @BeforeEach
     void setUp() {
-        orderDao = new HibernateOrderDao();
+        orderDao = new HibernateOrderDao( HibernateUtil.buildTestSessionFactory());
 
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try (Session session = HibernateUtil.buildTestSessionFactory() .openSession()) {
             Transaction tx = session.beginTransaction();
             session.createQuery("DELETE FROM Order").executeUpdate();
             session.createQuery("DELETE FROM User").executeUpdate();
@@ -46,7 +45,7 @@ class HibernateOrderDaoTest {
         }
 
 
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try (Session session = HibernateUtil.buildTestSessionFactory() .openSession()) {
             Transaction tx = session.beginTransaction();
 
 

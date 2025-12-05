@@ -3,10 +3,18 @@ package com.example.droppy.repository;
 import com.example.droppy.domain.entity.OrderItem;
 import com.example.droppy.util.HibernateUtil;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 
 import java.util.List;
 
 public class HibernateOrderItemDao implements OrderItemDao {
+
+    private final SessionFactory sessionFactory;
+
+    public HibernateOrderItemDao (SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
+
     @Override
     public void save(OrderItem orderItem) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {

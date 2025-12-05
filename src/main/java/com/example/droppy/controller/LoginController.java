@@ -6,6 +6,7 @@ import com.example.droppy.repository.HibernateOrderDao;
 import com.example.droppy.service.AuthService;
 import com.example.droppy.service.I18n;
 import com.example.droppy.service.Session;
+import com.example.droppy.util.HibernateUtil;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -120,7 +121,7 @@ public class LoginController {
                     Parent rootPane = loader.load();
 
                     DriverOrderController controller = loader.getController();
-                    controller.init(authService, new HibernateOrderDao(), DriverOrderController.Mode.AVAILABLE);
+                    controller.init(authService, new HibernateOrderDao( HibernateUtil.getSessionFactory()), DriverOrderController.Mode.AVAILABLE);
 
                     Scene scene = new Scene(rootPane);
                     stage.setScene(scene);

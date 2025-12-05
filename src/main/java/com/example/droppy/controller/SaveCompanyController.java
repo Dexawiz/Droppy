@@ -6,6 +6,7 @@ import com.example.droppy.domain.enums.Category;
 import com.example.droppy.repository.CompanyDao;
 import com.example.droppy.repository.HibernateCompanyDao;
 import com.example.droppy.service.AuthService;
+import com.example.droppy.util.HibernateUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -34,7 +35,7 @@ public class SaveCompanyController {
     public void init(AuthService authService, Mode mode) {
         this.mode = mode;
         this.authService = authService;
-        this.companyDao =  new HibernateCompanyDao();
+        this.companyDao =  new HibernateCompanyDao(HibernateUtil.getSessionFactory());
 
         if(deleteCompanyButton != null) {
             deleteCompanyButton.setVisible(mode == Mode.EDITING_COMPANY);

@@ -6,6 +6,7 @@ import com.example.droppy.repository.HibernateOrderDao;
 import com.example.droppy.repository.HibernateOrderItemDao;
 import com.example.droppy.repository.OrderDao;
 import com.example.droppy.service.AuthService;
+import com.example.droppy.util.HibernateUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -15,11 +16,11 @@ public class OrderComponentController {
     private OrderDao orderDao;
     private Order order;
     private AuthService authService;
-    HibernateOrderItemDao orderItemDao = new HibernateOrderItemDao();
+    HibernateOrderItemDao orderItemDao = new HibernateOrderItemDao(HibernateUtil.getSessionFactory());
 
     public void init(AuthService authService, Order order) {
         this.order = order;
-        orderDao = new HibernateOrderDao();
+        orderDao = new HibernateOrderDao( HibernateUtil.getSessionFactory());
         this.authService = authService;
         orderIDDemo.setText(String.valueOf(order.getId()));
         nameCompanyDemo.setText(order.getCompanyId().getName());

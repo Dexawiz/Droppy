@@ -5,12 +5,19 @@ import com.example.droppy.domain.enums.DriverStatus;
 import com.example.droppy.domain.enums.Role;
 import com.example.droppy.util.HibernateUtil;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.SelectionQuery;
 
 import java.util.List;
 
 public class HibernateUserDao  implements  UserDao {
+
+    private final SessionFactory sessionFactory;
+
+    public HibernateUserDao(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
 
     @Override
     public void save(User user) {

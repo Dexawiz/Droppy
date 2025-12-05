@@ -6,6 +6,7 @@ import com.example.droppy.repository.HibernateCompanyDao;
 import com.example.droppy.service.AuthService;
 import com.example.droppy.service.I18n;
 import com.example.droppy.service.Session;
+import com.example.droppy.util.HibernateUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -40,7 +41,7 @@ public class AdminCompaniesController {
     public void init(AuthService authService, Mode mode) {
         this.selectedCompanies = new HashSet<>();
         this.authService = authService;
-        this.companyDao = new HibernateCompanyDao();
+        this.companyDao = new HibernateCompanyDao( HibernateUtil.getSessionFactory());
         this.mode = mode;
 
         I18n.setLocale(new Locale(Session.getCurrentLanguage().getCode()));

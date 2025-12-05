@@ -8,6 +8,7 @@ import com.example.droppy.domain.enums.MethodOfPayment;
 import com.example.droppy.domain.enums.OrderStatus;
 import com.example.droppy.util.HibernateUtil;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 import java.util.ArrayList;
@@ -16,9 +17,15 @@ import java.util.List;
 
 public class HibernateOrderDao implements OrderDao {
 
+        private final SessionFactory sessionFactory;
+
+        public HibernateOrderDao(SessionFactory sessionFactory) {
+            this.sessionFactory = sessionFactory;
+        }
+
     @Override
     public void save(Order order) {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try (Session session = this.sessionFactory.openSession()) {
             Transaction tx = session.beginTransaction();
             session.persist(order);
             tx.commit();
@@ -27,14 +34,14 @@ public class HibernateOrderDao implements OrderDao {
 
     @Override
     public List<Order> findAll() {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try (Session session = this.sessionFactory.openSession()) {
             return session.createQuery("FROM Order", Order.class).list();
         }
     }
 
     @Override
     public Order findById(Long id) {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try (Session session = this.sessionFactory.openSession()) {
             return session.createQuery(
                     "FROM Order o WHERE o.id = :id", Order.class)
                     .setParameter("id", id)
@@ -44,7 +51,7 @@ public class HibernateOrderDao implements OrderDao {
 
     @Override
     public void delete(Long id) {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try (Session session = this.sessionFactory.openSession()) {
             Transaction tx = session.beginTransaction();
             Order order = session.getReference(Order.class, id);
             session.remove(order);
@@ -54,7 +61,7 @@ public class HibernateOrderDao implements OrderDao {
 
     @Override
     public List<Order> findByUserId(Long userId) {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try (Session session = this.sessionFactory.openSession()) {
             return session.createQuery("FROM Order WHERE customerId.id = :userId", Order.class)
                     .setParameter("userId", userId)
                     .list();
@@ -63,7 +70,7 @@ public class HibernateOrderDao implements OrderDao {
 
     @Override
     public List<Order> findByStatus(OrderStatus status) {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try (Session session = this.sessionFactory.openSession()) {
             return session.createQuery(
                             "FROM Order o WHERE o.status = :status", Order.class)
                     .setParameter("status", status)
@@ -73,7 +80,7 @@ public class HibernateOrderDao implements OrderDao {
 
     @Override
     public void updateOrderStatus(Long orderId, OrderStatus status) {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try (Session session = this.sessionFactory.openSession()) {
             Transaction tx = session.beginTransaction();
             Order order = session.getReference(Order.class, orderId);
             order.setStatus(status);
@@ -84,7 +91,7 @@ public class HibernateOrderDao implements OrderDao {
 
     @Override
     public void updateDriverForOrder(Long orderId, Long driverId) {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try (Session session = this.sessionFactory.openSession()) {
             Transaction tx = session.beginTransaction();
             Order order = session.getReference(Order.class, orderId);
             order.setDriverId(session.getReference(com.example.droppy.domain.entity.User.class, driverId));
@@ -95,7 +102,7 @@ public class HibernateOrderDao implements OrderDao {
 
     @Override
     public Order findByStatusAndUser(OrderStatus status, User user) {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try (Session session = this.sessionFactory.openSession()) {
             return session.createQuery(
                             "FROM Order o WHERE o.status = :status AND o.customerId = :user", Order.class)
                     .setParameter("status", status)
@@ -107,7 +114,7 @@ public class HibernateOrderDao implements OrderDao {
     @Override
     public Order add(Order ordIerm) {
         Order managedOrder = null;
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try (Session session = this.sessionFactory.openSession()) {
             Transaction tx = session.beginTransaction();
 
             managedOrder = findById(ordIerm.getId());
@@ -137,7 +144,7 @@ public class HibernateOrderDao implements OrderDao {
 
     @Override
     public void update(Order order){
-        try (Session session = HibernateUtil.getSessionFactory().openSession()){
+        try (Session session = this.sessionFactory.openSession()){
             Transaction tx = session.beginTransaction();
             session.merge(order);
             tx.commit();
@@ -149,7 +156,7 @@ public class HibernateOrderDao implements OrderDao {
     @Override
     public Order updateOI(Order order) {
         Order managedOrder = null;
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try (Session session = this.sessionFactory.openSession()) {
             Transaction tx = session.beginTransaction();
 
             // Получаем managed объект
@@ -210,7 +217,7 @@ public class HibernateOrderDao implements OrderDao {
 
     @Override
     public void updatePaymentMethod(Long orderId, MethodOfPayment methodOfPayment) {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try (Session session = this.sessionFactory.openSession()) {
             Transaction tx = session.beginTransaction();
             Order order = session.getReference(Order.class, orderId);
             order.setPaymentMethod(methodOfPayment);
