@@ -28,6 +28,22 @@ public class ProfileController {
     public void init(AuthService authService, Stage mainStage) {
         this.authService = authService;
         this.mainStage = mainStage;
+
+        languageCB1.getItems().setAll(Language.values());
+        languageCB1.setValue(Session.getCurrentLanguage());
+
+        I18n.setLocale(new Locale(Session.getCurrentLanguage().getCode()));
+        updateText();
+
+        languageCB1.valueProperty().addListener((obs, oldVal, newVal) -> {
+            if (newVal != null) {
+                Session.setCurrentLanguage(newVal);
+                I18n.setLocale(new Locale(newVal.getCode()));
+                updateText();
+            }
+        });
+
+        loadUserData();
     }
 
     public void init(AuthService authService) {
@@ -240,25 +256,25 @@ public class ProfileController {
     }
 
 
-    @FXML
-    private void initialize() {
-        //zmena jazyka
-        languageCB1.getItems().setAll(Language.values());
-        languageCB1.setValue(Session.getCurrentLanguage());
-
-        I18n.setLocale(new Locale(Session.getCurrentLanguage().getCode()));
-        updateText();
-
-        languageCB1.valueProperty().addListener((obs, oldVal, newVal) -> {
-            if (newVal != null) {
-                Session.setCurrentLanguage(newVal);
-                I18n.setLocale(new Locale(newVal.getCode()));
-                updateText();
-            }
-        });
-
-        loadUserData();
-    }
+//    @FXML
+//    private void initialize() {
+//        //zmena jazyka
+//        languageCB1.getItems().setAll(Language.values());
+//        languageCB1.setValue(Session.getCurrentLanguage());
+//
+//        I18n.setLocale(new Locale(Session.getCurrentLanguage().getCode()));
+//        updateText();
+//
+//        languageCB1.valueProperty().addListener((obs, oldVal, newVal) -> {
+//            if (newVal != null) {
+//                Session.setCurrentLanguage(newVal);
+//                I18n.setLocale(new Locale(newVal.getCode()));
+//                updateText();
+//            }
+//        });
+//
+//        loadUserData();
+//    }
 
     //pre zmenu jazyka -musim este zrobit
     private void updateText() {
@@ -284,9 +300,6 @@ public class ProfileController {
             if (user.getPhoneNumber() != null) {
                 userPhoneDemo.setText(user.getPhoneNumber());
             }
-
         }
     }
-
-
 }
