@@ -216,6 +216,5 @@ public class CartController {
         totalLabel.setText(I18n.get("total"));
         paymentMethodLalbel.setText(I18n.get("payMethod"));
         OrderButton.setText(I18n.get("order"));
-
     }
 }

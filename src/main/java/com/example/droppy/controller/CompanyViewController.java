@@ -216,9 +216,5 @@ public class CompanyViewController {
         PNLabel.setText(I18n.get("pNumber"));
         ItemsLabel.setText(I18n.get("items"));
 
-        System.out.println("Current language: " + Session.getCurrentLanguage().getCode());
-        System.out.println("Category key: " + company.getCategory().name());
-        System.out.println("Translated: " + company.getCategory().getTranslated());
-
     }
 }
