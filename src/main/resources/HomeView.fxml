@@ -9,9 +9,9 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.droppy.controller.HomeController">
-      <HBox alignment="CENTER_LEFT">
-            <Label fx:id="droppyTextLogo" prefHeight="35.0" prefWidth="280.0" text="Droppy">
+<VBox minHeight="700.0" minWidth="900.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.droppy.controller.HomeController">
+      <HBox alignment="CENTER_LEFT" VBox.vgrow="ALWAYS">
+            <Label fx:id="droppyTextLogo" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="35.0" text="Droppy">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
@@ -19,11 +19,13 @@
                   <Insets />
                </HBox.margin>
             </Label>
+      <HBox HBox.hgrow="ALWAYS" />
 
-            <TextField fx:id="searchTextField" prefHeight="30.0" prefWidth="300.0" promptText="Search" />
+            <TextField fx:id="searchTextField" minHeight="30.0" promptText="Search" HBox.hgrow="ALWAYS" />
+      <HBox HBox.hgrow="ALWAYS" />
             <Circle fx:id="avatarSmall" fill="DODGERBLUE" onMouseClicked="#onProfileClick" radius="12.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
                <HBox.margin>
-                  <Insets left="250.0" />
+                  <Insets />
                </HBox.margin>
             </Circle>
          <padding>
@@ -33,7 +35,7 @@
          <Insets />
       </VBox.margin>
       </HBox>
-      <HBox prefWidth="200.0">
+      <HBox VBox.vgrow="ALWAYS">
             <Label fx:id="restaurantsLabel" text="Restaurants">
                <font>
                   <Font name="System Bold" size="24.0" />
@@ -43,7 +45,7 @@
                </HBox.margin>
             </Label>
       </HBox>
-      <HBox prefWidth="200.0">
+      <HBox VBox.vgrow="ALWAYS">
             <Label fx:id="categoriesLabel" text="Categories">
                <HBox.margin>
                   <Insets bottom="5.0" left="40.0" top="5.0" />
@@ -53,14 +55,15 @@
                </font>
             </Label>
       </HBox>
-      <HBox fx:id="chceckBoxHBox" alignment="CENTER" spacing="10.0">
-      <VBox.margin>
-         <Insets bottom="15.0" top="10.0" />
-      </VBox.margin></HBox>
-   <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" prefHeight="530.0" prefWidth="900.0" vbarPolicy="ALWAYS">
-      <content>
+   <ScrollPane fitToHeight="true" vbarPolicy="NEVER" VBox.vgrow="ALWAYS">
+            <HBox fx:id="chceckBoxHBox" alignment="CENTER_LEFT" spacing="10.0">
+            <padding>
+               <Insets left="40.0" right="40.0" />
+            </padding></HBox>
+   </ScrollPane>
+   <HBox minHeight="20.0" VBox.vgrow="ALWAYS" />
+   <ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true" prefHeight="530.0" VBox.vgrow="ALWAYS">
          <HBox alignment="TOP_CENTER" prefWidth="900.0">
-            <children>
                <VBox fx:id="column1VBOX" prefWidth="250.0" spacing="5.0">
                   <HBox.margin>
                      <Insets bottom="5.0" top="5.0" />
@@ -76,8 +79,6 @@
                      <Insets bottom="5.0" top="5.0" />
                   </HBox.margin>
                </VBox>
-            </children>
          </HBox>
-      </content>
    </ScrollPane>
 </VBox>

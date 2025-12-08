@@ -6,18 +6,11 @@ import com.example.droppy.service.I18n;
 import com.example.droppy.service.Session;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 import com.example.droppy.Navigator.*;
-
-import java.io.IOException;
 import java.util.Locale;
 
 public class SignInController {

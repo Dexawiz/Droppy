@@ -45,10 +45,10 @@ public class LoginController {
             }
         });
 
-        emailTextField.setText("ivan@gmail.com");
-        passwordTextField.setText("pass123");
-//        emailTextField.setText("admin@droppy.com");
-//        passwordTextField.setText("admin123");
+//        emailTextField.setText("ivan@gmail.com");
+//        passwordTextField.setText("pass123");
+        emailTextField.setText("admin@droppy.com");
+        passwordTextField.setText("admin123");
 //        emailTextField.setText("maria.driver@droppy.com");
 //        passwordTextField.setText("1234567");
     }
@@ -138,6 +138,8 @@ public class LoginController {
 
             }
             stage.setTitle("Droppy");
+            stage.setMinWidth(500);
+            stage.setMinHeight(500);
             stage.show();
         } catch (IllegalArgumentException e) {
             loginText.setText(e.getMessage());
@@ -174,6 +176,8 @@ public class LoginController {
         var scene = new Scene(rootPane);
         stage.setTitle("Droppy");
         stage.setScene(scene);
+        stage.setMinWidth(500);
+        stage.setMinHeight(500);
         stage.show();
     }
 

@@ -45,6 +45,8 @@ public class Main extends Application {
         var scene = new Scene(rootPane);
         stage.setTitle("Droppy");
         stage.setScene(scene);
+        stage.setMinWidth(500);
+        stage.setMinHeight(500);
 
         stage.setOnCloseRequest(event -> {
             var orderDao = new HibernateOrderDao(HibernateUtil.getSessionFactory());
