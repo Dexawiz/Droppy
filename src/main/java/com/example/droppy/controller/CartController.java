@@ -205,9 +205,22 @@ public class CartController {
             e.printStackTrace();
         }
     }
+
     @FXML
     void onBackButtonClick(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/HomeView.fxml"));
+            Parent rootPane = loader.load();
 
+            HomeController controller = loader.getController();
+            controller.init(authService);
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(rootPane);
+            stage.setScene(scene);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void updateText(){
