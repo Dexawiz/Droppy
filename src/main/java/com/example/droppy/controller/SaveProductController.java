@@ -78,22 +78,7 @@ public class SaveProductController {
     @FXML
     void onBackToCompanyButtonClick(ActionEvent event) {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/SaveCompany.fxml"));
-            Parent rootPane = loader.load();
-
-            SaveCompanyController controller = loader.getController();
-            controller.init(authService, SaveCompanyController.Mode.ADDING_COMPANY);
-
-            Scene scene = new Scene(rootPane);
-            stage.setScene(scene);
-            stage.setTitle("Droppy - Admin Companies");
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-            new Alert(Alert.AlertType.ERROR, "Failed to switch to list all mode: " + e.getMessage()).showAndWait();
-        }
+        stage.close();
 
     }
 

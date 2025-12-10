@@ -1,8 +1,11 @@
 package com.example.droppy;
 
 import com.example.droppy.controller.LoginController;
+import com.example.droppy.domain.entity.Company;
 import com.example.droppy.domain.entity.Order;
 import com.example.droppy.domain.enums.Role;
+import com.example.droppy.repository.CompanyDao;
+import com.example.droppy.repository.HibernateCompanyDao;
 import com.example.droppy.repository.HibernateOrderDao;
 import com.example.droppy.repository.HibernateUserDao;
 import com.example.droppy.service.AuthService;
@@ -54,6 +57,13 @@ public class Main extends Application {
             for (Order order : ordersForDeleting) {
                 orderDao.delete(order.getId());
             }
+            var companyDao = new HibernateCompanyDao(HibernateUtil.getSessionFactory());
+            List<Company> companies = companyDao .findAll();
+            for (Company company : companies) {
+                if (company.getName() == null || company.getName().isEmpty()) {
+                    companyDao.delete(company.getId());
+                    }
+                }
         });
 
 

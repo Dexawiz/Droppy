@@ -25,6 +25,8 @@ import java.util.Locale;
 
 public class LoginController {
 
+    private static double lastWidth ;
+    private static double lastHeight;
     private AuthService authService;
     private Runnable onLoginSuccess;
 
@@ -47,10 +49,10 @@ public class LoginController {
 
 //        emailTextField.setText("ivan@gmail.com");
 //        passwordTextField.setText("pass123");
-//        emailTextField.setText("admin@droppy.com");
-//        passwordTextField.setText("admin123");
-        emailTextField.setText("maria.driver@droppy.com");
-        passwordTextField.setText("1234567");
+        emailTextField.setText("admin@droppy.com");
+        passwordTextField.setText("admin123");
+//        emailTextField.setText("maria.driver@droppy.com");
+//        passwordTextField.setText("1234567");
     }
 
     @FXML
@@ -76,6 +78,7 @@ public class LoginController {
 
     @FXML
     private Button signinButton;
+
     @FXML
     void onLoginButtonClick(ActionEvent event) {
         String email = emailTextField.getText();
@@ -96,6 +99,7 @@ public class LoginController {
 
             loginText.setText("Login Successful " + "Current User: " + email );
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
 
             switch (currentUser.getRole()){
                 case CUSTOMER -> {
@@ -134,8 +138,6 @@ public class LoginController {
                 default -> {
                     throw new IllegalArgumentException("Unsupported role: " + currentUser.getRole());
                 }
-
-
             }
             stage.setTitle("Droppy");
             stage.setMinWidth(500);
