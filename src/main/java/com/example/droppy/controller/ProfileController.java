@@ -82,7 +82,7 @@ public class ProfileController {
     private Label logOutLabel;
 
     @FXML
-    private Text nameText;
+    private Label nameText;
 
     @FXML
     private Label phoneNumberLabel;
@@ -94,13 +94,13 @@ public class ProfileController {
     private Label settingLabel;
 
     @FXML
-    private Text surnameText;
+    private Label surnameText;
 
     @FXML
-    private Text userEmailDemo;
+    private Label userEmailDemo;
 
     @FXML
-    private Text userPhoneDemo;
+    private Label userPhoneDemo;
 
     @FXML
     private TextField nameField;

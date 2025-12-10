@@ -205,6 +205,10 @@ public class CartController {
             e.printStackTrace();
         }
     }
+    @FXML
+    void onBackButtonClick(ActionEvent event) {
+
+    }
 
     private void updateText(){
         productsLabel.setText(I18n.get("product"));

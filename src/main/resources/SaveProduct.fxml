@@ -9,19 +9,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.droppy.controller.SaveProductController">
-   <children>
+<VBox minHeight="700.0" minWidth="900.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.droppy.controller.SaveProductController">
       <HBox prefHeight="100.0" prefWidth="200.0">
-         <children>
-            <HBox alignment="CENTER" prefHeight="94.0" prefWidth="110.0">
-               <children>
+            <HBox alignment="CENTER" minHeight="90.0" minWidth="110.0">
                   <Button fx:id="backtoCompanyButton" mnemonicParsing="false" onAction="#onBackToCompanyButtonClick" prefHeight="35.0" prefWidth="50.0" text="&lt;-">
                      <HBox.margin>
                         <Insets top="30.0" />
                      </HBox.margin>
                   </Button>
-               </children>
             </HBox>
             <Label fx:id="productLabel" text="Product">
                <font>
@@ -31,21 +26,17 @@
                   <Insets top="50.0" />
                </HBox.margin>
             </Label>
-         </children>
       </HBox>
-      <HBox alignment="CENTER">
-         <children>
+      <HBox alignment="CENTER" VBox.vgrow="ALWAYS">
             <VBox>
-               <children>
-                  <TextField fx:id="nameProductTextField" prefHeight="35.0" prefWidth="680.0" promptText="Name of the product" />
-                  <TextArea fx:id="descProductTextField" prefHeight="250.0" prefWidth="680.0" promptText="Description of the product">
+                  <TextField fx:id="nameProductTextField" minHeight="35.0" minWidth="680.0" promptText="Name of the product" VBox.vgrow="ALWAYS" />
+                  <TextArea fx:id="descProductTextField" minHeight="250.0" minWidth="680.0" promptText="Description of the product" VBox.vgrow="ALWAYS">
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin>
                   </TextArea>
-                  <HBox>
-                     <children>
-                        <TextField fx:id="priceProductTextField" prefHeight="35.0" prefWidth="620.0" promptText="Price of the procuct">
+                  <HBox VBox.vgrow="ALWAYS">
+                        <TextField fx:id="priceProductTextField" minHeight="35.0" minWidth="620.0" promptText="Price of the procuct" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets top="10.0" />
                            </HBox.margin>
@@ -58,43 +49,36 @@
                               <Insets left="20.0" top="15.0" />
                            </HBox.margin>
                         </Label>
-                     </children>
                   </HBox>
-                  <HBox />
-               </children>
+                  <HBox VBox.vgrow="ALWAYS" />
             </VBox>
-         </children>
       </HBox>
-      <HBox alignment="TOP_RIGHT" prefHeight="100.0" prefWidth="200.0">
-         <children>
+      <HBox alignment="TOP_RIGHT" spacing="40.0" VBox.vgrow="ALWAYS">
             <VBox alignment="CENTER">
                <HBox.margin>
-                  <Insets right="40.0" />
+                  <Insets />
                </HBox.margin>
-               <children>
                   <Button fx:id="deleteProductButton" alignment="CENTER" mnemonicParsing="false" onAction="#onDeleteProductButtonClick" prefHeight="35.0" prefWidth="110.0" text="Delete">
                      <VBox.margin>
                         <Insets bottom="20.0" />
                      </VBox.margin>
                   </Button>
-               </children>
+               <padding>
+                  <Insets left="60.0" />
+               </padding>
             </VBox>
             <VBox alignment="CENTER">
                <HBox.margin>
                   <Insets right="110.0" />
                </HBox.margin>
-               <children>
                   <Button fx:id="saveProductButton" mnemonicParsing="false" onAction="#onSaveProductButtonClick" prefHeight="35.0" prefWidth="110.0" text="Save">
                      <VBox.margin>
                         <Insets bottom="20.0" />
                      </VBox.margin>
                   </Button>
-               </children>
             </VBox>
-         </children>
          <VBox.margin>
-            <Insets top="150.0" />
+            <Insets />
          </VBox.margin>
       </HBox>
-   </children>
 </VBox>

@@ -6,14 +6,14 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.droppy.controller.ProfileController">
-      <HBox fx:id="header" alignment="CENTER_LEFT" VBox.vgrow="NEVER">
-            <Label fx:id="droppyTextLogo" prefHeight="35.0" prefWidth="280.0" text="Droppy">
+<VBox minHeight="700.0" minWidth="900.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.droppy.controller.ProfileController">
+      <HBox fx:id="header" alignment="CENTER_LEFT">
+            <Label fx:id="droppyTextLogo" prefHeight="35.0" text="Droppy">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
@@ -21,18 +21,19 @@
                   <Insets />
                </HBox.margin>
             </Label>
+      <HBox HBox.hgrow="ALWAYS" />
             <Circle fx:id="avatarSmall" fill="DODGERBLUE" radius="12.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
                <HBox.margin>
-                  <Insets left="550.0" />
+                  <Insets />
                </HBox.margin>
             </Circle>
          <padding>
             <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
          </padding>
       </HBox>
-   <HBox prefWidth="200.0">
-         <VBox spacing="10.0">
-               <Button fx:id="backButton" mnemonicParsing="false" onAction="#onBackButtonClick" prefHeight="35.0" prefWidth="110.0" text="&lt;-">
+   <HBox>
+         <VBox spacing="10.0" HBox.hgrow="ALWAYS">
+               <Button fx:id="backButton" minHeight="25.0" minWidth="110.0" mnemonicParsing="false" onAction="#onBackButtonClick" prefHeight="35.0" text="&lt;-">
                   <font>
                      <Font size="14.0" />
                   </font>
@@ -50,10 +51,10 @@
          <Insets left="40.0" right="40.0" />
       </padding>
    </HBox>
-      <HBox alignment="CENTER_LEFT">
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+      <HBox alignment="CENTER_LEFT" VBox.vgrow="ALWAYS">
+            <VBox alignment="CENTER" minWidth="100.0" prefHeight="200.0" prefWidth="120.0">
                   <Circle fx:id="bigAvatar" fill="DODGERBLUE" radius="40.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-                  <Button fx:id="editProfileButton" alignment="CENTER" mnemonicParsing="false" onAction="#onEditProfileButtonClick" prefHeight="35.0" prefWidth="110.0" text="Edit">
+                  <Button fx:id="editProfileButton" alignment="CENTER" minHeight="25.0" minWidth="110.0" mnemonicParsing="false" onAction="#onEditProfileButtonClick" prefHeight="35.0" text="Edit" VBox.vgrow="ALWAYS">
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin>
@@ -61,24 +62,27 @@
                <HBox.margin>
                   <Insets left="40.0" />
                </HBox.margin>
+         <padding>
+            <Insets bottom="5.0" top="5.0" />
+         </padding>
             </VBox>
-            <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="730.0" HBox.hgrow="ALWAYS">
+            <VBox alignment="CENTER_LEFT" spacing="10.0" HBox.hgrow="ALWAYS">
                   <HBox>
             <VBox>
-                              <Text fx:id="nameText" strokeType="OUTSIDE" strokeWidth="0.0" text="Name">
+                              <Label fx:id="nameText" text="Name">
                                  <font>
                                     <Font name="System Bold" size="18.0" />
                                  </font>
-                              </Text>
-                  <TextField fx:id="nameField" managed="false" prefHeight="35.0" prefWidth="100.0" visible="false" />
+                              </Label>
+                  <TextField fx:id="nameField" managed="false" minHeight="35.0" minWidth="100.0" visible="false" />
             </VBox>
             <VBox>
-                              <Text fx:id="surnameText" strokeType="OUTSIDE" strokeWidth="0.0" text="Surname">
+                              <Label fx:id="surnameText" text="Surname">
                                  <font>
                                     <Font name="System Bold" size="18.0" />
                                  </font>
-                              </Text>
-                  <TextField fx:id="surnameField" managed="false" prefHeight="35.0" prefWidth="100.0" visible="false" />
+                              </Label>
+                  <TextField fx:id="surnameField" managed="false" minHeight="35.0" minWidth="100.0" visible="false" />
                <HBox.margin>
                   <Insets left="30.0" />
                </HBox.margin>
@@ -88,12 +92,15 @@
                      </VBox.margin>
                   </HBox>
                   <HBox>
-            <Label fx:id="emailText" prefHeight="27.0" prefWidth="140.0" text="E-mail">
+            <Label fx:id="emailText" minWidth="60.0" prefWidth="140.0" text="E-mail">
                <font>
                   <Font size="18.0" />
                </font>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
             </Label>
-                        <Text fx:id="userEmailDemo" strokeType="OUTSIDE" strokeWidth="0.0" text="user@user.com" wrappingWidth="269.02618396282196" HBox.hgrow="ALWAYS">
+                        <Label fx:id="userEmailDemo" minWidth="160.0" text="user@user.com" HBox.hgrow="ALWAYS">
 
                            <HBox.margin>
                               <Insets />
@@ -101,79 +108,85 @@
                            <font>
                               <Font size="18.0" />
                            </font>
-                        </Text>
+                        </Label>
                      <VBox.margin>
-                        <Insets top="10.0" />
+                        <Insets />
                      </VBox.margin>
                   </HBox>
                   <HBox prefWidth="200.0">
-            <Label fx:id="phoneNumberLabel" prefHeight="27.0" prefWidth="140.0" text="Phone Number">
+            <Label fx:id="phoneNumberLabel" minWidth="60.0" prefWidth="140.0" text="Phone Number">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <VBox>
-                              <Text fx:id="userPhoneDemo" strokeType="OUTSIDE" strokeWidth="0.0" text="No phone number">
+            <VBox minWidth="160.0">
+                              <Label fx:id="userPhoneDemo" text="No phone number">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
-                              </Text>
-                  <TextField fx:id="phoneField" managed="false" prefHeight="35.0" prefWidth="100.0" visible="false" />
+                              </Label>
+                  <TextField fx:id="phoneField" managed="false" minHeight="35.0" minWidth="100.0" visible="false" />
             </VBox>
                      <VBox.margin>
-                        <Insets top="10.0" />
+                        <Insets />
                      </VBox.margin>
                   </HBox>
                <HBox.margin>
                   <Insets left="30.0" />
                </HBox.margin>
+         <padding>
+            <Insets right="40.0" />
+         </padding>
             </VBox>
          <VBox.margin>
             <Insets />
          </VBox.margin>
       </HBox>
-   <HBox prefWidth="200.0">
-         <VBox>
+   <HBox prefWidth="200.0" VBox.vgrow="ALWAYS">
+      <VBox />
+         <VBox HBox.hgrow="ALWAYS">
             <HBox.margin>
                <Insets left="40.0" />
             </HBox.margin>
             <padding>
                <Insets top="10.0" />
             </padding>
-               <HBox>
+               <HBox minHeight="30.0">
                      <Label fx:id="settingLabel" text="Settings">
                         <font>
                            <Font name="System Bold" size="24.0" />
                         </font>
                      </Label>
                </HBox>
-               <HBox alignment="CENTER">
-                     <Label fx:id="languageLabel" prefHeight="27.0" prefWidth="710.0" text="Language">
+               <HBox alignment="CENTER_LEFT">
+                     <Label fx:id="languageLabel" text="Language">
                         <font>
                            <Font size="18.0" />
                         </font>
                      </Label>
-                     <ChoiceBox fx:id="languageCB1" prefHeight="35.0" prefWidth="110.0" />
+            <Region HBox.hgrow="ALWAYS" />
+                     <ChoiceBox fx:id="languageCB1" minHeight="25.0" minWidth="110.0" prefHeight="35.0" />
                   <VBox.margin>
                      <Insets top="10.0" />
                   </VBox.margin>
                </HBox>
-               <HBox alignment="CENTER">
+               <HBox alignment="CENTER_LEFT">
                   <VBox.margin>
                      <Insets top="10.0" />
                   </VBox.margin>
-                     <Label fx:id="logOutLabel" prefWidth="715.0" text="Log out">
+                     <Label fx:id="logOutLabel" text="Log out">
                         <font>
                            <Font size="18.0" />
                         </font>
                      </Label>
-                     <Button fx:id="logOutButton" mnemonicParsing="false" onAction="#onLogOutButtonClick" prefHeight="35.0" prefWidth="110.0" text="Log out" />
+            <Region HBox.hgrow="ALWAYS" />
+                     <Button fx:id="logOutButton" minHeight="25.0" minWidth="110.0" mnemonicParsing="false" onAction="#onLogOutButtonClick" prefHeight="35.0" text="Log out" />
                </HBox>
-               <HBox alignment="CENTER">
+               <HBox alignment="CENTER_LEFT">
                   <VBox.margin>
                      <Insets top="10.0" />
                   </VBox.margin>
-                     <Label fx:id="deleteProfileLabel" prefWidth="715.0" text="Delete profile">
+                     <Label fx:id="deleteProfileLabel" text="Delete profile">
                         <font>
                            <Font size="18.0" />
                         </font>
@@ -181,7 +194,8 @@
                            <Insets />
                         </HBox.margin>
                      </Label>
-                     <Button fx:id="deleteProfileButton" mnemonicParsing="false" onAction="#onDeleteProfileButtonClick" prefHeight="35.0" prefWidth="110.0" text="Delete" />
+            <Region HBox.hgrow="ALWAYS" />
+                     <Button fx:id="deleteProfileButton" minHeight="25.0" minWidth="110.0" mnemonicParsing="false" onAction="#onDeleteProfileButtonClick" prefHeight="35.0" text="Delete" />
                </HBox>
          </VBox>
          <VBox>
@@ -193,4 +207,5 @@
             </HBox.margin>
          </VBox>
    </HBox>
+   <Region VBox.vgrow="ALWAYS" />
 </VBox>

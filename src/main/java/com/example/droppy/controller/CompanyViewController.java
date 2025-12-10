@@ -203,6 +203,7 @@ public class CompanyViewController {
             Scene scene = new Scene(rootPane);
             stage.setScene(scene);
 
+
             CartController controller = loader.getController();
             controller.init(authService);
         } catch (Exception e){

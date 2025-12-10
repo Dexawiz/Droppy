@@ -10,218 +10,219 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
-<?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.droppy.controller.CartController">
-      <HBox alignment="CENTER_LEFT">
-         <padding>
-            <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
-         </padding>
-            <Label fx:id="droppyTextLogo" prefHeight="35.0" prefWidth="280.0" text="Droppy">
-               <font>
-                  <Font name="System Bold" size="24.0" />
-               </font>
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
+<VBox fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="700.0" minWidth="900.0"
+      xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.example.droppy.controller.CartController">
+    <VBox VBox.vgrow="ALWAYS">
+        <HBox fx:id="header" alignment="CENTER_LEFT">
+            <padding>
+                <Insets bottom="5.0" left="20.0" right="20.0" top="5.0"/>
+            </padding>
+            <Label fx:id="droppyTextLogo" prefHeight="35.0" text="Droppy">
+                <font>
+                    <Font name="System Bold" size="24.0"/>
+                </font>
+                <HBox.margin>
+                    <Insets/>
+                </HBox.margin>
             </Label>
-            <TextField fx:id="searchTextField" prefHeight="30.0" prefWidth="300.0" promptText="Search" />
-            <FontIcon fx:id="shoppingCartIcon" iconLiteral="fth-shopping-cart" iconSize="20">
-               <HBox.margin>
-                  <Insets left="210.0" />
-               </HBox.margin>
-            </FontIcon>
-            <Circle fx:id="avatarSmall" fill="DODGERBLUE" onMouseClicked="#onProfileClick" radius="12.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
-               <HBox.margin>
-                  <Insets left="20.0" />
-               </HBox.margin>
+            <HBox HBox.hgrow="ALWAYS"/>
+            <Circle fx:id="avatarSmall" fill="DODGERBLUE" onMouseClicked="#onProfileClick" radius="12.0" stroke="BLACK"
+                    strokeType="INSIDE" strokeWidth="0.0">
+                <HBox.margin>
+                    <Insets left="20.0"/>
+                </HBox.margin>
             </Circle>
-         <VBox.margin>
-            <Insets />
-         </VBox.margin>
-      </HBox>
-      <HBox prefWidth="900.0">
-            <VBox prefWidth="450.0">
-                  <HBox alignment="TOP_RIGHT" prefWidth="200.0" />
-                  <HBox alignment="TOP_CENTER" prefWidth="200.0">
-                        <VBox>
-                              <Label fx:id="productsLabel" text="Products">
-                                 <font>
-                                    <Font name="System Bold" size="24.0" />
-                                 </font>
-                              </Label>
-                              <ScrollPane fx:id="orderListScrollPane" hbarPolicy="NEVER" prefHeight="570.0" prefWidth="420.0" vbarPolicy="ALWAYS">
-                                 <VBox.margin>
-                                    <Insets top="5.0" />
-                                 </VBox.margin>
-                                    <VBox fx:id="orderListContainer" prefHeight="566.0" prefWidth="402.0" />
-                              </ScrollPane>
-                        </VBox>
-                  </HBox>
-               <HBox.margin>
-                  <Insets left="20.0" right="10.0" />
-               </HBox.margin>
+            <VBox.margin>
+                <Insets/>
+            </VBox.margin>
+        </HBox>
+
+
+        <HBox>
+            <Button fx:id="backButton" mnemonicParsing="false" onAction="#onBackButtonClick" prefHeight="35.0"
+                    prefWidth="110.0" text="&lt;-"/>
+            <VBox.margin>
+                <Insets/>
+            </VBox.margin>
+            <padding>
+                <Insets bottom="10.0" left="20.0" right="20.0" top="10.0"/>
+            </padding>
+        </HBox>
+
+
+        <HBox alignment="TOP_CENTER" spacing="20" VBox.vgrow="ALWAYS">
+
+            <VBox spacing="10" HBox.hgrow="ALWAYS">
+                <Label fx:id="productsLabel" text="Products">
+                    <font>
+                        <Font name="System Bold" size="24.0"/>
+                    </font>
+                </Label>
+
+
+                <ScrollPane fx:id="orderListScrollPane" fitToWidth="true" prefHeight="530.0" vbarPolicy="ALWAYS"
+                            VBox.vgrow="ALWAYS">
+                    <VBox.margin>
+                        <Insets/>
+                    </VBox.margin>
+                    <VBox fx:id="orderListContainer" spacing="5.0"/>
+                </ScrollPane>
+                <HBox.margin>
+                    <Insets left="20.0"/>
+                </HBox.margin>
             </VBox>
-            <VBox prefWidth="450.0">
-                  <HBox alignment="TOP_CENTER" prefWidth="200.0">
+
+            <VBox maxWidth="450.0" spacing="10" HBox.hgrow="ALWAYS">
+                <Label fx:id="userInfoLabel" text="User Info">
+                    <font>
+                        <Font name="System Bold" size="24.0"/>
+                    </font>
+                </Label>
+
+                <HBox spacing="10.0">
+                    <Label fx:id="nameDemo" text="NAME">
+                        <font>
+                            <Font size="14.0"/>
+                        </font>
+                    </Label>
+                    <Label fx:id="surnameDemo" text="SURNAME">
+                        <font>
+                            <Font size="14.0"/>
+                        </font>
+                    </Label>
+                </HBox>
+
+
+                <HBox alignment="CENTER_LEFT" spacing="10.0">
+                    <Label fx:id="addressLabel" prefWidth="120.0" text="Address">
+                        <font>
+                            <Font size="14.0"/>
+                        </font>
+                    </Label>
+                    <TextField fx:id="addressTextField" minHeight="15.0" prefHeight="30.0" HBox.hgrow="ALWAYS"/>
+                </HBox>
+
+
+                <HBox alignment="CENTER_LEFT" spacing="10">
+                    <Label fx:id="PNLabel" prefWidth="120.0" text="Phone Number">
+                        <font>
+                            <Font size="14.0"/>
+                        </font>
+                    </Label>
+                    <TextField fx:id="PNTextField" minHeight="15.0" prefHeight="30.0" HBox.hgrow="ALWAYS"/>
+                </HBox>
+
+                <VBox spacing="10" VBox.vgrow="ALWAYS">
+                    <Label fx:id="PriceLabel" text="Price" VBox.vgrow="ALWAYS">
+                        <font>
+                            <Font name="System Bold" size="24.0"/>
+                        </font>
+                    </Label>
+
+                    <HBox spacing="10">
                         <VBox>
-                              <HBox>
-                                    <VBox spacing="5.0">
-                                          <Label fx:id="userInfoLabel" text="User Info">
-                                             <font>
-                                                <Font name="System Bold" size="24.0" />
-                                             </font>
-                                          </Label>
-                                          <HBox alignment="CENTER_LEFT" prefHeight="30.0" spacing="10.0">
-                                                <Label fx:id="nameDemo" text="NAME">
-                                                   <font>
-                                                      <Font size="14.0" />
-                                                   </font>
-                                                </Label>
-                                                <Label fx:id="surnameDemo" text="SURNAME">
-                                                   <font>
-                                                      <Font size="14.0" />
-                                                   </font>
-                                                </Label>
-                                          </HBox>
-                                          <HBox alignment="CENTER_LEFT" spacing="10.0">
-                                                <Label fx:id="addressLabel" prefHeight="20.0" prefWidth="100.0" text="Address">
-                                                   <font>
-                                                      <Font size="14.0" />
-                                                   </font>
-                                                </Label>
-                                                <TextField fx:id="addressTextField" prefHeight="30.0" prefWidth="290.0" />
-                                          </HBox>
-                                          <HBox alignment="CENTER_LEFT" spacing="10.0">
-                                                <Label fx:id="PNLabel" prefHeight="20.0" prefWidth="100.0" text="Phone Number">
-                                                   <font>
-                                                      <Font size="14.0" />
-                                                   </font>
-                                                </Label>
-                                                <TextField fx:id="PNTextField" prefHeight="30.0" prefWidth="290.0" />
-                                          </HBox>
-                                       <HBox.margin>
-                                          <Insets top="40.0" />
-                                       </HBox.margin>
-                                    </VBox>
-                              </HBox>
-                              <Label fx:id="PriceLabel" text="Price">
-                                 <font>
-                                    <Font name="System Bold" size="24.0" />
-                                 </font>
-                                 <VBox.margin>
-                                    <Insets top="50.0" />
-                                 </VBox.margin>
-                              </Label>
-                              <HBox>
-                                    <VBox spacing="5.0">
-                                          <Label fx:id="OrderTotalLabel" prefHeight="20.0" prefWidth="200.0" text="Order total">
-                                             <font>
-                                                <Font name="System Bold" size="18.0" />
-                                             </font>
-                                          </Label>
-                                          <Label fx:id="serviceFeeLabel" prefHeight="20.0" prefWidth="200.0" text="Service fee">
-                                             <font>
-                                                <Font name="System Bold" size="18.0" />
-                                             </font>
-                                          </Label>
-                                          <Label fx:id="totalLabel" prefHeight="20.0" prefWidth="200.0" text="Total">
-                                             <font>
-                                                <Font name="System Bold" size="24.0" />
-                                             </font>
-                                          </Label>
-                                       <HBox.margin>
-                                          <Insets />
-                                       </HBox.margin>
-                                    </VBox>
-                                    <VBox alignment="TOP_RIGHT" spacing="5.0">
-                                          <Label fx:id="OTDemo" alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="190.0" text="000.00">
-                                             <font>
-                                                <Font name="System Bold" size="18.0" />
-                                             </font>
-                                          </Label>
-                                          <Label fx:id="serviceFee" alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="190.0" text="0.50">
-                                             <font>
-                                                <Font name="System Bold" size="18.0" />
-                                             </font>
-                                          </Label>
-                                          <Label fx:id="totalDemo" alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="190.0" text="000.00">
-                                             <font>
-                                                <Font name="System Bold" size="24.0" />
-                                             </font>
-                                          </Label>
-                                    </VBox>
-                                    <VBox spacing="5.0">
-                                          <Label alignment="CENTER_RIGHT" prefHeight="20.0" text="€">
-                                             <font>
-                                                <Font name="System Bold" size="18.0" />
-                                             </font>
-                                          </Label>
-                                          <Label alignment="CENTER_RIGHT" prefHeight="20.0" text="€">
-                                             <font>
-                                                <Font name="System Bold" size="18.0" />
-                                             </font>
-                                          </Label>
-                                          <Label alignment="CENTER_RIGHT" prefHeight="20.0" text="€">
-                                             <font>
-                                                <Font name="System Bold" size="24.0" />
-                                             </font>
-                                          </Label>
-                                       <padding>
-                                          <Insets left="5.0" right="5.0" />
-                                       </padding>
-                                    </VBox>
-                                 <VBox.margin>
-                                    <Insets top="5.0" />
-                                 </VBox.margin>
-                              </HBox>
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin>
+                            <Label fx:id="OrderTotalLabel" text="Order total" VBox.vgrow="ALWAYS">
+                                <font>
+                                    <Font name="System Bold" size="18.0"/>
+                                </font>
+                            </Label>
+
+                            <Label fx:id="serviceFeeLabel" text="Service fee" VBox.vgrow="ALWAYS">
+                                <font>
+                                    <Font name="System Bold" size="18.0"/>
+                                </font>
+                            </Label>
+
+                            <Label fx:id="totalLabel" text="Total" VBox.vgrow="ALWAYS">
+                                <font>
+                                    <Font name="System Bold" size="24.0"/>
+                                </font>
+                            </Label>
                         </VBox>
-                  </HBox>
-                  <HBox prefHeight="200.0" prefWidth="405.0">
-                        <VBox>
-                              <HBox spacing="55.0">
-                                    <Label fx:id="paymentMethodLalbel" text="Payment method">
-                                       <font>
-                                          <Font name="System Bold" size="24.0" />
-                                       </font>
-                                       <HBox.margin>
-                                          <Insets />
-                                       </HBox.margin>
-                                    </Label>
-                                    <ChoiceBox fx:id="paymentMethodCB" prefHeight="35.0" prefWidth="150.0" />
-                              </HBox>
-                              <HBox>
-                                 <padding>
-                                    <Insets top="20.0" />
-                                 </padding>
-                              </HBox>
+                        <VBox HBox.hgrow="ALWAYS"/>
+
+                        <VBox alignment="TOP_RIGHT">
+                            <Label fx:id="OTDemo" alignment="CENTER_RIGHT" text="000.00" VBox.vgrow="ALWAYS">
+                                <font>
+                                    <Font name="System Bold" size="18.0"/>
+                                </font>
+                            </Label>
+                            <Label fx:id="serviceFee" alignment="CENTER_RIGHT" text="0.50" VBox.vgrow="ALWAYS">
+                                <font>
+                                    <Font name="System Bold" size="18.0"/>
+                                </font>
+                            </Label>
+
+                            <Label fx:id="totalDemo" alignment="CENTER_RIGHT" text="000.00" VBox.vgrow="ALWAYS">
+                                <font>
+                                    <Font name="System Bold" size="24.0"/>
+                                </font>
+                            </Label>
                         </VBox>
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                     <padding>
-                        <Insets top="20.0" />
-                     </padding>
-                  </HBox>
-                  <HBox alignment="TOP_CENTER">
-                        <Button fx:id="OrderButton" mnemonicParsing="false" onAction="#onOrderButtonClick" prefHeight="40.0" prefWidth="400.0" text="Order">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
+
+                        <VBox alignment="TOP_CENTER">
+                            <Label prefHeight="20.0" text="€" VBox.vgrow="ALWAYS">
+                                <font>
+                                    <Font name="System Bold" size="18.0"/>
+                                </font>
+                            </Label>
+                            <Label prefHeight="20.0" text="€" VBox.vgrow="ALWAYS">
+                                <font>
+                                    <Font name="System Bold" size="18.0"/>
+                                </font>
+                            </Label>
+                            <Label prefHeight="20.0" text="€" VBox.vgrow="ALWAYS">
+                                <font>
+                                    <Font name="System Bold" size="24.0"/>
+                                </font>
+                            </Label>
+                            <padding>
+                                <Insets left="5.0" right="5.0"/>
+                            </padding>
+                        </VBox>
+                    </HBox>
+                    <VBox>
+
+                        <HBox spacing="10">
+                            <Label fx:id="paymentMethodLalbel" text="Payment method" HBox.hgrow="ALWAYS">
+                                <font>
+                                    <Font name="System Bold" size="24.0"/>
+                                </font>
+                            </Label>
+                            <HBox HBox.hgrow="ALWAYS"/>
+                            <ChoiceBox fx:id="paymentMethodCB" minHeight="20.0" prefHeight="35.0" prefWidth="150.0"
+                                       HBox.hgrow="ALWAYS"/>
+                        </HBox>
+                    </VBox>
+
+                </VBox>
+                <VBox alignment="BOTTOM_LEFT" VBox.vgrow="ALWAYS">
+
+                    <HBox>
+
+
+                        <Button fx:id="OrderButton" minHeight="35.0" mnemonicParsing="false"
+                                onAction="#onOrderButtonClick" prefHeight="40.0" prefWidth="450.0" text="Order">
+                            <font>
+                                <Font size="18.0"/>
+                            </font>
                         </Button>
-                     <VBox.margin>
-                        <Insets bottom="10.0" />
-                     </VBox.margin>
-                  </HBox>
-               <padding>
-                  <Insets left="10.0" right="20.0" />
-               </padding>
+
+                    </HBox>
+
+                </VBox>
+                <HBox.margin>
+                    <Insets right="20.0"/>
+                </HBox.margin>
             </VBox>
-         <VBox.margin>
-            <Insets bottom="10.0" top="20.0" />
-         </VBox.margin>
-      </HBox>
+            <VBox.margin>
+                <Insets/>
+            </VBox.margin>
+            <padding>
+                <Insets bottom="20.0"/>
+            </padding>
+        </HBox>
+    </VBox>
 </VBox>

@@ -142,6 +142,8 @@ public class SaveCompanyController {
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.setTitle("Add Product");
+            stage.setMinWidth(500);
+            stage.setMinHeight(500);
             stage.show();
         } catch (Exception e) {
             e.printStackTrace();
@@ -168,6 +170,8 @@ public class SaveCompanyController {
             Scene scene = new Scene(rootPane);
             stage.setScene(scene);
             stage.setTitle("Droppy - Admin Companies");
+            stage.setMinWidth(500);
+            stage.setMinHeight(500);
             stage.show();
         } catch (Exception e) {
             e.printStackTrace();
@@ -214,6 +218,8 @@ public class SaveCompanyController {
             Scene scene = new Scene(rootPane);
             stage.setScene(scene);
             stage.setTitle("Droppy - Admin Companies");
+            stage.setMinWidth(500);
+            stage.setMinHeight(500);
             stage.show();
         } catch (Exception e) {
             e.printStackTrace();

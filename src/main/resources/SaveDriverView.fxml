@@ -8,59 +8,70 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.droppy.controller.SaveDriverController">
-    <Label fx:id="driverLabel" text="Driver">
-        <font>
-            <Font name="System Bold" size="24.0" />
-        </font>
-        <VBox.margin>
-            <Insets right="225.0" />
-        </VBox.margin>
-    </Label>
-    <HBox alignment="CENTER">
-        <VBox>
-            <TextField fx:id="driverNameTextField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="35.0" prefWidth="300.0" promptText="Name">
-                <VBox.margin>
-                    <Insets top="5.0" />
-                </VBox.margin>
-            </TextField>
-            <TextField fx:id="drverSurnameTextField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="35.0" prefWidth="300.0" promptText="Surname">
-                <VBox.margin>
-                    <Insets top="10.0" />
-                </VBox.margin>
-            </TextField>
-            <TextField fx:id="emailDriverTextField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="35.0" prefWidth="300.0" promptText="Email">
-                <VBox.margin>
-                    <Insets top="10.0" />
-                </VBox.margin>
-            </TextField>
-            <TextField fx:id="driverPhoneNumberTextField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="35.0" prefWidth="300.0" promptText="Phone number">
-                <VBox.margin>
-                    <Insets top="10.0" />
-                </VBox.margin>
-            </TextField>
-            <TextField fx:id="driverPasswordField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="35.0" prefWidth="300.0" promptText="Password">
-                <VBox.margin>
-                    <Insets top="10.0" />
-                </VBox.margin>
-            </TextField>
-            <HBox prefHeight="75.0" prefWidth="200.0">
-                <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
-                    <children>
-                        <Button fx:id="returnToAddDriver" mnemonicParsing="false" onAction="#returnToAddDriverButton" prefHeight="35.0" prefWidth="110.0" text="Return" />
-                    </children></VBox>
-                <VBox prefHeight="150.0" prefWidth="100.0" />
-                <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
-                    <Button fx:id="saveDriverButton" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#onSaveDriverButtonClick" prefHeight="35.0" prefWidth="110.0" text="Save">
-                        <VBox.margin>
-                            <Insets />
-                        </VBox.margin>
-                    </Button>
-                </VBox>
-            </HBox>
-        </VBox>
-        <VBox.margin>
-            <Insets top="10.0" />
-        </VBox.margin>
-    </HBox>
+<VBox alignment="CENTER" minHeight="700.0" minWidth="900.0" spacing="20.0" xmlns="http://javafx.com/javafx/25"
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.droppy.controller.SaveDriverController">
+    <VBox alignment="CENTER" spacing="10.0">
+        <Label fx:id="driverLabel" text="Driver">
+            <font>
+                <Font name="System Bold" size="24.0"/>
+            </font>
+            <VBox.margin>
+                <Insets/>
+            </VBox.margin>
+        </Label>
+        <TextField fx:id="driverNameTextField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="35.0"
+                   prefWidth="300.0" promptText="Name">
+            <VBox.margin>
+                <Insets/>
+            </VBox.margin>
+        </TextField>
+        <TextField fx:id="drverSurnameTextField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="35.0"
+                   prefWidth="300.0" promptText="Surname">
+            <VBox.margin>
+                <Insets/>
+            </VBox.margin>
+        </TextField>
+        <TextField fx:id="emailDriverTextField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="35.0"
+                   prefWidth="300.0" promptText="Email">
+            <VBox.margin>
+                <Insets/>
+            </VBox.margin>
+        </TextField>
+        <TextField fx:id="driverPhoneNumberTextField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="35.0"
+                   prefWidth="300.0" promptText="Phone number">
+            <VBox.margin>
+                <Insets/>
+            </VBox.margin>
+        </TextField>
+        <TextField fx:id="driverPasswordField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="35.0"
+                   prefWidth="300.0" promptText="Password">
+            <VBox.margin>
+                <Insets/>
+            </VBox.margin>
+        </TextField>
+        <HBox alignment="CENTER" prefHeight="75.0" prefWidth="200.0">
+            <VBox alignment="CENTER">
+                    <Button fx:id="returnToAddDriver" mnemonicParsing="false" onAction="#returnToAddDriverButton"
+                            prefHeight="35.0" prefWidth="110.0" text="Return"/>
+                <HBox.margin>
+                    <Insets/>
+                </HBox.margin>
+            </VBox>
+            <VBox prefWidth="80.0"/>
+            <VBox alignment="CENTER">
+                <Button fx:id="saveDriverButton" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false"
+                        onAction="#onSaveDriverButtonClick" prefHeight="35.0" prefWidth="110.0" text="Save">
+                    <VBox.margin>
+                        <Insets/>
+                    </VBox.margin>
+                </Button>
+                <HBox.margin>
+                    <Insets/>
+                </HBox.margin>
+            </VBox>
+        </HBox>
+    </VBox>
+    <padding>
+        <Insets bottom="20.0" left="30.0" right="30.0" top="20.0"/>
+    </padding>
 </VBox>

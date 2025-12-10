@@ -3,7 +3,6 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
@@ -19,9 +18,6 @@
                   <Insets />
                </HBox.margin>
             </Label>
-      <HBox HBox.hgrow="ALWAYS" />
-
-            <TextField fx:id="searchTextField" minHeight="30.0" promptText="Search" HBox.hgrow="ALWAYS" />
       <HBox HBox.hgrow="ALWAYS" />
             <Circle fx:id="avatarSmall" fill="DODGERBLUE" onMouseClicked="#onProfileClick" radius="12.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
                <HBox.margin>

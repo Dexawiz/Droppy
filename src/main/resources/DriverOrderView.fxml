@@ -6,37 +6,38 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.droppy.controller.DriverOrderController">
-      <HBox fx:id="header" alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="900.0">
+<VBox fx:id="pane" minHeight="700.0" minWidth="900.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.droppy.controller.DriverOrderController">
+      <HBox fx:id="header" alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="900.0" VBox.vgrow="ALWAYS">
          <padding>
-            <Insets bottom="5.0" top="5.0" />
+            <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
          </padding>
-            <Label fx:id="droppyTextLogo" prefHeight="27.0" prefWidth="180.0" text="DroppyDriver">
+            <Label fx:id="droppyTextLogo" minWidth="150.0" text="DroppyDriver">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
                <HBox.margin>
-                  <Insets left="20.0" />
+                  <Insets />
                </HBox.margin>
             </Label>
-            <Button fx:id="logOutButton" mnemonicParsing="false" onAction="#onLogOutButtonClicked" prefHeight="30.0" prefWidth="90.0" text="Logout">
+      <Region HBox.hgrow="ALWAYS" />
+            <Button fx:id="logOutButton" minHeight="25.0" minWidth="80.0" mnemonicParsing="false" onAction="#onLogOutButtonClicked" prefHeight="30.0" prefWidth="90.0" text="Logout">
                <HBox.margin>
-                  <Insets left="600.0" />
+                  <Insets />
                </HBox.margin>
             </Button>
       </HBox>
-      <HBox spacing="35.0">
-            <VBox prefHeight="46.0" prefWidth="250.0" spacing="5.0">
-                  <Label fx:id="nameDriverLabel" text="NameOfDriver">
+      <HBox spacing="10.0" VBox.vgrow="ALWAYS">
+            <VBox spacing="5.0">
+                  <Label fx:id="nameDriverLabel" minWidth="50.0" text="NameOfDriver">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <Label fx:id="surnameDriverLabel" text="SurnameOf Driver">
+                  <Label fx:id="surnameDriverLabel" minWidth="50.0" text="SurnameOf Driver">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
@@ -45,55 +46,42 @@
                   <Insets />
                </HBox.margin>
             </VBox>
-            <VBox prefWidth="250.0" />
+      <Region HBox.hgrow="ALWAYS" />
             <VBox alignment="CENTER">
-                  <ChoiceBox fx:id="driverStatusCB" prefHeight="35.0" prefWidth="250.0" />
+                  <ChoiceBox fx:id="driverStatusCB" minWidth="100.0" prefHeight="35.0" prefWidth="250.0" VBox.vgrow="ALWAYS" />
             </VBox>
          <VBox.margin>
             <Insets bottom="5.0" left="40.0" right="40.0" top="10.0" />
          </VBox.margin>
       </HBox>
       <HBox spacing="35.0">
-            <VBox>
-                  <Button fx:id="AvOrderButton" mnemonicParsing="false" onAction="#onAvOrderButtonClick" prefHeight="35.0" prefWidth="250.0" text="Available Orders" />
-            </VBox>
-            <VBox>
-                  <Button fx:id="AcOrderButton" mnemonicParsing="false" onAction="#onAcOrderButtonClick" prefHeight="35.0" prefWidth="250.0" text="Accepted Orders" />
-            </VBox>
-            <VBox>
-                  <Button fx:id="DeOrderButton" mnemonicParsing="false" onAction="#onDeOrderButtonClick" prefHeight="35.0" prefWidth="250.0" text="Delivered Orders" />
-            </VBox>
+               <Button fx:id="AvOrderButton" minHeight="25.0" minWidth="100.0" mnemonicParsing="false" onAction="#onAvOrderButtonClick" prefHeight="35.0" prefWidth="250.0" text="Available Orders" HBox.hgrow="ALWAYS" />
+               <Button fx:id="AcOrderButton" minHeight="25.0" minWidth="100.0" mnemonicParsing="false" onAction="#onAcOrderButtonClick" prefHeight="35.0" prefWidth="250.0" text="Accepted Orders" HBox.hgrow="ALWAYS" />
+               <Button fx:id="DeOrderButton" minHeight="25.0" minWidth="100.0" mnemonicParsing="false" onAction="#onDeOrderButtonClick" prefHeight="35.0" prefWidth="250.0" text="Delivered Orders" HBox.hgrow="ALWAYS" />
          <VBox.margin>
             <Insets bottom="10.0" left="40.0" right="40.0" top="10.0" />
          </VBox.margin>
       </HBox>
       <HBox>
-            <VBox>
-                  <Label fx:id="availableOrderLabel" text="Available Orders">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                  </Label>
-               <HBox.margin>
-                  <Insets left="40.0" />
-               </HBox.margin>
-            </VBox>
+               <Label fx:id="availableOrderLabel" text="Available Orders">
+                  <font>
+                     <Font name="System Bold" size="18.0" />
+                  </font>
+               </Label>
          <VBox.margin>
-            <Insets bottom="10.0" top="10.0" />
+            <Insets bottom="10.0" left="40.0" right="40.0" top="10.0" />
          </VBox.margin>
       </HBox>
-      <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" prefHeight="475.0" prefWidth="900.0" vbarPolicy="ALWAYS">
+      <ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true" minWidth="200.0" prefHeight="440.0" vbarPolicy="ALWAYS" VBox.vgrow="ALWAYS">
          <VBox.margin>
-            <Insets top="10.0" />
+            <Insets bottom="20.0" left="40.0" right="40.0" />
          </VBox.margin>
-         <content>
-            <HBox prefHeight="200.0" prefWidth="900.0">
-                  <VBox fx:id="column1VBOX" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="900.0" spacing="10.0">
+            <HBox>
+                  <VBox fx:id="column1VBOX" alignment="TOP_CENTER" spacing="10.0">
                      <HBox.margin>
                         <Insets top="5.0" />
                      </HBox.margin>
                   </VBox>
             </HBox>
-         </content>
       </ScrollPane>
 </VBox>
