@@ -17,6 +17,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -142,8 +144,8 @@ public class DriverOrderController {
                         if (controller != null) {
                             controller.init(order, Order2ComponentController.Mode.DELIVERED);
                         }
-
                         column1VBOX.getChildren().add(orderComponent);
+
 
                     } catch (Exception e) {
                         e.printStackTrace();
