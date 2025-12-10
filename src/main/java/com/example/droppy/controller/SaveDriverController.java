@@ -1,6 +1,5 @@
 package com.example.droppy.controller;
 
-import com.example.droppy.Navigator.Navigator;
 import com.example.droppy.domain.entity.User;
 import com.example.droppy.domain.enums.Role;
 import com.example.droppy.repository.UserDao;
@@ -10,6 +9,8 @@ import com.example.droppy.service.Session;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -86,14 +87,23 @@ public class SaveDriverController {
 
     @FXML
     void returnToAddDriverButton(ActionEvent event) {
-        Navigator.switchTo(
-                event,
-                "/AdminDriversView.fxml",
-                "droppy - Add Driver",
-                AdminDriversController.class,
-                controller -> controller.init(authService,
-                        AdminDriversController.Mode.LIST_ALL)
-        );
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AdminDriversView.fxml"));
+            Parent root = loader.load();
+
+            AdminDriversController controller = loader.getController();
+            controller.init(authService, AdminDriversController.Mode.LIST_ALL);
+
+            Stage stage = (Stage) returnToAddDriver.getScene().getWindow();
+            Scene scene = new Scene(root);
+
+            stage.setScene(scene);
+            stage.setTitle("droppy - Drivers");
+            stage.show();
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to switch view: /AdminDriversView.fxml", e);
+        }
     }
 
     private void updateText(){
