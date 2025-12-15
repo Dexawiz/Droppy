@@ -194,4 +194,35 @@ class HibernateAddressDaoTest {
         Address deleted = addressDao.findById(addressId);
         assertNull(deleted);
     }
+
+    @Test
+    void testFindAll() {
+        Address address1 = new Address();
+        address1.setStreet("123 Main St");
+        address1.setCity("Testville");
+        address1.setCountry("Testland");
+        address1.setPostalCode("12345");
+
+        Address address2 = new Address();
+        address2.setStreet("456 Another St");
+        address2.setCity("Cityville");
+        address2.setCountry("Countryland");
+        address2.setPostalCode("67890");
+
+        try (Session session = testSessionFactory.openSession()) {
+            Transaction tx = session.beginTransaction();
+            session.persist(address1);
+            session.persist(address2);
+            tx.commit();
+        }
+
+        List<Address> addresses = addressDao.findAll();
+        assertEquals(2, addresses.size());
+    }
+
+    @Test
+    void testFindByIdNotFound() {
+        Address address = addressDao.findById(9999L);
+        assertNull(address);
+    }
 }

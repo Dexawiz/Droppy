@@ -12,7 +12,7 @@ import org.hibernate.query.SelectionQuery;
 
 import java.util.List;
 
-public class HibernateUserDao  implements UserDao {
+public  class HibernateUserDao  implements UserDao {
 
     private final SessionFactory sessionFactory;
 
@@ -145,6 +145,4 @@ public class HibernateUserDao  implements UserDao {
             tx.commit();
         }
     }
-
-
 }

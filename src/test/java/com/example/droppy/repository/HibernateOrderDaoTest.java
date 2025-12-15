@@ -21,7 +21,6 @@ class HibernateOrderDaoTest {
     private User customer;
     private Company company;
 
-    // единый SessionFactory для всех тестов
     private static SessionFactory testSessionFactory;
 
     @BeforeAll
@@ -38,8 +37,6 @@ class HibernateOrderDaoTest {
 
     @BeforeEach
     void setUp() {
-
-        // создаем анонимный DAO, как в тесте Address
         orderDao = new HibernateOrderDao(testSessionFactory) {
             @Override
             public void save(Order order) {
@@ -96,8 +93,6 @@ class HibernateOrderDaoTest {
                 }
             }
         };
-
-        // очищаем таблицы
         try (Session session = testSessionFactory.openSession()) {
             Transaction tx = session.beginTransaction();
             session.createQuery("DELETE FROM OrderItem").executeUpdate();
@@ -107,7 +102,6 @@ class HibernateOrderDaoTest {
             tx.commit();
         }
 
-        // создаем customer и company
         try (Session session = testSessionFactory.openSession()) {
             Transaction tx = session.beginTransaction();
 
