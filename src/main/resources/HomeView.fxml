@@ -8,7 +8,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<VBox minHeight="700.0" minWidth="900.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.droppy.controller.HomeController">
+<VBox minHeight="700.0" minWidth="900.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.droppy.controller.home.HomeController">
       <HBox alignment="CENTER_LEFT" VBox.vgrow="ALWAYS">
             <Label fx:id="droppyTextLogo" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="35.0" text="Droppy">
                <font>

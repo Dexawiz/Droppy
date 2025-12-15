@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="700.0" minWidth="900.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.droppy.controller.CompanyViewController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="700.0" minWidth="900.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.droppy.controller.company.CompanyViewController">
       <HBox fx:id="header" alignment="CENTER_LEFT" VBox.vgrow="ALWAYS">
             <Label fx:id="droppyTextLogo" prefHeight="35.0" text="Droppy">
                <font>

@@ -1,6 +1,5 @@
 package com.example.droppy.service;
 
-import com.example.droppy.controller.LoginController;
 import com.example.droppy.domain.entity.User;
 import com.example.droppy.domain.enums.Language;
 import lombok.Getter;

@@ -1,5 +1,7 @@
-package com.example.droppy.controller;
+package com.example.droppy.controller.profile;
 
+import com.example.droppy.controller.home.HomeController;
+import com.example.droppy.controller.auth.LoginController;
 import com.example.droppy.domain.enums.Language;
 import com.example.droppy.repository.HibernateUserDao;
 import com.example.droppy.service.AuthService;

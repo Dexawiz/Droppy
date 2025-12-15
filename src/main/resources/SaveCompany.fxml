@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox minHeight="700.0" minWidth="900.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.droppy.controller.SaveCompanyController">
+<VBox minHeight="700.0" minWidth="900.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.droppy.controller.company.SaveCompanyController">
       <HBox>
             <HBox alignment="CENTER" minHeight="90.0" minWidth="110.0">
                   <Button fx:id="backtoCompaniesButton" mnemonicParsing="false" onAction="#onBackToCompaniesButtonClick" prefHeight="35.0" prefWidth="50.0" text="&lt;-">

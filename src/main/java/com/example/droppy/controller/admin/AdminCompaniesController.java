@@ -1,5 +1,7 @@
-package com.example.droppy.controller;
+package com.example.droppy.controller.admin;
 
+import com.example.droppy.controller.auth.LoginController;
+import com.example.droppy.controller.company.SaveCompanyController;
 import com.example.droppy.domain.entity.Company;
 import com.example.droppy.repository.CompanyDao;
 import com.example.droppy.repository.HibernateCompanyDao;

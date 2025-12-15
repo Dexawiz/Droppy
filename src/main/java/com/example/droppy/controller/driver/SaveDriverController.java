@@ -1,8 +1,7 @@
-package com.example.droppy.controller;
+package com.example.droppy.controller.driver;
 
-import com.example.droppy.domain.entity.User;
+import com.example.droppy.controller.admin.AdminDriversController;
 import com.example.droppy.domain.enums.Role;
-import com.example.droppy.repository.UserDao;
 import com.example.droppy.service.AuthService;
 import com.example.droppy.service.I18n;
 import com.example.droppy.service.Session;
@@ -16,7 +15,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-import java.io.BufferedReader;
 import java.util.Locale;
 
 public class SaveDriverController {
@@ -70,7 +68,6 @@ public class SaveDriverController {
         }
 
         driverEmail = driverName + "." + driverSurname + ".driver" + "@droppy.com";
-
 
         try {
             authService.register(driverName, driverSurname, driverEmail, driverPhoneNumber, driverPassword, driverPassword, Role.DRIVER);

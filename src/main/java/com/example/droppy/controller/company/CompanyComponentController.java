@@ -1,4 +1,4 @@
-package com.example.droppy.controller;
+package com.example.droppy.controller.company;
 
 import com.example.droppy.domain.entity.Company;
 import com.example.droppy.repository.CompanyDao;

@@ -1,10 +1,9 @@
-package com.example.droppy.controller;
+package com.example.droppy.controller.product;
 
 import com.example.droppy.domain.entity.Order;
 import com.example.droppy.domain.entity.OrderItem;
 import com.example.droppy.domain.entity.Product;
 import com.example.droppy.domain.enums.MethodOfPayment;
-import com.example.droppy.domain.enums.OrderStatus;
 import com.example.droppy.repository.HibernateOrderDao;
 import com.example.droppy.repository.OrderDao;
 import com.example.droppy.service.AuthService;
@@ -19,7 +18,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 

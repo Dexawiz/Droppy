@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox minHeight="700.0" minWidth="900.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.droppy.controller.AdminCompaniesController">
+<VBox minHeight="700.0" minWidth="900.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.droppy.controller.admin.AdminCompaniesController">
       <HBox alignment="CENTER_LEFT" minHeight="50.0">
             <Label fx:id="droppyTextLogo" prefHeight="27.0" prefWidth="180.0" text="DroppyAdmin">
                <font>

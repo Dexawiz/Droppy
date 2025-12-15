@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxWidth="800.0" minWidth="650.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.droppy.controller.OrderComponentController">
+<VBox maxWidth="800.0" minWidth="650.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.droppy.controller.order.OrderComponentController">
       <HBox minWidth="100.0">
             <VBox spacing="5.0" HBox.hgrow="ALWAYS">
                   <HBox spacing="10.0">

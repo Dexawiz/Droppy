@@ -1,4 +1,4 @@
-package com.example.droppy.controller;
+package com.example.droppy.controller.auth;
 
 import com.example.droppy.domain.enums.Role;
 import com.example.droppy.service.AuthService;

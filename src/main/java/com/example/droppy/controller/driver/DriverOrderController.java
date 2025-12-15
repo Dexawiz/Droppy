@@ -1,5 +1,8 @@
-package com.example.droppy.controller;
+package com.example.droppy.controller.driver;
 
+import com.example.droppy.controller.order.Order2ComponentController;
+import com.example.droppy.controller.order.OrderComponentController;
+import com.example.droppy.controller.auth.LoginController;
 import com.example.droppy.domain.entity.Order;
 import com.example.droppy.domain.entity.User;
 import com.example.droppy.domain.enums.DriverStatus;
@@ -17,8 +20,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 

@@ -13,7 +13,7 @@
 
 <VBox fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="700.0" minWidth="900.0"
       xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.example.droppy.controller.CartController">
+      fx:controller="com.example.droppy.controller.cart.CartController">
     <VBox VBox.vgrow="ALWAYS">
         <HBox fx:id="header" alignment="CENTER_LEFT">
             <padding>

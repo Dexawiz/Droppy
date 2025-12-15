@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="pane" minHeight="700.0" minWidth="900.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.droppy.controller.DriverOrderController">
+<VBox fx:id="pane" minHeight="700.0" minWidth="900.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.droppy.controller.driver.DriverOrderController">
       <HBox fx:id="header" alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="900.0" VBox.vgrow="ALWAYS">
          <padding>
             <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />

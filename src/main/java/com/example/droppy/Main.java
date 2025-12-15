@@ -1,6 +1,6 @@
 package com.example.droppy;
 
-import com.example.droppy.controller.LoginController;
+import com.example.droppy.controller.auth.LoginController;
 import com.example.droppy.domain.entity.Company;
 import com.example.droppy.domain.entity.Order;
 import com.example.droppy.domain.enums.Role;

@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 
 <VBox alignment="CENTER" minHeight="700.0" minWidth="900.0" spacing="20.0" xmlns="http://javafx.com/javafx/25"
-      xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.droppy.controller.SaveDriverController">
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.droppy.controller.driver.SaveDriverController">
     <VBox alignment="CENTER" spacing="10.0">
         <Label fx:id="driverLabel" text="Driver">
             <font>

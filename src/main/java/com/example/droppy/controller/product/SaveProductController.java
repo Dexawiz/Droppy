@@ -1,5 +1,6 @@
-package com.example.droppy.controller;
+package com.example.droppy.controller.product;
 
+import com.example.droppy.controller.company.SaveCompanyController;
 import com.example.droppy.domain.entity.Company;
 import com.example.droppy.domain.entity.Product;
 import com.example.droppy.repository.HibernateProductDao;
@@ -10,10 +11,7 @@ import com.example.droppy.service.Session;
 import com.example.droppy.util.HibernateUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import lombok.Setter;

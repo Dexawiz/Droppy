@@ -1,5 +1,7 @@
-package com.example.droppy.controller;
+package com.example.droppy.controller.home;
 
+import com.example.droppy.controller.auth.ProfileOrLogOutComponentController;
+import com.example.droppy.controller.company.CompanyComponentController;
 import com.example.droppy.domain.entity.Company;
 import com.example.droppy.domain.enums.Category;
 import com.example.droppy.repository.CompanyDao;

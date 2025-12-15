@@ -1,12 +1,12 @@
-package com.example.droppy.controller;
+package com.example.droppy.controller.auth;
 
+import com.example.droppy.controller.profile.ProfileController;
 import com.example.droppy.service.AuthService;
 import com.example.droppy.service.I18n;
 import com.example.droppy.service.Session;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
