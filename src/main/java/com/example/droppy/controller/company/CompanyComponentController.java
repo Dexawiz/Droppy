@@ -1,8 +1,8 @@
 package com.example.droppy.controller.company;
 
 import com.example.droppy.domain.entity.Company;
-import com.example.droppy.repository.CompanyDao;
-import com.example.droppy.repository.HibernateCompanyDao;
+import com.example.droppy.repository.dao.CompanyDao;
+import com.example.droppy.repository.hibernate.HibernateCompanyDao;
 import com.example.droppy.service.AuthService;
 import com.example.droppy.service.I18n;
 import com.example.droppy.service.Session;

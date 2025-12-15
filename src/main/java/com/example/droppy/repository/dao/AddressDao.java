@@ -1,7 +1,6 @@
-package com.example.droppy.repository;
+package com.example.droppy.repository.dao;
 
 import com.example.droppy.domain.entity.Address;
-import com.example.droppy.domain.entity.Company;
 
 import java.util.List;
 

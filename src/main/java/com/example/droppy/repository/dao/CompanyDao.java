@@ -1,4 +1,4 @@
-package com.example.droppy.repository;
+package com.example.droppy.repository.dao;
 
 import com.example.droppy.domain.entity.Company;
 import com.example.droppy.domain.enums.Category;

@@ -2,10 +2,7 @@ package com.example.droppy.service;
 
 import com.example.droppy.domain.entity.User;
 import com.example.droppy.domain.enums.Role;
-import com.example.droppy.repository.CompanyDao;
-import com.example.droppy.repository.HibernateUserDao;
-import com.example.droppy.repository.OrderDao;
-import com.example.droppy.repository.UserDao;
+import com.example.droppy.repository.dao.UserDao;
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import lombok.Getter;
 

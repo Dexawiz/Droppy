@@ -1,6 +1,7 @@
-package com.example.droppy.repository;
+package com.example.droppy.repository.hibernate;
 
 import com.example.droppy.domain.entity.Product;
+import com.example.droppy.repository.dao.ProductDao;
 import com.example.droppy.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

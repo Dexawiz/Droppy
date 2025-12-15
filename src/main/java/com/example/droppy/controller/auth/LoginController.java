@@ -5,7 +5,7 @@ import com.example.droppy.controller.home.HomeController;
 import com.example.droppy.controller.admin.AdminDriversController;
 import com.example.droppy.domain.entity.User;
 import com.example.droppy.domain.enums.Language;
-import com.example.droppy.repository.HibernateOrderDao;
+import com.example.droppy.repository.hibernate.HibernateOrderDao;
 import com.example.droppy.service.AuthService;
 import com.example.droppy.service.I18n;
 import com.example.droppy.service.Session;

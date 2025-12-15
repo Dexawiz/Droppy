@@ -1,8 +1,9 @@
-package com.example.droppy.repository;
+package com.example.droppy.repository.hibernate;
 
 import com.example.droppy.domain.entity.User;
 import com.example.droppy.domain.enums.DriverStatus;
 import com.example.droppy.domain.enums.Role;
+import com.example.droppy.repository.dao.UserDao;
 import com.example.droppy.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -11,7 +12,7 @@ import org.hibernate.query.SelectionQuery;
 
 import java.util.List;
 
-public class HibernateUserDao  implements  UserDao {
+public class HibernateUserDao  implements UserDao {
 
     private final SessionFactory sessionFactory;
 

@@ -1,18 +1,16 @@
-package com.example.droppy.repository;
+package com.example.droppy.repository.hibernate;
 
-import com.example.droppy.domain.entity.Company;
 import com.example.droppy.domain.entity.Order;
 import com.example.droppy.domain.entity.OrderItem;
 import com.example.droppy.domain.entity.User;
 import com.example.droppy.domain.enums.MethodOfPayment;
 import com.example.droppy.domain.enums.OrderStatus;
-import com.example.droppy.util.HibernateUtil;
+import com.example.droppy.repository.dao.OrderDao;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class HibernateOrderDao implements OrderDao {

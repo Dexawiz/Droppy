@@ -1,4 +1,4 @@
-package com.example.droppy.repository;
+package com.example.droppy.repository.dao;
 
 import com.example.droppy.domain.entity.Order;
 import com.example.droppy.domain.entity.User;

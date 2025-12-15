@@ -2,8 +2,8 @@ package com.example.droppy.controller.cart;
 
 import com.example.droppy.domain.entity.Order;
 import com.example.droppy.domain.entity.OrderItem;
-import com.example.droppy.repository.HibernateOrderDao;
-import com.example.droppy.repository.OrderDao;
+import com.example.droppy.repository.hibernate.HibernateOrderDao;
+import com.example.droppy.repository.dao.OrderDao;
 import com.example.droppy.service.AuthService;
 import com.example.droppy.service.I18n;
 import com.example.droppy.service.Session;

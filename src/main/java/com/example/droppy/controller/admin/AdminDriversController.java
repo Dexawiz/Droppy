@@ -4,7 +4,7 @@ import com.example.droppy.controller.auth.LoginController;
 import com.example.droppy.controller.driver.SaveDriverController;
 import com.example.droppy.domain.entity.User;
 import com.example.droppy.domain.enums.Role;
-import com.example.droppy.repository.UserDao;
+import com.example.droppy.repository.dao.UserDao;
 import com.example.droppy.service.AuthService;
 import com.example.droppy.service.I18n;
 import com.example.droppy.service.Session;
