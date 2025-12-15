@@ -4,11 +4,11 @@ import com.example.droppy.controller.LoginController;
 import com.example.droppy.domain.entity.Company;
 import com.example.droppy.domain.entity.Order;
 import com.example.droppy.domain.enums.Role;
-import com.example.droppy.repository.CompanyDao;
 import com.example.droppy.repository.HibernateCompanyDao;
 import com.example.droppy.repository.HibernateOrderDao;
 import com.example.droppy.repository.HibernateUserDao;
 import com.example.droppy.service.AuthService;
+import com.example.droppy.service.ThemeStyles;
 import com.example.droppy.util.HibernateUtil;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -22,6 +22,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+
+        ThemeStyles.setDarkMode(false);
 
         var userDao = new HibernateUserDao( HibernateUtil.getSessionFactory());
         var authService = new AuthService(userDao);

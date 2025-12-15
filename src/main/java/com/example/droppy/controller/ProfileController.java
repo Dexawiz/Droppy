@@ -5,6 +5,7 @@ import com.example.droppy.repository.HibernateUserDao;
 import com.example.droppy.service.AuthService;
 import com.example.droppy.service.I18n;
 import com.example.droppy.service.Session;
+import com.example.droppy.service.ThemeStyles;
 import com.example.droppy.util.HibernateUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -15,7 +16,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.shape.Circle;
-import javafx.scene.text.Text;
 import com.example.droppy.domain.entity.User;
 import javafx.stage.Stage;
 
@@ -32,6 +32,7 @@ public class ProfileController {
 
         languageCB1.getItems().setAll(Language.values());
         languageCB1.setValue(Session.getCurrentLanguage());
+        switchThemeButton.setSelected(ThemeStyles.isDarkMode());
 
         I18n.setLocale(new Locale(Session.getCurrentLanguage().getCode()));
         updateText();
@@ -117,6 +118,9 @@ public class ProfileController {
 
     @FXML
     private ChoiceBox<Language> languageCB1;
+
+    @FXML
+    private ToggleButton switchThemeButton;
 
     private boolean isEditing = false;
 
@@ -256,27 +260,6 @@ public class ProfileController {
         }
     }
 
-
-//    @FXML
-//    private void initialize() {
-//        //zmena jazyka
-//        languageCB1.getItems().setAll(Language.values());
-//        languageCB1.setValue(Session.getCurrentLanguage());
-//
-//        I18n.setLocale(new Locale(Session.getCurrentLanguage().getCode()));
-//        updateText();
-//
-//        languageCB1.valueProperty().addListener((obs, oldVal, newVal) -> {
-//            if (newVal != null) {
-//                Session.setCurrentLanguage(newVal);
-//                I18n.setLocale(new Locale(newVal.getCode()));
-//                updateText();
-//            }
-//        });
-//
-//        loadUserData();
-//    }
-
     //pre zmenu jazyka -musim este zrobit
     private void updateText() {
         profileLabel.setText(I18n.get("profile"));
@@ -288,6 +271,11 @@ public class ProfileController {
         editProfileButton.setText(isEditing ? I18n.get("save") : I18n.get("edit"));
         deleteProfileButton.setText(I18n.get("delete"));
         logOutButton.setText(I18n.get("log_out"));
+        if (switchThemeButton.isSelected()) {
+            switchThemeButton.setText(I18n.get("lightMode"));
+        } else {
+            switchThemeButton.setText(I18n.get("darkMode"));
+        }
     }
 
     //nacitanie info daneho prihlaseneho usera
@@ -302,5 +290,11 @@ public class ProfileController {
                 userPhoneDemo.setText(user.getPhoneNumber());
             }
         }
+    }
+
+    @FXML
+    void onSwitchThemeButtonClick(ActionEvent event) {
+        ThemeStyles.setDarkMode(switchThemeButton.isSelected());
+        updateText();
     }
 }

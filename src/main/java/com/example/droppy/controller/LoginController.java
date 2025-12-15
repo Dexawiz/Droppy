@@ -6,16 +6,14 @@ import com.example.droppy.repository.HibernateOrderDao;
 import com.example.droppy.service.AuthService;
 import com.example.droppy.service.I18n;
 import com.example.droppy.service.Session;
+import com.example.droppy.service.ThemeStyles;
 import com.example.droppy.util.HibernateUtil;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -35,6 +33,7 @@ public class LoginController {
         this.onLoginSuccess = onLoginSuccess;
         languageCB.getItems().setAll(Language.values());
         languageCB.setValue(Session.getCurrentLanguage());
+        switchThemeButton.setSelected(ThemeStyles.isDarkMode());
 
         I18n.setLocale(new Locale(Session.getCurrentLanguage().getCode()));
         updateText();
@@ -78,6 +77,9 @@ public class LoginController {
 
     @FXML
     private Button signinButton;
+
+    @FXML
+    private ToggleButton switchThemeButton;
 
     @FXML
     void onLoginButtonClick(ActionEvent event) {
@@ -197,5 +199,17 @@ public class LoginController {
         noAccountText.setText(I18n.get("dontHaveAccount"));
         signinButton.setText(I18n.get("signin"));
         passwordTextField.promptTextProperty().set(I18n.get("passwd"));
+        if (switchThemeButton.isSelected()) {
+            switchThemeButton.setText(I18n.get("lightMode"));
+        } else {
+            switchThemeButton.setText(I18n.get("darkMode"));
+        }
     }
+
+    @FXML
+    void onSwitchThemeButtonClick(ActionEvent event) {
+        ThemeStyles.setDarkMode(switchThemeButton.isSelected());
+        updateText();
+    }
+
 }

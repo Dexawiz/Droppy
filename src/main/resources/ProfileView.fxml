@@ -5,6 +5,7 @@
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
@@ -170,6 +171,20 @@
                      <Insets top="10.0" />
                   </VBox.margin>
                </HBox>
+         <HBox alignment="CENTER_LEFT">
+            <children>
+               <Label fx:id="languageLabel1" text="Theme">
+                  <font>
+                     <Font size="18.0" />
+                  </font>
+               </Label>
+               <Region HBox.hgrow="ALWAYS" />
+               <ToggleButton fx:id="switchThemeButton" minHeight="25.0" minWidth="110.0" mnemonicParsing="false" onAction="#onSwitchThemeButtonClick" prefHeight="35.0" text="ToggleButton" />
+            </children>
+            <VBox.margin>
+               <Insets top="10.0" />
+            </VBox.margin>
+         </HBox>
                <HBox alignment="CENTER_LEFT">
                   <VBox.margin>
                      <Insets top="10.0" />

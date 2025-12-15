@@ -5,6 +5,7 @@
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -13,6 +14,7 @@
 <VBox alignment="TOP_CENTER" minHeight="700.0" minWidth="900.0" spacing="20.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.droppy.controller.LoginController">
       <VBox alignment="TOP_CENTER" VBox.vgrow="ALWAYS">
       <HBox alignment="TOP_RIGHT" maxHeight="-Infinity" prefHeight="35.0" spacing="10.0" VBox.vgrow="ALWAYS">
+         <ToggleButton fx:id="switchThemeButton" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#onSwitchThemeButtonClick" prefHeight="35.0" prefWidth="150.0" text="Light mode" HBox.hgrow="ALWAYS" />
             <ChoiceBox fx:id="languageCB" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="35.0" prefWidth="150.0" HBox.hgrow="ALWAYS" />
          <VBox.margin>
             <Insets />
