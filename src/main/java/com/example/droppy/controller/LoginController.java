@@ -25,6 +25,8 @@ import java.util.Locale;
 
 public class LoginController {
 
+    private static double lastWidth ;
+    private static double lastHeight;
     private AuthService authService;
     private Runnable onLoginSuccess;
 
@@ -76,6 +78,7 @@ public class LoginController {
 
     @FXML
     private Button signinButton;
+
     @FXML
     void onLoginButtonClick(ActionEvent event) {
         String email = emailTextField.getText();
@@ -96,6 +99,9 @@ public class LoginController {
 
             loginText.setText("Login Successful " + "Current User: " + email );
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+            lastWidth = stage.getWidth();
+            lastHeight = stage.getHeight();
 
             switch (currentUser.getRole()){
                 case CUSTOMER -> {
@@ -134,9 +140,9 @@ public class LoginController {
                 default -> {
                     throw new IllegalArgumentException("Unsupported role: " + currentUser.getRole());
                 }
-
-
             }
+            stage.setWidth(lastWidth);
+            stage.setHeight(lastHeight);
             stage.setTitle("Droppy");
             stage.setMinWidth(500);
             stage.setMinHeight(500);
@@ -152,28 +158,32 @@ public class LoginController {
     @FXML
     void onSigninButtonClick(ActionEvent event) throws IOException {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        lastWidth = stage.getWidth();
+        lastHeight = stage.getHeight();
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/SignInView.fxml"));
         Parent rootPane = loader.load();
 
 
         SignInController signInController = loader.getController();
-        signInController.init(authService, () -> {
-            try {
-                FXMLLoader loginLoader = new FXMLLoader(getClass().getResource("/LoginView.fxml"));
-                Parent loginRoot = loginLoader.load();
-                LoginController loginCtrl = loginLoader.getController();
-                loginCtrl.init(authService, this.onLoginSuccess);
-                var scene = new Scene(loginRoot);
-                stage.setTitle("Droppy");
-                stage.setScene(scene);
-                stage.show();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
+        signInController.init(authService, ()  -> {}
+//            try {
+//                FXMLLoader loginLoader = new FXMLLoader(getClass().getResource("/LoginView.fxml"));
+//                Parent loginRoot = loginLoader.load();
+//                LoginController loginCtrl = loginLoader.getController();
+//                loginCtrl.init(authService, this.onLoginSuccess);
+//                var scene = new Scene(loginRoot);
+//                stage.setTitle("Droppy");
+//                stage.setScene(scene);
+//                stage.show();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+        );
 
         var scene = new Scene(rootPane);
+        stage.setWidth(lastWidth);
+        stage.setHeight(lastHeight);
         stage.setTitle("Droppy");
         stage.setScene(scene);
         stage.setMinWidth(500);

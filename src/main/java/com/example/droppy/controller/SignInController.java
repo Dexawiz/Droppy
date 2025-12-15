@@ -6,11 +6,17 @@ import com.example.droppy.service.I18n;
 import com.example.droppy.service.Session;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
-import com.example.droppy.Navigator.*;
+import javafx.stage.Stage;
+
 import java.util.Locale;
 
 public class SignInController {
@@ -18,6 +24,8 @@ public class SignInController {
 
     private AuthService authService;
     private Runnable onRegisterSuccess;
+    private  static  double lastHeight;
+    private  static  double lastWidth;
 
     public void init(AuthService authService, Runnable onRegisterSuccess) {
         this.authService = authService;
@@ -81,15 +89,34 @@ public class SignInController {
     @FXML
     private TextField surnameTextField;
     @FXML
-    void onBackButtonClick(ActionEvent event) throws Exception {
-        Navigator.switchTo(
-                event,
-                "/LoginView.fxml",
-                "Droppy",
-                LoginController.class,
-                c -> c.init(authService, () -> {})
-        );
+    void onBackButtonClick(ActionEvent event) {
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        lastWidth = stage.getWidth();
+        lastHeight = stage.getHeight();
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/LoginView.fxml"));
+            Parent rootPane = loader.load();
+
+            Scene scene = new Scene(rootPane);
+            stage.setScene(scene);
+
+            LoginController controller = loader.getController();
+            controller.init(authService, () -> {});
+
+
+            stage.setWidth(lastWidth);
+            stage.setHeight(lastHeight);
+
+            stage.setTitle("Droppy - Login");
+            stage.show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, "Failed to open Login view: " + e.getMessage()).showAndWait();
+        }
     }
+
 
     private void updateText(){
         signInText.setText(I18n.get("signin"));
