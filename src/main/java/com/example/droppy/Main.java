@@ -43,16 +43,19 @@ public class Main extends Application {
             );
         }
 
-        Locale locale = Locale.getDefault();
-        ResourceBundle bundle;
+//        Locale locale = Locale.getDefault();
+//        ResourceBundle bundle;
+//
+//        System.out.println("Locale = " + Locale.getDefault());
+//        System.out.println("Language = " + Locale.getDefault().getLanguage());
+//
+//        try {
+//            bundle = ResourceBundle.getBundle("messages", locale);
+//        } catch (Exception e) {
+//            bundle = ResourceBundle.getBundle("messages", Locale.ENGLISH);
+//        }
 
-        try {
-            bundle = ResourceBundle.getBundle("messages", locale);
-        } catch (Exception e) {
-            bundle = ResourceBundle.getBundle("messages", Locale.ENGLISH);
-        }
-
-        var loader = new FXMLLoader(getClass().getResource("/LoginView.fxml"), bundle);
+        var loader = new FXMLLoader(getClass().getResource("/LoginView.fxml"));
         Parent rootPane = loader.load();
 
 
