@@ -1,9 +1,8 @@
-package com.example.droppy.repository;
+package com.example.droppy.repository.hibernate;
 
 import com.example.droppy.domain.entity.Address;
 import com.example.droppy.domain.entity.User;
 import com.example.droppy.domain.enums.Role;
-import com.example.droppy.repository.hibernate.HibernateAddressDao;
 import com.example.droppy.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
