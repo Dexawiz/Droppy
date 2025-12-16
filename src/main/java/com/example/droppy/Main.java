@@ -42,18 +42,18 @@ public class Main extends Application {
                     Role.ADMIN
             );
         }
-        Locale systemLocale = Locale.getDefault();
+
+        Locale locale = Locale.getDefault();
         ResourceBundle bundle;
 
-        switch (systemLocale.getLanguage()) {
-            case "sk" -> bundle = ResourceBundle.getBundle("messages", systemLocale);
-            default -> bundle = ResourceBundle.getBundle("messages", Locale.ENGLISH);
+        try {
+            bundle = ResourceBundle.getBundle("messages", locale);
+        } catch (Exception e) {
+            bundle = ResourceBundle.getBundle("messages", Locale.ENGLISH);
         }
 
         var loader = new FXMLLoader(getClass().getResource("/LoginView.fxml"), bundle);
         Parent rootPane = loader.load();
-
-
 
 
         // initialize controller with authService
