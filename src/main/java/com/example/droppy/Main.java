@@ -3,6 +3,7 @@ package com.example.droppy;
 import com.example.droppy.controller.auth.LoginController;
 import com.example.droppy.domain.entity.Company;
 import com.example.droppy.domain.entity.Order;
+import com.example.droppy.domain.enums.OrderStatus;
 import com.example.droppy.domain.enums.Role;
 import com.example.droppy.repository.hibernate.HibernateCompanyDao;
 import com.example.droppy.repository.hibernate.HibernateOrderDao;
@@ -17,6 +18,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 public class Main extends Application {
 
@@ -39,9 +42,19 @@ public class Main extends Application {
                     Role.ADMIN
             );
         }
+        Locale systemLocale = Locale.getDefault();
+        ResourceBundle bundle;
 
-        var loader = new FXMLLoader(getClass().getResource("/LoginView.fxml"));
+        switch (systemLocale.getLanguage()) {
+            case "sk" -> bundle = ResourceBundle.getBundle("messages", systemLocale);
+            default -> bundle = ResourceBundle.getBundle("messages", Locale.ENGLISH);
+        }
+
+        var loader = new FXMLLoader(getClass().getResource("/LoginView.fxml"), bundle);
         Parent rootPane = loader.load();
+
+
+
 
         // initialize controller with authService
         LoginController controller = loader.getController();
@@ -55,7 +68,7 @@ public class Main extends Application {
 
         stage.setOnCloseRequest(event -> {
             var orderDao = new HibernateOrderDao(HibernateUtil.getSessionFactory());
-            List <Order> ordersForDeleting = orderDao.findByStatus(com.example.droppy.domain.enums.OrderStatus.IN_PREPARATION);
+            List <Order> ordersForDeleting = orderDao.findByStatus(OrderStatus.IN_PREPARATION);
             for (Order order : ordersForDeleting) {
                 orderDao.delete(order.getId());
             }
@@ -64,8 +77,8 @@ public class Main extends Application {
             for (Company company : companies) {
                 if (company.getName() == null || company.getName().isEmpty()) {
                     companyDao.delete(company.getId());
-                    }
                 }
+            }
         });
 
 
