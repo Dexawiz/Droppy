@@ -28,7 +28,6 @@ public class Company {
     @Enumerated(EnumType.STRING)
     @JdbcType(PostgreSQLEnumJdbcType.class)
     @Column(name = "category", columnDefinition = "category_enum")
-
     private Category category;
 
 }

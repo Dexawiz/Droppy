@@ -54,8 +54,8 @@ public class AdminCompaniesController {
             deleteCompanyButton.setManaged(mode != Mode.LIST_ALL);
         }
         if(editCompanyButton != null) {
-            editCompanyButton.setVisible(mode == Mode.LIST_ALL);
-            editCompanyButton.setManaged(mode == Mode.LIST_ALL);
+            editCompanyButton.setVisible(mode == Mode.LIST_ALL || mode == Mode.EDITING_COMPANIES);
+            editCompanyButton.setManaged(mode == Mode.LIST_ALL || mode == Mode.EDITING_COMPANIES);
         }
         if(addCompanyButton != null) {
             addCompanyButton.setVisible(mode == Mode.LIST_ALL);
@@ -136,7 +136,7 @@ public class AdminCompaniesController {
             Parent rootPane = loader.load();
 
             SaveCompanyController controller = loader.getController();
-            controller.init(authService, SaveCompanyController.Mode.ADDING_COMPANY);
+            controller.init(authService, SaveCompanyController.Mode.ADDING_COMPANY, null);
 
             Scene scene = new Scene(rootPane);
             stage.setScene(scene);
@@ -195,22 +195,44 @@ public class AdminCompaniesController {
 
     @FXML
     void editCompanyButtonClick(ActionEvent event) {
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        if(mode == Mode.LIST_ALL){
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AdminCompaniesView.fxml"));
-            Parent rootPane = loader.load();
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/AdminCompaniesView.fxml"));
+                Parent rootPane = loader.load();
 
-            AdminCompaniesController controller = loader.getController();
-            controller.init(authService, Mode.EDITING_COMPANIES);
+                AdminCompaniesController controller = loader.getController();
+                controller.init(authService, Mode.EDITING_COMPANIES);
 
-            Scene scene = new Scene(rootPane);
-            stage.setScene(scene);
-            stage.setTitle("Droppy - Edit Companies");
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-            new Alert(Alert.AlertType.ERROR, "Failed to switch to editing mode: " + e.getMessage()).showAndWait();
+                Scene scene = new Scene(rootPane);
+                stage.setScene(scene);
+                stage.setTitle("Droppy - Edit Companies");
+                stage.show();
+            } catch (Exception e) {
+                e.printStackTrace();
+                new Alert(Alert.AlertType.ERROR, "Failed to switch to editing mode: " + e.getMessage()).showAndWait();
+            }
+        }
+
+        if(mode == Mode.EDITING_COMPANIES){
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/SaveCompany.fxml"));
+                Parent rootPane = loader.load();
+
+                SaveCompanyController controller = loader.getController();
+                controller.init(authService, SaveCompanyController.Mode.EDITING_COMPANY, companyDao.findById(selectedCompanies.iterator().next()));
+
+                Scene scene = new Scene(rootPane);
+                stage.setScene(scene);
+                stage.setTitle("Droppy - Edit Company");
+                stage.show();
+            } catch (Exception e) {
+                e.printStackTrace();
+                new Alert(Alert.AlertType.ERROR, "Failed to switch to adding mode: " + e.getMessage()).showAndWait();
+            }
         }
     }
 

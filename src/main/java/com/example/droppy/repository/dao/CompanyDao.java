@@ -12,4 +12,6 @@ public interface CompanyDao {
     void delete(Long id);
     List<Company> findByCategory(Category category);
     Company findByName(String name );
+
+    void update(Company company);
 }

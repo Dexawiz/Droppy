@@ -6,7 +6,9 @@ import com.example.droppy.domain.entity.Company;
 import com.example.droppy.domain.entity.Product;
 import com.example.droppy.domain.enums.Category;
 import com.example.droppy.repository.dao.CompanyDao;
+import com.example.droppy.repository.dao.ProductDao;
 import com.example.droppy.repository.hibernate.HibernateCompanyDao;
+import com.example.droppy.repository.hibernate.HibernateProductDao;
 import com.example.droppy.service.AuthService;
 import com.example.droppy.service.I18n;
 import com.example.droppy.service.Session;
@@ -39,14 +41,19 @@ public class SaveCompanyController {
         EDITING_COMPANY
     }
 
-    public void init(AuthService authService, Mode mode) {
+    public void init(AuthService authService, Mode mode, Company company){
         this.mode = mode;
         this.authService = authService;
         this.companyDao =  new HibernateCompanyDao(HibernateUtil.getSessionFactory());
+        this.company = company;
 
         I18n.setLocale(new Locale(Session.getCurrentLanguage().getCode()));
         updateText();
 
+        if (mode == Mode.EDITING_COMPANY && company != null) {
+            fillForm(company);
+        }
+        
         if(deleteCompanyButton != null) {
             deleteCompanyButton.setVisible(mode == Mode.EDITING_COMPANY);
             deleteCompanyButton.setManaged(mode == Mode.EDITING_COMPANY);
@@ -65,6 +72,20 @@ public class SaveCompanyController {
                 }
             }
         );
+    }
+
+    private void fillForm(Company company) {
+        companyNameTextField.setText(company.getName());
+        companyAddressTextField.setText(company.getAddress());
+        phoneNumberCompanyTextField.setText(company.getPhoneNumber());
+        categoryCompanyChoiceBox.setValue(company.getCategory());
+        openingHourCBox.setValue(company.getWorkStart().getHour());
+        openingMinuteCBox.setValue(company.getWorkStart().getMinute());
+        closingHourCBox.setValue(company.getWorkEnd().getHour());
+        closingMinuteCBox.setValue(company.getWorkEnd().getMinute());
+        ProductDao productDao = new HibernateProductDao(HibernateUtil.getSessionFactory());
+        List<Product> products = productDao.findByCompanyId(company.getId());
+        productListView.getItems().addAll(products);
     }
 
     @Setter
@@ -156,7 +177,6 @@ public class SaveCompanyController {
         productListView.getItems().add(product);
     }
 
-
     @FXML
     void onBackToCompaniesButtonClick(ActionEvent event) {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -182,7 +202,34 @@ public class SaveCompanyController {
 
     @FXML
     void onDeleteCompanyButtonClick(ActionEvent event) {
+        if (company != null) {
+            var alert = new Alert(Alert.AlertType.CONFIRMATION, "Do you want to delete company?");
+            var result = alert.showAndWait();
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+                companyDao.delete(company.getId());
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/AdminCompaniesView.fxml"));
+                    Parent rootPane = loader.load();
+
+                    AdminCompaniesController controller = loader.getController();
+                    controller.init(authService, AdminCompaniesController.Mode.LIST_ALL);
+
+                    Scene scene = new Scene(rootPane);
+                    stage.setScene(scene);
+                    stage.setTitle("Droppy - Admin Companies");
+                    stage.setMinWidth(500);
+                    stage.setMinHeight(500);
+                    stage.show();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    new Alert(Alert.AlertType.ERROR, "Failed to switch to list all mode: " + e.getMessage()).showAndWait();
+                }
+            }
+        } else {
+            new Alert(Alert.AlertType.WARNING, "No company to delete.").showAndWait();
+        }
     }
 
     @FXML
@@ -190,7 +237,8 @@ public class SaveCompanyController {
         Product selectedProduct = productListView.getSelectionModel().getSelectedItem();
         if (selectedProduct != null) {
             productListView.getItems().remove(selectedProduct);
-            // Here you would also delete the product from the database if needed
+            ProductDao productDao = new HibernateProductDao(HibernateUtil.getSessionFactory());
+            productDao.delete(selectedProduct.getId());
         } else {
             new Alert(Alert.AlertType.WARNING, "No product selected to delete.").showAndWait();
         }
@@ -198,15 +246,25 @@ public class SaveCompanyController {
 
     @FXML
     void onSaveBCompanyButtonClick(ActionEvent event) {
-        int openHour = (int) openingHourCBox.getValue();
-        int openMinute = (int) openingMinuteCBox.getValue();
-        int closeHour = closingHourCBox.getValue();
-        int closeMinute = closingMinuteCBox.getValue();
 
-        String openTime = String.format("%02d:%02d", openHour, openMinute);
-        String closeTime = String.format("%02d:%02d", closeHour, closeMinute);
+        company.setName(companyNameTextField.getText());
+        company.setAddress(companyAddressTextField.getText());
+        company.setPhoneNumber(phoneNumberCompanyTextField.getText());
+        company.setCategory(categoryCompanyChoiceBox.getValue());
 
-        System.out.println("Working time: " + openTime + " – " + closeTime);
+        company.setWorkStart(
+                LocalTime.of(openingHourCBox.getValue(), openingMinuteCBox.getValue())
+        );
+        company.setWorkEnd(
+                LocalTime.of(closingHourCBox.getValue(), closingMinuteCBox.getValue())
+        );
+
+        if (company.getId() == null) {
+            companyDao.save(company);
+        } else {
+            companyDao.update(company);
+        }
+
 
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         try {
@@ -279,8 +337,4 @@ public class SaveCompanyController {
         deleteCompanyButton.setText(I18n.get("delete"));
         saveCompanyButton.setText(I18n.get("save"));
     }
-
-
-
-
 }

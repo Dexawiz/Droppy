@@ -74,4 +74,13 @@ public class HibernateCompanyDao implements CompanyDao {
                     .uniqueResult();
         }
     }
+
+    @Override
+    public void update(Company company) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            Transaction tx = session.beginTransaction();
+            session.merge(company);
+            tx.commit();
+        }
+    }
 }

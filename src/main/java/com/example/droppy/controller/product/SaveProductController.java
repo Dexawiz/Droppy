@@ -115,7 +115,6 @@ public class SaveProductController {
             parentController.addProductToList(product);
         }
 
-
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.close();
     }

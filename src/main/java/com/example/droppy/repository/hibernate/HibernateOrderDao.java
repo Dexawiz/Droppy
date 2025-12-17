@@ -156,38 +156,33 @@ public class HibernateOrderDao implements OrderDao {
         Order managedOrder = null;
         try (Session session = this.sessionFactory.openSession()) {
             Transaction tx = session.beginTransaction();
-
-            // Получаем managed объект
             managedOrder = findById( order.getId());
 
             if (managedOrder == null) {
-                // Если заказа нет, добавляем как новый
+
                 managedOrder = (Order) session.merge(order);
             } else {
-                // Сохраняем старые элементы
                 List<OrderItem> oldItems = new ArrayList<>(managedOrder.getOrderItems());
 
-                // Убираем все из коллекции
-                managedOrder.getOrderItems().clear();
-                session.flush(); // синхронизируем удаление с БД
 
-                // Добавляем старые элементы обратно, которые остаются
+                managedOrder.getOrderItems().clear();
+                session.flush();
+
                 for (OrderItem oldItem : oldItems) {
                     if (order.getOrderItems().stream().anyMatch(o -> o.getId() != null && o.getId().equals(oldItem.getId()))) {
                         managedOrder.getOrderItems().add(oldItem);
                     } else {
-                        // Если элемента нет в обновлённом списке, удаляем из БД
+
                         session.remove(oldItem);
                     }
                 }
 
-                // Добавляем новые элементы
+
                 for (OrderItem newItem : order.getOrderItems()) {
                     if (newItem.getId() == null) {
                         newItem.setOrder(managedOrder);
                         managedOrder.getOrderItems().add(newItem);
                     } else {
-                        // Обновляем существующие
                         OrderItem existing = managedOrder.getOrderItems()
                                 .stream()
                                 .filter(oi -> oi.getId().equals(newItem.getId()))
@@ -199,10 +194,8 @@ public class HibernateOrderDao implements OrderDao {
                     }
                 }
 
-                // Обновляем totalPrice
                 managedOrder.setTotalPrice(order.getTotalPrice());
 
-                // Сливаем изменения
                 managedOrder = (Order) session.merge(managedOrder);
             }
 
