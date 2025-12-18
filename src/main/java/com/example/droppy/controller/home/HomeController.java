@@ -69,11 +69,6 @@ public class HomeController {
         }
 
         //Categories
-        CheckBox allCompaniesCheckBox = new CheckBox("All");
-        allCompaniesCheckBox.setFont(Font.font(14));
-        allCompaniesCheckBox.setOnAction(this::onCategoryItemCheckBoxClicked);
-        chceckBoxHBox.getChildren().add(allCompaniesCheckBox);
-
         for (Category category : Category.getAllCategories()) {
             CheckBox checkBox = new CheckBox(category.getTranslated());
             checkBox.setFont(Font.font(14));
@@ -151,10 +146,6 @@ public class HomeController {
         }
 
         if (sourceCheckBox.isSelected()) {
-            if(categoryName.equals("All")){
-                renderCompanies(allCompanies);
-                return;
-            }
             List<Company> filteredCompanies = allCompanies.stream()
                     .filter(company -> company.getCategory().name().equals(categoryName))
                     .toList();

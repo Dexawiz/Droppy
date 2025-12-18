@@ -10,7 +10,7 @@ import java.util.List;
 @Table(name = "products")
 public class Product {
     @Id
-    @GeneratedValue (strategy =  jakarta.persistence.GenerationType.IDENTITY)
+    @GeneratedValue (strategy =  GenerationType.IDENTITY)
     private Long id;
 
     private String name;

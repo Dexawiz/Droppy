@@ -22,7 +22,7 @@ public  class HibernateUserDao  implements UserDao {
 
     @Override
     public void save(User user) {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try (Session session = sessionFactory.openSession()) {
             Transaction tx = session.beginTransaction();
             if (user.getId() == null) {
                 session.persist(user);
@@ -35,7 +35,7 @@ public  class HibernateUserDao  implements UserDao {
 
     @Override
     public List<User> findAll() {
-        try(Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try(Session session = sessionFactory.openSession()) {
             return session.createQuery("FROM User", User.class).list();
         } catch (Exception e) {
             e.printStackTrace();
@@ -45,7 +45,7 @@ public  class HibernateUserDao  implements UserDao {
 
     @Override
     public User findById(Long id) {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try (Session session = sessionFactory.openSession()) {
             return (User) session.createQuery("FROM User WHERE id = :id", User.class)
                     .setParameter("id", id)
                     .uniqueResult();
@@ -54,7 +54,7 @@ public  class HibernateUserDao  implements UserDao {
 
     @Override
     public void delete(Long id) {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try (Session session = sessionFactory.openSession()) {
             Transaction tx = session.beginTransaction();
             User user = session.getReference(User.class, id);
             session.remove(user);
@@ -64,7 +64,7 @@ public  class HibernateUserDao  implements UserDao {
 
     @Override
     public void create(String name, String surname, String email, String password, Role role) {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try (Session session = sessionFactory.openSession()) {
 
             Transaction tx = session.beginTransaction();
 
@@ -91,7 +91,7 @@ public  class HibernateUserDao  implements UserDao {
 
     @Override
     public User findByEmail(String email) {
-        try(Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try(Session session = sessionFactory.openSession()) {
             SelectionQuery<User> query = session.createSelectionQuery("FROM User WHERE email = :email", User.class);
             query.setParameter("email", email);
             return query.uniqueResult();
@@ -100,7 +100,7 @@ public  class HibernateUserDao  implements UserDao {
 
     @Override
     public List<User> findByRole(Role role) {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try (Session session = sessionFactory.openSession()) {
             return session.createQuery("FROM User WHERE role = :role", User.class)
                     .setParameter("role", role)
                     .list();
@@ -109,7 +109,7 @@ public  class HibernateUserDao  implements UserDao {
 
     @Override
     public void updateStatus(Long userId, DriverStatus status) {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try (Session session = sessionFactory.openSession()) {
             Transaction tx = session.beginTransaction();
             session.createQuery("UPDATE User u SET u.driverStatus = :status WHERE u.id = :id")
                     .setParameter("status", status)
@@ -121,7 +121,7 @@ public  class HibernateUserDao  implements UserDao {
 
     @Override
     public void create(String name, String surname, String email, String phoneNumber, String password, Role role) {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try (Session session = sessionFactory.openSession()) {
             Transaction tx = session.beginTransaction();
 
             Boolean exists = session.createSelectionQuery(

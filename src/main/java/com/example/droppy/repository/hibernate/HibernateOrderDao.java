@@ -23,7 +23,7 @@ public class HibernateOrderDao implements OrderDao {
 
     @Override
     public void save(Order order) {
-        try (Session session = this.sessionFactory.openSession()) {
+        try (Session session = sessionFactory.openSession()) {
             Transaction tx = session.beginTransaction();
             session.persist(order);
             tx.commit();
@@ -32,14 +32,14 @@ public class HibernateOrderDao implements OrderDao {
 
     @Override
     public List<Order> findAll() {
-        try (Session session = this.sessionFactory.openSession()) {
+        try (Session session = sessionFactory.openSession()) {
             return session.createQuery("FROM Order", Order.class).list();
         }
     }
 
     @Override
     public Order findById(Long id) {
-        try (Session session = this.sessionFactory.openSession()) {
+        try (Session session = sessionFactory.openSession()) {
             return session.createQuery(
                     "FROM Order o WHERE o.id = :id", Order.class)
                     .setParameter("id", id)
@@ -49,7 +49,7 @@ public class HibernateOrderDao implements OrderDao {
 
     @Override
     public void delete(Long id) {
-        try (Session session = this.sessionFactory.openSession()) {
+        try (Session session = sessionFactory.openSession()) {
             Transaction tx = session.beginTransaction();
             Order order = session.getReference(Order.class, id);
             session.remove(order);
@@ -59,7 +59,7 @@ public class HibernateOrderDao implements OrderDao {
 
     @Override
     public List<Order> findByUserId(Long userId) {
-        try (Session session = this.sessionFactory.openSession()) {
+        try (Session session = sessionFactory.openSession()) {
             return session.createQuery("FROM Order WHERE customerId.id = :userId", Order.class)
                     .setParameter("userId", userId)
                     .list();
@@ -68,7 +68,7 @@ public class HibernateOrderDao implements OrderDao {
 
     @Override
     public List<Order> findByStatus(OrderStatus status) {
-        try (Session session = this.sessionFactory.openSession()) {
+        try (Session session = sessionFactory.openSession()) {
             return session.createQuery(
                             "FROM Order o WHERE o.status = :status", Order.class)
                     .setParameter("status", status)
@@ -78,7 +78,7 @@ public class HibernateOrderDao implements OrderDao {
 
     @Override
     public void updateOrderStatus(Long orderId, OrderStatus status) {
-        try (Session session = this.sessionFactory.openSession()) {
+        try (Session session = sessionFactory.openSession()) {
             Transaction tx = session.beginTransaction();
             Order order = session.getReference(Order.class, orderId);
             order.setStatus(status);
@@ -89,7 +89,7 @@ public class HibernateOrderDao implements OrderDao {
 
     @Override
     public void updateDriverForOrder(Long orderId, Long driverId) {
-        try (Session session = this.sessionFactory.openSession()) {
+        try (Session session = sessionFactory.openSession()) {
             Transaction tx = session.beginTransaction();
             Order order = session.getReference(Order.class, orderId);
             order.setDriverId(session.getReference(com.example.droppy.domain.entity.User.class, driverId));

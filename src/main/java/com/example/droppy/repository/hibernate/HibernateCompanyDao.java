@@ -21,7 +21,7 @@ public class HibernateCompanyDao implements CompanyDao {
 
     @Override
     public void save(Company company) {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try (Session session = sessionFactory.openSession()) {
             Transaction tx = session.beginTransaction();
             session.persist(company);
             tx.commit();
@@ -30,7 +30,7 @@ public class HibernateCompanyDao implements CompanyDao {
 
     @Override
     public List<Company> findAll() {
-        try(Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try(Session session = sessionFactory.openSession()) {
             return session.createQuery("FROM Company", Company.class).list();
         } catch (Exception e) {
             e.printStackTrace();
@@ -40,7 +40,7 @@ public class HibernateCompanyDao implements CompanyDao {
 
     @Override
     public Company findById(Long id) {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try (Session session = sessionFactory.openSession()) {
             return (Company) session.createQuery("FROM Company WHERE id = :id", Company.class)
                     .setParameter("id", id)
                     .uniqueResult();
@@ -49,7 +49,7 @@ public class HibernateCompanyDao implements CompanyDao {
 
     @Override
     public void delete(Long id) {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try (Session session = sessionFactory.openSession()) {
             Transaction tx = session.beginTransaction();
             Company company = session.getReference(Company.class, id);
             session.remove(company);
@@ -59,7 +59,7 @@ public class HibernateCompanyDao implements CompanyDao {
 
     @Override
     public List<Company> findByCategory(Category category) {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try (Session session = sessionFactory.openSession()) {
             return session.createQuery("FROM Company WHERE category = :category", Company.class)
                     .setParameter("category", category)
                     .list();
@@ -68,7 +68,7 @@ public class HibernateCompanyDao implements CompanyDao {
 
     @Override
     public Company findByName(String name) {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try (Session session = sessionFactory.openSession()) {
             return session.createQuery("FROM Company WHERE name = :name", Company.class)
                     .setParameter("name", name)
                     .uniqueResult();
@@ -77,7 +77,7 @@ public class HibernateCompanyDao implements CompanyDao {
 
     @Override
     public void update(Company company) {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try (Session session = sessionFactory.openSession()) {
             Transaction tx = session.beginTransaction();
             session.merge(company);
             tx.commit();
