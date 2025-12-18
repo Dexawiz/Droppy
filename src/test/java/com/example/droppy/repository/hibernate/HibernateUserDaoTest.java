@@ -32,59 +32,7 @@ class HibernateUserDaoTest {
 
     @BeforeEach
     void setUp() {
-        userDao = new HibernateUserDao(testSessionFactory) {
-            @Override
-            public void save(User user) {
-                try (var session = testSessionFactory.openSession()) {
-                    var tx = session.beginTransaction();
-                    session.persist(user);
-                    tx.commit();
-                }
-            }
-
-            @Override
-            public List<User> findAll() {
-                try (var session = testSessionFactory.openSession()) {
-                    return session.createQuery("FROM User", User.class).list();
-                }
-            }
-
-            @Override
-            public User findById(Long id) {
-                try (var session = testSessionFactory.openSession()) {
-                    return session.createQuery("FROM User WHERE id = :id", User.class)
-                            .setParameter("id", id)
-                            .uniqueResult();
-                }
-            }
-
-            @Override
-            public void delete(Long id) {
-                try (Session session = testSessionFactory.openSession()) {
-                    Transaction tx = session.beginTransaction();
-                    User user = session.getReference(User.class, id);
-                    session.remove(user);
-                    tx.commit();
-                }
-            }
-
-            @Override
-            public User findByEmail(String email) {
-                try (var session = testSessionFactory.openSession()) {
-                    return session.createQuery("FROM User WHERE email = :email", User.class)
-                            .setParameter("email", email)
-                            .uniqueResult();
-                }
-            }
-            @Override
-            public List<User> findByRole(Role role) {
-                try (var session = testSessionFactory.openSession()) {
-                    return session.createQuery("FROM User WHERE role = :role", User.class)
-                            .setParameter("role", role)
-                            .list();
-                }
-            }
-        };
+        userDao = new HibernateUserDao(testSessionFactory);
 
         try (Session session = testSessionFactory.openSession()) {
             Transaction tx = session.beginTransaction();

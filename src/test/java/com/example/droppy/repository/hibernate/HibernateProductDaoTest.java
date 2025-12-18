@@ -37,50 +37,7 @@ class HibernateProductDaoTest {
 
     @BeforeEach
     void setUp() {
-        productDao = new HibernateProductDao(testSessionFactory) {
-            @Override
-            public void save(Product product) {
-                try (var session = testSessionFactory.openSession()) {
-                    var tx = session.beginTransaction();
-                    session.persist(product);
-                    tx.commit();
-                }
-            }
-
-            @Override
-            public List<Product> findAll() {
-                try (var session = testSessionFactory.openSession()) {
-                    return session.createQuery("FROM Product", Product.class).list();
-                }
-            }
-
-            @Override
-            public Product findById(Long id) {
-                try (var session = testSessionFactory.openSession()) {
-                    return session.createQuery("FROM Product WHERE id = :id", Product.class)
-                            .setParameter("id", id)
-                            .uniqueResult();
-                }
-            }
-
-            @Override
-            public List<Product> findByCompanyId(Long companyId) {
-                try (var session = testSessionFactory.openSession()) {
-                    return session.createQuery("FROM Product WHERE company.id = :companyId", Product.class)
-                            .setParameter("companyId", companyId)
-                            .list();
-                }
-            }
-            @Override
-            public void delete(Long id) {
-                try (var session = testSessionFactory.openSession()) {
-                    var tx = session.beginTransaction();
-                    Product product = session.getReference(Product.class, id);
-                    session.remove(product);
-                    tx.commit();
-                }
-            }
-        };
+        productDao = new HibernateProductDao(testSessionFactory);
 
         try (Session session = testSessionFactory.openSession()) {
             Transaction tx = session.beginTransaction();
@@ -110,7 +67,6 @@ class HibernateProductDaoTest {
 
     @Test
     void save() {
-        Company company;
         Product product = new Product();
         product.setName("Test Product");
         product.setPrice( 19.99);

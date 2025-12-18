@@ -36,62 +36,8 @@ class HibernateOrderDaoTest {
 
     @BeforeEach
     void setUp() {
-        orderDao = new HibernateOrderDao(testSessionFactory) {
-            @Override
-            public void save(Order order) {
-                try (Session session = testSessionFactory.openSession()) {
-                    Transaction tx = session.beginTransaction();
-                    session.persist(order);
-                    tx.commit();
-                }
-            }
+        orderDao = new HibernateOrderDao(testSessionFactory);
 
-            @Override
-            public List<Order> findAll() {
-                try (Session session = testSessionFactory.openSession()) {
-                    return session.createQuery("FROM Order", Order.class).list();
-                }
-            }
-
-            @Override
-            public Order findById(Long id) {
-                try (Session session = testSessionFactory.openSession()) {
-                    return session.createQuery("FROM Order WHERE id = :id", Order.class)
-                            .setParameter("id", id)
-                            .uniqueResult();
-                }
-            }
-
-            @Override
-            public void delete(Long id) {
-                try (Session session = testSessionFactory.openSession()) {
-                    Transaction tx = session.beginTransaction();
-                    Order o = session.getReference(Order.class, id);
-                    if (o != null) {
-                        session.remove(o);
-                    }
-                    tx.commit();
-                }
-            }
-
-            @Override
-            public List<Order> findByUserId(Long userId) {
-                try (Session session = testSessionFactory.openSession()) {
-                    return session.createQuery("FROM Order WHERE customerId.id = :cid", Order.class)
-                            .setParameter("cid", userId)
-                            .list();
-                }
-            }
-
-            @Override
-            public List<Order> findByStatus(OrderStatus status) {
-                try (Session session = testSessionFactory.openSession()) {
-                    return session.createQuery("FROM Order WHERE status = :st", Order.class)
-                            .setParameter("st", status)
-                            .list();
-                }
-            }
-        };
         try (Session session = testSessionFactory.openSession()) {
             Transaction tx = session.beginTransaction();
             session.createQuery("DELETE FROM OrderItem").executeUpdate();

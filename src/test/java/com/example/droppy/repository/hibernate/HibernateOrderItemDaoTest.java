@@ -42,41 +42,7 @@ class HibernateOrderItemDaoTest {
 
     @BeforeEach
     void setUp() {
-        orderItemDao = new HibernateOrderItemDao(testSessionFactory) {
-            @Override
-            public void save(OrderItem orderItem) {
-                try (var session = testSessionFactory.openSession()) {
-                    var tx = session.beginTransaction();
-                    session.persist(orderItem);
-                    tx.commit();
-                }
-            }
-
-            @Override
-            public void delete(OrderItem orderItem) {
-                try (var session = testSessionFactory.openSession()) {
-                    var tx = session.beginTransaction();
-                    session.remove(orderItem);
-                    tx.commit();
-                }
-            }
-
-            @Override
-            public List<OrderItem> findAll() {
-                try (var session = testSessionFactory.openSession()) {
-                    return session.createQuery("FROM OrderItem", OrderItem.class).list();
-                }
-            }
-
-            @Override
-            public List<OrderItem> findByOrderId(Long orderId) {
-                try (var session = testSessionFactory.openSession()) {
-                    return session.createQuery("FROM OrderItem WHERE order.id = :orderId", OrderItem.class)
-                            .setParameter("orderId", orderId)
-                            .list();
-                }
-            }
-        };
+        orderItemDao = new HibernateOrderItemDao(testSessionFactory);
 
 
         try (Session session = testSessionFactory.openSession()) {

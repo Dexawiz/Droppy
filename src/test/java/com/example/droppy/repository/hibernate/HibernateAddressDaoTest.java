@@ -35,59 +35,8 @@ class HibernateAddressDaoTest {
 
     @BeforeEach
     void setUp() {
-        // create an anonymous subclass of HibernateAddressDao that uses the testSessionFactory directly
-        addressDao = new HibernateAddressDao(testSessionFactory) {
-            @Override
-            public void save(Address address) {
-                try (Session session = testSessionFactory.openSession()) {
-                    Transaction tx = session.beginTransaction();
-                    session.persist(address);
-                    tx.commit();
-                }
-            }
 
-            @Override
-            public List<Address> findAll() {
-                try (Session session = testSessionFactory.openSession()) {
-                    return session.createQuery("FROM Address", Address.class).list();
-                }
-            }
-
-            @Override
-            public Address findById(Long id) {
-                try (Session session = testSessionFactory.openSession()) {
-                    return session.createQuery("FROM Address WHERE id = :id", Address.class)
-                            .setParameter("id", id)
-                            .uniqueResult();
-                }
-            }
-
-            @Override
-            public List<Address> findByUserId(Long userId) {
-                try (Session session = testSessionFactory.openSession()) {
-                    User u = session.createQuery("FROM User WHERE id = :userId", User.class)
-                            .setParameter("userId", userId)
-                            .uniqueResult();
-                    if (u != null && u.getAddress() != null) {
-                        return List.of(u.getAddress());
-                    } else {
-                        return List.of();
-                    }
-                }
-            }
-
-            @Override
-            public void delete(Long id) {
-                try (Session session = testSessionFactory.openSession()) {
-                    Transaction tx = session.beginTransaction();
-                    Address a = session.getReference(Address.class, id);
-                    if (a != null) {
-                        session.remove(a);
-                    }
-                    tx.commit();
-                }
-            }
-        };
+        addressDao = new HibernateAddressDao(testSessionFactory);
 
         try (Session session = testSessionFactory.openSession()) {
             Transaction tx = session.beginTransaction();

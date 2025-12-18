@@ -32,58 +32,8 @@ class HibernateCompanyDaoTest {
 
     @BeforeEach
     void setUp() {
-        companyDao = new HibernateCompanyDao(testSessionFactory) {
-            @Override
-            public void save(Company company) {
-                try (var session = testSessionFactory.openSession()) {
-                    var tx = session.beginTransaction();
-                    session.persist(company);
-                    tx.commit();
-                }
-            }
+        companyDao = new HibernateCompanyDao(testSessionFactory);
 
-            @Override
-            public List<Company> findAll() {
-                try (var session = testSessionFactory.openSession()) {
-                    return session.createQuery("FROM Company",Company.class).list();
-                }
-            }
-
-            @Override
-            public Company findById(Long id) {
-                try (var session = testSessionFactory.openSession()) {
-                    return session.createQuery("FROM Company WHERE id = :id", Company.class)
-                            .setParameter("id", id)
-                            .uniqueResult();
-                }
-            }
-            @Override
-            public void delete(Long id) {
-                try (var session = testSessionFactory.openSession()) {
-                    Transaction tx = session.beginTransaction();
-                    Company company = session.getReference(Company.class, id);
-                    session.remove(company);
-                    tx.commit();
-                }
-            }
-
-            @Override
-            public List<Company> findByCategory(Category category){
-                try (var session = testSessionFactory.openSession()) {
-                    return session.createQuery("FROM Company WHERE category = :category", Company.class)
-                            .setParameter("category", category)
-                            .list();
-                }
-            }
-            @Override
-            public Company findByName(String name) {
-                try (var session = testSessionFactory.openSession()) {
-                    return session.createQuery("FROM Company WHERE name = :name", Company.class)
-                            .setParameter("name", name)
-                            .uniqueResult();
-                }
-            }
-        };
         try (Session session = testSessionFactory.openSession()) {
             Transaction tx = session.beginTransaction();
 
