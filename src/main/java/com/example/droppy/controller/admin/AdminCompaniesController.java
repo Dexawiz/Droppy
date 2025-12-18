@@ -300,5 +300,7 @@ public class AdminCompaniesController {
         editCompanyButton.setText(I18n.get("editCompany"));
         switchToDriversButton.setText(I18n.get("drivers"));
         logOutButton.setText(I18n.get("log_out"));
+        returnButton.setText(I18n.get("return"));
+        deleteCompanyButton.setText(I18n.get("deleteCompanies"));
     }
 }

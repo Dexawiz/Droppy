@@ -394,5 +394,6 @@ public class AdminDriversController {
         switchToCompaniesButton.setText(I18n.get("companies"));
         logOutButton.setText(I18n.get("log_out"));
         returnToDefault.setText(I18n.get("return"));
+        deleteDrivers.setText(I18n.get("deleteDrivers"));
     }
 }

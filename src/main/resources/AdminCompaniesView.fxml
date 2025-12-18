@@ -19,7 +19,7 @@
                </HBox.margin>
             </Label>
       <HBox HBox.hgrow="ALWAYS" />
-            <Button fx:id="logOutButton" mnemonicParsing="false" onAction="#onLogOutButtonClicked" prefHeight="30.0" prefWidth="90.0" text="Logout">
+            <Button fx:id="logOutButton" minHeight="30.0" minWidth="90.0" mnemonicParsing="false" onAction="#onLogOutButtonClicked" text="Logout">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
@@ -35,22 +35,22 @@
       <HBox alignment="CENTER_LEFT">
       <VBox HBox.hgrow="ALWAYS">
             <HBox spacing="20.0">
-                        <Button fx:id="addCompanyButton" mnemonicParsing="false" onAction="#addCompanyButtonAction" prefHeight="30.0" prefWidth="110.0" text="Add Company">
+                        <Button fx:id="addCompanyButton" minHeight="30.0" minWidth="110.0" mnemonicParsing="false" onAction="#addCompanyButtonAction" text="Add Company">
                            <HBox.margin>
                               <Insets />
                            </HBox.margin>
                         </Button>
-                  <Button fx:id="deleteCompanyButton" mnemonicParsing="false" onAction="#deleteCompanyButtonClick" prefHeight="30.0" prefWidth="130.0" text="Delete Companies">
+                  <Button fx:id="deleteCompanyButton" minHeight="30.0" minWidth="130.0" mnemonicParsing="false" onAction="#deleteCompanyButtonClick" text="Delete Companies">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
                   </Button>
-                        <Button fx:id="editCompanyButton" mnemonicParsing="false" onAction="#editCompanyButtonClick" prefHeight="30.0" prefWidth="110.0" text="Edit Companies">
+                        <Button fx:id="editCompanyButton" minHeight="30.0" minWidth="110.0" mnemonicParsing="false" onAction="#editCompanyButtonClick" text="Edit Companies">
                            <HBox.margin>
                               <Insets />
                            </HBox.margin>
                         </Button>
-                        <Button fx:id="switchToDriversButton" mnemonicParsing="false" onAction="#onDriversSwitchButtonClicked" prefHeight="30.0" prefWidth="110.0" text="Drivers">
+                        <Button fx:id="switchToDriversButton" minHeight="30.0" minWidth="110.0" mnemonicParsing="false" onAction="#onDriversSwitchButtonClicked" text="Drivers">
                            <HBox.margin>
                               <Insets />
                            </HBox.margin>
@@ -58,7 +58,7 @@
             </HBox>
       </VBox>
       <VBox>
-            <Button fx:id="returnButton" mnemonicParsing="false" onAction="#returnButtonClick" prefHeight="30.0" prefWidth="90.0" text="Return" />
+            <Button fx:id="returnButton" minHeight="30.0" minWidth="90.0" mnemonicParsing="false" onAction="#returnButtonClick" text="Return" />
       </VBox>
          <VBox.margin>
             <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />

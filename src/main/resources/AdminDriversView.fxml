@@ -19,7 +19,7 @@
             </HBox.margin>
         </Label>
       <HBox HBox.hgrow="ALWAYS" />
-        <Button fx:id="logOutButton" mnemonicParsing="false" onAction="#onLogOutButtonClicked" prefHeight="30.0" prefWidth="90.0" text="Logout">
+        <Button fx:id="logOutButton" minHeight="30.0" minWidth="90.0" mnemonicParsing="false" onAction="#onLogOutButtonClicked" text="Logout">
             <HBox.margin>
                 <Insets />
             </HBox.margin>
@@ -35,27 +35,27 @@
     <HBox>
       <VBox HBox.hgrow="ALWAYS">
             <HBox spacing="20.0">
-                    <Button fx:id="addDriverButton" mnemonicParsing="false" onAction="#addDriverButtonAction" prefHeight="30.0" prefWidth="110.0" text="Add Driver">
+                    <Button fx:id="addDriverButton" minHeight="30.0" minWidth="110.0" mnemonicParsing="false" onAction="#addDriverButtonAction" text="Add Driver">
                         <HBox.margin>
                             <Insets />
                         </HBox.margin>
                     </Button>
-                  <Button fx:id="deleteDrivers" mnemonicParsing="false" onAction="#deleteDriversButton" prefHeight="30.0" prefWidth="110.0" text="Delete Drivers">
+                  <Button fx:id="deleteDrivers" minHeight="30.0" minWidth="110.0" mnemonicParsing="false" onAction="#deleteDriversButton" text="Delete Drivers">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
                   </Button>
-                    <Button fx:id="editDriverButton" mnemonicParsing="false" onAction="#editDriverButtonClick" prefHeight="30.0" prefWidth="110.0" text="Edit Driver">
+                    <Button fx:id="editDriverButton" minHeight="30.0" minWidth="110.0" mnemonicParsing="false" onAction="#editDriverButtonClick" text="Edit Driver">
                         <HBox.margin>
                             <Insets />
                         </HBox.margin>
                     </Button>
-                  <Button fx:id="createNewDriver" minWidth="130.0" mnemonicParsing="false" onAction="#createNewDriverButton" prefHeight="30.0" text="Create New Driver">
+                  <Button fx:id="createNewDriver" minHeight="30.0" minWidth="130.0" mnemonicParsing="false" onAction="#createNewDriverButton" text="Create New Driver">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
                   </Button>
-                    <Button fx:id="switchToCompaniesButton" mnemonicParsing="false" onAction="#onCompaniesSwitchButtonClicked" prefHeight="30.0" prefWidth="110.0" text="Companies">
+                    <Button fx:id="switchToCompaniesButton" minHeight="30.0" minWidth="110.0" mnemonicParsing="false" onAction="#onCompaniesSwitchButtonClicked" text="Companies">
                         <HBox.margin>
                             <Insets />
                         </HBox.margin>
@@ -63,7 +63,7 @@
             </HBox>
       </VBox>
       <VBox alignment="TOP_RIGHT">
-            <Button fx:id="returnToDefault" mnemonicParsing="false" onAction="#returnToDefaultButton" prefHeight="30.0" prefWidth="90.0" text="Return" />
+            <Button fx:id="returnToDefault" minHeight="30.0" minWidth="90.0" mnemonicParsing="false" onAction="#returnToDefaultButton" text="Return" />
       </VBox>
         <VBox.margin>
             <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
