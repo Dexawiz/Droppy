@@ -173,7 +173,7 @@
                </HBox>
          <HBox alignment="CENTER_LEFT">
             <children>
-               <Label fx:id="languageLabel1" text="Theme">
+               <Label fx:id="themeLabel" text="Theme">
                   <font>
                      <Font size="18.0" />
                   </font>

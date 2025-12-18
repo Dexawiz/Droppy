@@ -169,18 +169,6 @@ public class LoginController {
 
         SignInController signInController = loader.getController();
         signInController.init(authService, ()  -> {}
-//            try {
-//                FXMLLoader loginLoader = new FXMLLoader(getClass().getResource("/LoginView.fxml"));
-//                Parent loginRoot = loginLoader.load();
-//                LoginController loginCtrl = loginLoader.getController();
-//                loginCtrl.init(authService, this.onLoginSuccess);
-//                var scene = new Scene(loginRoot);
-//                stage.setTitle("Droppy");
-//                stage.setScene(scene);
-//                stage.show();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
         );
 
         var scene = new Scene(rootPane);
@@ -213,17 +201,20 @@ public class LoginController {
     }
 
     private void setLanguageFromSystem() {
+        //ziskame systemovy jazyk
         String sysLang = Locale.getDefault().getLanguage();
         Language languageToSet;
 
+        //ak sa systemovy jazyk je SK sa nastavi na slovencinu, ak je iny, bude EN
         if (sysLang.equals("sk")) {
             languageToSet = Language.SK;
         } else {
             languageToSet = Language.EN;
         }
+        //nastavi jazyk
         Session.setCurrentLanguage(languageToSet);
         I18n.setLocale(new Locale(languageToSet.getCode()));
-
+        //nastavi v choiceboxe jazyk aky sa pouziva
         languageCB.setValue(languageToSet);
     }
 

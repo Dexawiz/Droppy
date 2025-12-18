@@ -9,7 +9,6 @@ import com.example.droppy.repository.hibernate.HibernateCompanyDao;
 import com.example.droppy.repository.hibernate.HibernateOrderDao;
 import com.example.droppy.repository.hibernate.HibernateUserDao;
 import com.example.droppy.service.AuthService;
-import com.example.droppy.service.I18n;
 import com.example.droppy.service.ThemeStyles;
 import com.example.droppy.util.HibernateUtil;
 import javafx.application.Application;
@@ -17,10 +16,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
 import java.util.List;
-import java.util.Locale;
-import java.util.ResourceBundle;
+
 
 public class Main extends Application {
 

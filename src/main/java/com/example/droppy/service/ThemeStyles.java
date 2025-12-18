@@ -7,6 +7,8 @@ import lombok.Getter;
 
 public class ThemeStyles {
 
+//    styly su ziskane z https://github.com/mkpaz/atlantafx
+
     @Getter
     private static boolean DarkMode = false;
 

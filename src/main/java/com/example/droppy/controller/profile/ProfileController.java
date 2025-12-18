@@ -124,6 +124,9 @@ public class ProfileController {
     @FXML
     private ToggleButton switchThemeButton;
 
+    @FXML
+    private Label themeLabel;
+
     private boolean isEditing = false;
 
 
@@ -262,7 +265,7 @@ public class ProfileController {
         }
     }
 
-    //pre zmenu jazyka -musim este zrobit
+    //pre zmenu jazyka
     private void updateText() {
         profileLabel.setText(I18n.get("profile"));
         phoneNumberLabel.setText(I18n.get("phone_number"));
@@ -278,6 +281,8 @@ public class ProfileController {
         } else {
             switchThemeButton.setText(I18n.get("darkMode"));
         }
+        themeLabel.setText(I18n.get("theme"));
+
     }
 
     //nacitanie info daneho prihlaseneho usera

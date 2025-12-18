@@ -95,5 +95,6 @@ public class CompanyComponentController {
         CosingTimeLabel.setText(I18n.get("cTimeShort"));
         openingTimeLabel.setText(I18n.get("oTimeShort"));
         AddressLabel.setText(I18n.get("address"));
+        openCompanyButton.setText(I18n.get("openCompany"));
     }
 }
