@@ -16,8 +16,6 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.HBox;
-import javafx.scene.shape.Circle;
 import com.example.droppy.domain.entity.User;
 import javafx.stage.Stage;
 
@@ -32,13 +30,17 @@ public class ProfileController {
         this.authService = authService;
         this.mainStage = mainStage;
 
+        //pridanie jazykov do choiceboxu a nastavenie aky jazyk sa pouziva
         languageCB1.getItems().setAll(Language.values());
         languageCB1.setValue(Session.getCurrentLanguage());
+        //zmena temy
         switchThemeButton.setSelected(ThemeStyles.isDarkMode());
 
+        //na prelozenie textu
         I18n.setLocale(new Locale(Session.getCurrentLanguage().getCode()));
         updateText();
 
+        //ked vyberieme iny jazyk v choiceboxe, nech sa zmeni jazyk textov
         languageCB1.valueProperty().addListener((obs, oldVal, newVal) -> {
             if (newVal != null) {
                 Session.setCurrentLanguage(newVal);
@@ -47,6 +49,7 @@ public class ProfileController {
             }
         });
 
+        //nacitanie dat o pouzivatelovi
         loadUserData();
     }
 
@@ -55,28 +58,13 @@ public class ProfileController {
     }
 
     @FXML
-    private Circle avatarSmall;
-
-    @FXML
-    private Circle bigAvatar;
-
-    @FXML
     private Button deleteProfileButton;
 
     @FXML
     private Label deleteProfileLabel;
 
     @FXML
-    private Label droppyTextLogo;
-
-    @FXML
     private Button editProfileButton;
-
-    @FXML
-    private Label emailText;
-
-    @FXML
-    private HBox header;
 
     @FXML
     private Button logOutButton;
@@ -133,8 +121,10 @@ public class ProfileController {
 
     @FXML
     void onDeleteProfileButtonClick(ActionEvent event) throws Exception {
-        var alert = new Alert(Alert.AlertType.CONFIRMATION, "Do you want to delete your profile?");
+        //comfirm alert a potom pockame
+        var alert = new Alert(Alert.AlertType.CONFIRMATION, I18n.get("deleteProfileMessage"));
         var result = alert.showAndWait();
+        //ak sa da ok, vymazeme prihlaseneho usera a nas presmeruje na LoginView
         if (result.isPresent() && result.get() == javafx.scene.control.ButtonType.OK) {
             User loggedUser = Session.getLoggedUser();
             if (loggedUser != null) {
@@ -223,6 +213,7 @@ public class ProfileController {
 
     }
 
+    //nas vrati na HomeView
     @FXML
     void onBackButtonClick(ActionEvent event) {
         try {
@@ -241,9 +232,10 @@ public class ProfileController {
         }
     }
 
+    //nas odhlasi a vrati na LoginView
     @FXML
     void onLogOutButtonClick(ActionEvent event) throws Exception {
-        var alert = new Alert(Alert.AlertType.CONFIRMATION, "Do you want to log out?");
+        var alert = new Alert(Alert.AlertType.CONFIRMATION, I18n.get("logoutMessage"));
         var result = alert.showAndWait();
 
         if ((result.get() == javafx.scene.control.ButtonType.OK)) {
@@ -299,6 +291,11 @@ public class ProfileController {
         }
     }
 
+    //na prepinanie light/dark mode
+    //po kliknuti sa zisti ci je toggle zapnuty/true alebo nie/false,
+    // ked je true a sa klikne sa premeni sa styl aplikacie na light mode
+    // ked je false a sa klikne sa premeni sa styl aplikacie na dark mode
+    //a sa updatuje aj text
     @FXML
     void onSwitchThemeButtonClick(ActionEvent event) {
         ThemeStyles.setDarkMode(switchThemeButton.isSelected());
