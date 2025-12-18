@@ -38,7 +38,7 @@ public class LoginController {
         languageCB.setValue(Session.getCurrentLanguage());
         switchThemeButton.setSelected(ThemeStyles.isDarkMode());
 
-        I18n.setLocale(new Locale(Session.getCurrentLanguage().getCode()));
+        setLanguageFromSystem();
         updateText();
 
         languageCB.valueProperty().addListener((obs, oldVal, newVal) -> {
@@ -74,9 +74,6 @@ public class LoginController {
 
     @FXML
     private PasswordField passwordTextField;
-
-//    @FXML
-//    private TextField passwordTextField;
 
     @FXML
     private Button signinButton;
@@ -213,6 +210,21 @@ public class LoginController {
     void onSwitchThemeButtonClick(ActionEvent event) {
         ThemeStyles.setDarkMode(switchThemeButton.isSelected());
         updateText();
+    }
+
+    private void setLanguageFromSystem() {
+        String sysLang = Locale.getDefault().getLanguage();
+        Language languageToSet;
+
+        if (sysLang.equals("sk")) {
+            languageToSet = Language.SK;
+        } else {
+            languageToSet = Language.EN;
+        }
+        Session.setCurrentLanguage(languageToSet);
+        I18n.setLocale(new Locale(languageToSet.getCode()));
+
+        languageCB.setValue(languageToSet);
     }
 
 }

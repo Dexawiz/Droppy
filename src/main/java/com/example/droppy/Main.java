@@ -9,6 +9,7 @@ import com.example.droppy.repository.hibernate.HibernateCompanyDao;
 import com.example.droppy.repository.hibernate.HibernateOrderDao;
 import com.example.droppy.repository.hibernate.HibernateUserDao;
 import com.example.droppy.service.AuthService;
+import com.example.droppy.service.I18n;
 import com.example.droppy.service.ThemeStyles;
 import com.example.droppy.util.HibernateUtil;
 import javafx.application.Application;
@@ -43,18 +44,6 @@ public class Main extends Application {
             );
         }
 
-//        Locale locale = Locale.getDefault();
-//        ResourceBundle bundle;
-//
-//        System.out.println("Locale = " + Locale.getDefault());
-//        System.out.println("Language = " + Locale.getDefault().getLanguage());
-//
-//        try {
-//            bundle = ResourceBundle.getBundle("messages", locale);
-//        } catch (Exception e) {
-//            bundle = ResourceBundle.getBundle("messages", Locale.ENGLISH);
-//        }
-
         var loader = new FXMLLoader(getClass().getResource("/LoginView.fxml"));
         Parent rootPane = loader.load();
 
@@ -83,10 +72,7 @@ public class Main extends Application {
                 }
             }
         });
-
-
         stage.show();
-
     }
 
 
