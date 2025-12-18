@@ -6,6 +6,7 @@ import com.example.droppy.repository.hibernate.HibernateCompanyDao;
 import com.example.droppy.service.AuthService;
 import com.example.droppy.service.I18n;
 import com.example.droppy.service.Session;
+import com.example.droppy.service.ThemeStyles;
 import com.example.droppy.util.HibernateUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -66,10 +67,11 @@ public class CompanyComponentController {
         OTDemoLabel.setText(String.valueOf(company.getWorkStart()));
         CTDemoLabel.setText(String.valueOf(company.getWorkEnd()));
 
-        URL css = getClass().getResource("/styles/CompanyComponentStyl.css");
+        URL css = getClass().getResource("/styles/BGColorComponents.css");
         if(css != null) {
             mainPane.getStylesheets().add(css.toExternalForm());
         }
+        changeBG(ThemeStyles.isDarkMode());
     }
 
     @FXML
@@ -96,5 +98,12 @@ public class CompanyComponentController {
         openingTimeLabel.setText(I18n.get("oTimeShort"));
         AddressLabel.setText(I18n.get("address"));
         openCompanyButton.setText(I18n.get("openCompany"));
+    }
+
+    private void changeBG(boolean isDarkMode){
+        mainPane.getStyleClass().remove("dark");
+        if(isDarkMode){
+            mainPane.getStyleClass().add("dark");
+        }
     }
 }

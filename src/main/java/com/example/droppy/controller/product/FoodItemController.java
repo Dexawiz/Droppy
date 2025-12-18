@@ -9,6 +9,7 @@ import com.example.droppy.repository.dao.OrderDao;
 import com.example.droppy.service.AuthService;
 import com.example.droppy.service.I18n;
 import com.example.droppy.service.Session;
+import com.example.droppy.service.ThemeStyles;
 import com.example.droppy.util.HibernateUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -42,6 +43,7 @@ public class FoodItemController {
         if (css != null) {
             mainPane.getStylesheets().add(css.toExternalForm());
         }
+        changeBG(ThemeStyles.isDarkMode());
     }
 
 
@@ -101,5 +103,12 @@ public class FoodItemController {
     private void updateText(){
         priceLabel.setText(I18n.get("price"));
         addItemButton.setText(I18n.get("addItem"));
+    }
+
+    private void changeBG(boolean isDarkMode){
+        mainPane.getStyleClass().remove("dark");
+        if(isDarkMode){
+            mainPane.getStyleClass().add("dark");
+        }
     }
 }

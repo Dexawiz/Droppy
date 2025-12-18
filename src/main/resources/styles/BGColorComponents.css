@@ -1,0 +1,7 @@
+.mainPane{
+    -fx-background-color: gainsboro;
+}
+
+.mainPane.dark{
+    -fx-background-color: #0A84FF;
+}

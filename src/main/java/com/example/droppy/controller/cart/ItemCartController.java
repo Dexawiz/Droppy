@@ -7,13 +7,16 @@ import com.example.droppy.repository.dao.OrderDao;
 import com.example.droppy.service.AuthService;
 import com.example.droppy.service.I18n;
 import com.example.droppy.service.Session;
+import com.example.droppy.service.ThemeStyles;
 import com.example.droppy.util.HibernateUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
+import java.net.URL;
 import java.util.Locale;
 
 public class ItemCartController {
@@ -37,6 +40,13 @@ public class ItemCartController {
         ItemNameLabel.setText(item.getProduct().getName());
         priceDemoLabel.setText(String.valueOf(item.getPricePerItem()));
         numberOfItemsLabel.setText(String.valueOf(item.getQuantity()));
+        decriptionText.setText(item.getProduct().getDescription());
+
+        URL css = getClass().getResource("/styles/BGColorComponents.css");
+        if(css != null) {
+            mainPane.getStylesheets().add(css.toExternalForm());
+        }
+        changeBG(ThemeStyles.isDarkMode());
     }
 
     @FXML
@@ -65,6 +75,9 @@ public class ItemCartController {
 
     @FXML
     private Label xLabel;
+
+    @FXML
+    private VBox mainPane;
 
     @FXML
     void onAddItemLabelButtonCLick(ActionEvent event) {
@@ -96,6 +109,13 @@ public class ItemCartController {
 
     private void updateText(){
         priceLabel.setText(I18n.get("price"));
+    }
+
+    private void changeBG(boolean isDarkMode){
+        mainPane.getStyleClass().remove("dark");
+        if(isDarkMode){
+            mainPane.getStyleClass().add("dark");
+        }
     }
 
 }
