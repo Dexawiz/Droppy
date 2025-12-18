@@ -53,10 +53,6 @@ public class ProfileController {
         loadUserData();
     }
 
-    public void init(AuthService authService) {
-        this.authService = authService;
-    }
-
     @FXML
     private Button deleteProfileButton;
 
