@@ -8,9 +8,8 @@ import lombok.Data;
 @Entity
 @Table(name = "addresses")
 public class Address {
-
     @Id
-    @GeneratedValue(strategy =  jakarta.persistence.GenerationType.IDENTITY)
+    @GeneratedValue(strategy =  GenerationType.IDENTITY)
     private Long id;
     private String city;
     private String street;

@@ -24,7 +24,7 @@ public class Order {
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
-    @OnDelete(action = OnDeleteAction.CASCADE)
+    @OnDelete(action = OnDeleteAction.CASCADE) //  delete orders when user is deleted
     private User customerId;
 
     @ManyToOne
@@ -35,7 +35,7 @@ public class Order {
     @JoinColumn(name = "company_id")
     private Company companyId;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER) // load order items eagerly, remove orphaned items
     private List<OrderItem> orderItems;
 
     @Column(name = "total_price")
@@ -55,7 +55,7 @@ public class Order {
 
     @Enumerated(EnumType.STRING)
     @JdbcType(PostgreSQLEnumJdbcType.class)
-    @Column(name = "payment_method", columnDefinition = "payment_method_enum")
+    @Column(name = "payment_method", columnDefinition = "payment_method_enum" ) // specify column definition for enum type
     private MethodOfPayment paymentMethod;
 
     @Enumerated(EnumType.STRING)
