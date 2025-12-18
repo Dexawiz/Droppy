@@ -18,7 +18,7 @@ public class HibernateProductDao implements ProductDao {
 
     @Override
     public void save(Product product) {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try (Session session = sessionFactory.openSession()) {
             Transaction tx = session.beginTransaction();
             session.persist(product);
             tx.commit();
@@ -27,7 +27,7 @@ public class HibernateProductDao implements ProductDao {
 
     @Override
     public Product findById(Long id) {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try (Session session = sessionFactory.openSession()) {
             return session.createQuery("FROM Product WHERE id = :id", Product.class)
                     .setParameter("id", id)
                     .uniqueResult();
@@ -36,7 +36,7 @@ public class HibernateProductDao implements ProductDao {
 
     @Override
     public List<Product> findAll() {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try (Session session = sessionFactory.openSession()) {
             return session.createQuery("FROM Product", Product.class).list();
         } catch (Exception e) {
             e.printStackTrace();
@@ -46,7 +46,7 @@ public class HibernateProductDao implements ProductDao {
 
     @Override
     public List<Product> findByCompanyId(Long companyId) {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try (Session session = sessionFactory.openSession()) {
             return session.createQuery("FROM Product p WHERE p.company.id = :companyId", Product.class)
                     .setParameter("companyId", companyId)
                     .list();
@@ -55,7 +55,7 @@ public class HibernateProductDao implements ProductDao {
 
     @Override
     public void delete(Long id) {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try (Session session = sessionFactory.openSession()) {
             Transaction tx = session.beginTransaction();
             Product product = session.getReference(Product.class, id);
             session.remove(product);

@@ -18,7 +18,7 @@ public class HibernateOrderItemDao implements OrderItemDao {
 
     @Override
     public void save(OrderItem orderItem) {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try (Session session = sessionFactory.openSession()) {
             org.hibernate.Transaction tx = session.beginTransaction();
             session.persist(orderItem);
             tx.commit();
@@ -27,7 +27,7 @@ public class HibernateOrderItemDao implements OrderItemDao {
 
     @Override
     public void delete(OrderItem orderItem) {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try (Session session = sessionFactory.openSession()) {
             org.hibernate.Transaction tx = session.beginTransaction();
             session.remove(orderItem);
             tx.commit();
@@ -36,7 +36,7 @@ public class HibernateOrderItemDao implements OrderItemDao {
 
     @Override
     public List<OrderItem> findAll() {
-        try(Session session =  HibernateUtil.getSessionFactory().openSession()) {
+        try(Session session =  sessionFactory.openSession()) {
             return session.createQuery("FROM OrderItem", OrderItem.class).list();
         } catch (Exception e) {
             e.printStackTrace();
@@ -46,7 +46,7 @@ public class HibernateOrderItemDao implements OrderItemDao {
 
     @Override
     public List<OrderItem> findByOrderId(Long orderId) {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try (Session session = sessionFactory.openSession()) {
             return session.createQuery(
                             "FROM OrderItem oi WHERE oi.order.id = :orderId", OrderItem.class)
                     .setParameter("orderId", orderId)
