@@ -12,7 +12,7 @@ public class Session {
     private static volatile User currentUser;
     @Setter
     @Getter
-    private static Language currentLanguage = Language.EN;
+    private static Language currentLanguage;
 
 
     public static void setLoggedUser(User user) {

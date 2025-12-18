@@ -9,11 +9,15 @@ public class ThemeStyles {
 
 //    styly su ziskane z https://github.com/mkpaz/atlantafx
 
+    //premenna kde sa uchovava ci toggle button bol zakliknuty alebo nie
     @Getter
     private static boolean DarkMode = false;
 
-        public static void setDarkMode(boolean enabled) {
-            DarkMode = enabled;
+    //aktualizuje styl aplikacie
+    public static void setDarkMode(boolean enabled) {
+        DarkMode = enabled;
+        //true == dark mode, false==light mode
+        //user agent style automaticky aktualizuje UI komponenty v celej aplikacii
         if (DarkMode) {
             Application.setUserAgentStylesheet(
                     new CupertinoDark().getUserAgentStylesheet()
