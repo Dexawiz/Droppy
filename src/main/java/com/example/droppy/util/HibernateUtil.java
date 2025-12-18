@@ -53,10 +53,4 @@ public class HibernateUtil {
             throw new RuntimeException("Failed creating Test SessionFactory: " + e.getMessage(), e);
         }
     }
-
-    public static void shutdown() {
-        if (sessionFactory != null) {
-            sessionFactory.close();
-        }
-    }
 }

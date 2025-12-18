@@ -41,7 +41,7 @@ public class HibernateCompanyDao implements CompanyDao {
     @Override
     public Company findById(Long id) {
         try (Session session = sessionFactory.openSession()) {
-            return (Company) session.createQuery("FROM Company WHERE id = :id", Company.class)
+            return session.createQuery("FROM Company WHERE id = :id", Company.class)
                     .setParameter("id", id)
                     .uniqueResult();
         }

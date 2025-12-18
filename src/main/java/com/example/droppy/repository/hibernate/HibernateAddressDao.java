@@ -20,17 +20,17 @@ public class HibernateAddressDao  implements AddressDao {
 
     @Override
     public void save(Address address) {
-        try (Session session = sessionFactory.openSession()) {
-            Transaction tx = session.beginTransaction();
-            session.persist(address);
-            tx.commit();
+        try (Session session = sessionFactory.openSession()) { // try-with-resources to ensure session is closed
+            Transaction tx = session.beginTransaction();  // begin transaction
+            session.persist(address); // persist the address entity
+            tx.commit(); // commit transaction
         }
     }
 
     @Override
     public List<Address> findAll() {
         try(Session session = sessionFactory.openSession()) {
-            return session.createQuery("FROM Address", Address.class).list();
+            return session.createQuery("FROM Address", Address.class).list(); // HQL query to fetch all Address entities
         } catch (Exception e) {
             e.printStackTrace();
             return List.of();
@@ -40,7 +40,7 @@ public class HibernateAddressDao  implements AddressDao {
     @Override
     public Address findById(Long id) {
         try (Session session = sessionFactory.openSession()) {
-            return (Address) session.createQuery("FROM Address WHERE id = :id", Address.class)
+            return session.createQuery("FROM Address WHERE id = :id", Address.class)
                     .setParameter("id", id)
                     .uniqueResult();
         }

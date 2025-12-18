@@ -12,8 +12,6 @@ public class AuthService {
     @Getter
     private User currentUser;
 
-    
-
     public AuthService(UserDao userDao) {
         this.userDao = userDao;
     }
@@ -46,7 +44,6 @@ public class AuthService {
         String bcryptHash = BCrypt.withDefaults().hashToString(12, password.toCharArray());
 
         userDao.create(name, surname, email, bcryptHash, assignedRole);
-
     }
 
     public void register(String name, String surname, String email, String phoneNumber, String password, String confirmPassword, Role role) {
@@ -80,7 +77,6 @@ public class AuthService {
         String bcryptHash = BCrypt.withDefaults().hashToString(12, password.toCharArray());
 
         userDao.create(name, surname, email, phoneNumber, bcryptHash, assignedRole);
-
     }
 
     public User login(String email, String password) {
@@ -125,6 +121,5 @@ public class AuthService {
 
     public void logout() {
         currentUser = null;
-
     }
 }
