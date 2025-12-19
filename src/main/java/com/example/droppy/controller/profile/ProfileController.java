@@ -150,16 +150,17 @@ public class ProfileController {
 
     @FXML
     void onEditProfileButtonClick(ActionEvent event) {
+        //editovanie
         if (!isEditing) {
             isEditing = true;
             editProfileButton.setText(I18n.get("save"));
 
-            //ziskanie udajov
+            //ziskanie udajov zlabels
             nameField.setText(nameText.getText());
             surnameField.setText(surnameText.getText());
             phoneField.setText(userPhoneDemo.getText());
 
-            //skrytie labels
+            //skrytie labels s informaciami o pouzivatelovi
             nameText.setVisible(false);
             nameText.setManaged(false);
             surnameText.setVisible(false);

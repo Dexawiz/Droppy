@@ -119,9 +119,6 @@ public class AdminCompaniesController {
     private ListView<Company> companiesListView;
 
     @FXML
-    private Label droppyTextLogo;
-
-    @FXML
     private Button logOutButton;
 
     @FXML

@@ -11,7 +11,6 @@ import com.example.droppy.service.ThemeStyles;
 import com.example.droppy.util.HibernateUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -53,16 +52,7 @@ public class ItemCartController {
     private Label ItemNameLabel;
 
     @FXML
-    private Button addItemButton;
-
-    @FXML
     private Text decriptionText;
-
-    @FXML
-    private Button deleteItemButton;
-
-    @FXML
-    private Label eurLabel;
 
     @FXML
     private Label numberOfItemsLabel;
@@ -72,9 +62,6 @@ public class ItemCartController {
 
     @FXML
     private Label priceLabel;
-
-    @FXML
-    private Label xLabel;
 
     @FXML
     private VBox mainPane;

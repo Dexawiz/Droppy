@@ -73,12 +73,7 @@ public class Order2ComponentController {
     }
 
     @FXML
-    private VBox mainPane;
-    @FXML
     private Label CompanyLabel;
-
-    @FXML
-    private Label EURLabel;
 
     @FXML
     private Label addressCompanyDemo;
@@ -106,9 +101,6 @@ public class Order2ComponentController {
 
     @FXML
     private Label orderIDDemo;
-
-    @FXML
-    private Label orderIDLabel;
 
     @FXML
     private Label priceDemo;

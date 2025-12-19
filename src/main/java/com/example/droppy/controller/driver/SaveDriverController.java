@@ -49,9 +49,6 @@ public class SaveDriverController {
     private TextField drverSurnameTextField;
 
     @FXML
-    private TextField emailDriverTextField;
-
-    @FXML
     private Button saveDriverButton;
 
     @FXML

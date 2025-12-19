@@ -50,12 +50,6 @@ public class SaveProductController {
     private SaveCompanyController parentController;
 
     @FXML
-    private Label EURLabel;
-
-    @FXML
-    private Button backtoCompanyButton;
-
-    @FXML
     private Button deleteProductButton;
 
     @FXML
@@ -68,20 +62,12 @@ public class SaveProductController {
     private TextField priceProductTextField;
 
     @FXML
-    private Label productLabel;
-
-    @FXML
     private Button saveProductButton;
 
     @FXML
     void onBackToCompanyButtonClick(ActionEvent event) {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.close();
-
-    }
-
-    @FXML
-    void onDeleteProductButtonClick(ActionEvent event) {
 
     }
 

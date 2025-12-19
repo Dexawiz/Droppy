@@ -92,12 +92,6 @@ public class SaveCompanyController {
     private SaveCompanyController parentController;
 
     @FXML
-    private Button addProductButton;
-
-    @FXML
-    private Button backtoCompaniesButton;
-
-    @FXML
     private ChoiceBox<Category> categoryCompanyChoiceBox;
 
     @FXML
@@ -117,9 +111,6 @@ public class SaveCompanyController {
 
     @FXML
     private Button deleteCompanyButton;
-
-    @FXML
-    private Button deleteProductButton;
 
     @FXML
     private Label productLabel;
@@ -158,7 +149,7 @@ public class SaveCompanyController {
             Parent root = loader.load();
 
             SaveProductController controller = loader.getController();
-            controller.init(authService, company);
+            controller.init(authService,company);
             controller.setParentController(this);
 
             Stage stage = new Stage();

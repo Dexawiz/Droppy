@@ -49,9 +49,6 @@ public class OrderComponentController {
     private Label CompanyLabel;
 
     @FXML
-    private Label EURLabel;
-
-    @FXML
     private Button addButton;
 
     @FXML
@@ -71,9 +68,6 @@ public class OrderComponentController {
 
     @FXML
     private Label orderIDDemo;
-
-    @FXML
-    private Label orderIDLabel;
 
     @FXML
     private Label priceDemo;

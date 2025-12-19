@@ -160,10 +160,9 @@ public class HibernateOrderDao implements OrderDao {
 
             if (managedOrder == null) {
 
-                managedOrder = (Order) session.merge(order);
+                managedOrder = session.merge(order);
             } else {
                 List<OrderItem> oldItems = new ArrayList<>(managedOrder.getOrderItems());
-
 
                 managedOrder.getOrderItems().clear();
                 session.flush();
@@ -193,12 +192,9 @@ public class HibernateOrderDao implements OrderDao {
                         }
                     }
                 }
-
                 managedOrder.setTotalPrice(order.getTotalPrice());
-
-                managedOrder = (Order) session.merge(managedOrder);
+                managedOrder = session.merge(managedOrder);
             }
-
             tx.commit();
         } catch (Exception e) {
             e.printStackTrace();

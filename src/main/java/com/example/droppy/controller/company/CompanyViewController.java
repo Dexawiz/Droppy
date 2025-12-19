@@ -21,24 +21,16 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
-import org.kordamp.ikonli.javafx.FontIcon;
+
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
 public class CompanyViewController {
-    @FXML
-    private FontIcon shoppingCartIcon;
-
     @FXML
     private Label AddressDemo;
 
@@ -67,9 +59,6 @@ public class CompanyViewController {
     private Label addressLabel;
 
     @FXML
-    private Circle avatarSmall;
-
-    @FXML
     private Label categoryNameLabel;
 
     @FXML
@@ -82,25 +71,7 @@ public class CompanyViewController {
     private VBox column3VBOX;
 
     @FXML
-    private Label droppyTextLogo;
-
-    @FXML
-    private HBox header;
-
-    @FXML
-    private ScrollPane itemScrollPane;
-
-    @FXML
     private Label restaurantNameLabel;
-
-    @FXML
-    private TextField searchTextField;
-
-    @FXML
-    private Button returnButton;
-
-    @FXML
-    private Button cartButton;
 
     private HibernateProductDao HProductDao = new HibernateProductDao(HibernateUtil.getSessionFactory());
 

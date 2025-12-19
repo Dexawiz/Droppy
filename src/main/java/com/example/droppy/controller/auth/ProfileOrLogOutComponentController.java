@@ -35,7 +35,7 @@ public class ProfileOrLogOutComponentController {
 
     @FXML
     void onLogOutButtonClick(ActionEvent event) throws Exception{
-        var alert = new Alert(Alert.AlertType.CONFIRMATION, "Do you want to log out?");
+        var alert = new Alert(Alert.AlertType.CONFIRMATION, I18n.get("logoutMessage"));
         var result = alert.showAndWait();
 
         if ((result.get() == javafx.scene.control.ButtonType.OK)) {

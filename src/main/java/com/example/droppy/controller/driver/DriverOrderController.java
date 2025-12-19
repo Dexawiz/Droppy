@@ -19,7 +19,6 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -175,19 +174,10 @@ public class DriverOrderController {
     private ChoiceBox<DriverStatus> driverStatusCB;
 
     @FXML
-    private Label droppyTextLogo;
-
-    @FXML
-    private HBox header;
-
-    @FXML
     private Button logOutButton;
 
     @FXML
     private Label nameDriverLabel;
-
-    @FXML
-    private ScrollPane scrollPane;
 
     @FXML
     private Label surnameDriverLabel;

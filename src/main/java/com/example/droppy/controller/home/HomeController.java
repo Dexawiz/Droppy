@@ -96,16 +96,7 @@ public class HomeController {
     private VBox column3VBOX;
 
     @FXML
-    private Label droppyTextLogo;
-
-    @FXML
     private Label restaurantsLabel;
-
-    @FXML
-    private ScrollPane scrollPane;
-
-    @FXML
-    private TextField searchTextField;
 
     @FXML
     void onProfileClick(MouseEvent event) throws Exception {

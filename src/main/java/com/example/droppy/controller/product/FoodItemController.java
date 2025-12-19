@@ -57,9 +57,6 @@ public class FoodItemController {
     private Text decriptionText;
 
     @FXML
-    private Label eurLabel;
-
-    @FXML
     private Label priceDemoLabel;
 
     @FXML

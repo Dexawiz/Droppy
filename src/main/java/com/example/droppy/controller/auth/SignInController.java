@@ -35,9 +35,6 @@ public class SignInController {
     }
 
     @FXML
-    private Button backButton;
-
-    @FXML
     private PasswordField confirmPasswordTextField;
 
     @FXML
