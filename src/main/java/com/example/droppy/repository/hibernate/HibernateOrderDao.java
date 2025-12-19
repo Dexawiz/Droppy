@@ -110,27 +110,28 @@ public class HibernateOrderDao implements OrderDao {
     }
 
     @Override
-    public Order add(Order ordIerm) {
+    public Order add(Order orderItem) {
         Order managedOrder = null;
         try (Session session = this.sessionFactory.openSession()) {
             Transaction tx = session.beginTransaction();
 
-            managedOrder = findById(ordIerm.getId());
+            managedOrder = findById(orderItem.getId());
 
             if (managedOrder == null) {
-                managedOrder = (Order) session.merge(ordIerm);
+                // New order, simply persist
+                managedOrder =  session.merge(orderItem);
             } else {
+                // Existing order, update items
                 List<OrderItem> oldItems = new ArrayList<>(managedOrder.getOrderItems());
                 managedOrder.getOrderItems().clear();
                 session.flush();
                 managedOrder.getOrderItems().addAll(oldItems);
 
-                for (OrderItem newItem : ordIerm.getOrderItems()) {
+                for (OrderItem newItem : orderItem.getOrderItems()) {
                     newItem.setOrder(managedOrder);
                     managedOrder.getOrderItems().add(newItem);
                 }
-
-                managedOrder = (Order) session.merge(managedOrder);
+                managedOrder = session.merge(managedOrder);
             }
 
             tx.commit();
@@ -159,9 +160,10 @@ public class HibernateOrderDao implements OrderDao {
             managedOrder = findById( order.getId());
 
             if (managedOrder == null) {
-
+                // New order, simply persist
                 managedOrder = session.merge(order);
             } else {
+                // Existing order, update items
                 List<OrderItem> oldItems = new ArrayList<>(managedOrder.getOrderItems());
 
                 managedOrder.getOrderItems().clear();
@@ -171,17 +173,17 @@ public class HibernateOrderDao implements OrderDao {
                     if (order.getOrderItems().stream().anyMatch(o -> o.getId() != null && o.getId().equals(oldItem.getId()))) {
                         managedOrder.getOrderItems().add(oldItem);
                     } else {
-
                         session.remove(oldItem);
                     }
                 }
 
-
                 for (OrderItem newItem : order.getOrderItems()) {
+                    // Check if the item is new or existing
                     if (newItem.getId() == null) {
                         newItem.setOrder(managedOrder);
                         managedOrder.getOrderItems().add(newItem);
                     } else {
+                        // Existing item, update quantity
                         OrderItem existing = managedOrder.getOrderItems()
                                 .stream()
                                 .filter(oi -> oi.getId().equals(newItem.getId()))
@@ -192,9 +194,12 @@ public class HibernateOrderDao implements OrderDao {
                         }
                     }
                 }
+
                 managedOrder.setTotalPrice(order.getTotalPrice());
+
                 managedOrder = session.merge(managedOrder);
             }
+
             tx.commit();
         } catch (Exception e) {
             e.printStackTrace();
