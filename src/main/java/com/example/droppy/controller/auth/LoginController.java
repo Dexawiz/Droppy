@@ -29,11 +29,9 @@ public class LoginController {
     private static double lastWidth ;
     private static double lastHeight;
     private AuthService authService;
-    private Runnable onLoginSuccess;
 
     public void init(AuthService authService,Runnable onLoginSuccess) {
         this.authService = authService;
-        this.onLoginSuccess = onLoginSuccess;
         languageCB.getItems().setAll(Language.values());
         languageCB.setValue(Session.getCurrentLanguage());
         switchThemeButton.setSelected(ThemeStyles.isDarkMode());
@@ -95,10 +93,6 @@ public class LoginController {
             User currentUser = authService.login(email, password);
 
             Session.setLoggedUser(currentUser);
-            if (onLoginSuccess != null) {
-                onLoginSuccess.run();
-            }
-
             loginText.setText("Login Successful " + "Current User: " + email );
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
