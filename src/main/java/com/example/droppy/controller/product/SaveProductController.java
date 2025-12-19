@@ -109,7 +109,6 @@ public class SaveProductController {
         nameProductTextField.setPromptText(I18n.get("nameProduct"));
         descProductTextField.setPromptText(I18n.get("descProduct"));
         priceProductTextField.setPromptText(I18n.get("priceProduct"));
-        deleteProductButton.setText(I18n.get("delete"));
         saveProductButton.setText(I18n.get("save"));
     }
 
